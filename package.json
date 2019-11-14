@@ -5,13 +5,15 @@
   "main": "index.js",
   "scripts": {
     "start": "node index",
-    "dev": "nodemon index",
+    "dev": "nodemon",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "author": "moransantiago",
   "license": "ISC",
   "dependencies": {
-    "express": "^4.17.1"
+    "express": "^4.17.1",
+    "node-static": "^0.7.11",
+    "socket.io": "^2.3.0"
   },
   "devDependencies": {
     "nodemon": "^1.19.4"
