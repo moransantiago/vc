@@ -8,7 +8,7 @@ var socketIO = require('socket.io');
 var fileServer = new (nodeStatic.Server)();
 var app = http.createServer(function (req, res) {
     fileServer.serve(req, res);
-}).listen(8080);
+}).listen(process.env.PORT);
 
 var io = socketIO.listen(app);
 io.sockets.on('connection', function (socket) {
@@ -26,7 +26,7 @@ io.sockets.on('connection', function (socket) {
     });
 
     socket.on('create or join', function (room) {
-        log('Received request to create or join room ' + room);
+        log('Received request to create oor join room ' + room);
 
         var clientsInRoom = io.sockets.adapter.rooms[room];
         var numClients = clientsInRoom ? Object.keys(clientsInRoom.sockets).length : 0;
