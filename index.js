@@ -22,7 +22,7 @@ io.sockets.on('connection', function (socket) {
     socket.on('message', function (message, /*room*/) {
         log('Client said: ', message);
         socket.broadcast.emit('message', message);
-        // socket.rooms[room].emit('message', message);//<--For a real app, would be room-only (not broadcast)
+        // io.sockets.in(room).emit('message', message);//<--For a real app, would be room-only (not broadcast)
     });
 
     socket.on('create or join', function (room) {
@@ -38,13 +38,13 @@ io.sockets.on('connection', function (socket) {
             log('Client ID ' + socket.id + ' created room ' + room);
             socket.emit('created', room, socket.id);
 
-        } else if (numClients === 1) {
+        } else if (numClients > 0 && numClients < 3) {
             log('Client ID ' + socket.id + ' joined room ' + room);
             io.sockets.in(room).emit('join', room);
             socket.join(room);
             socket.emit('joined', room, socket.id);
             io.sockets.in(room).emit('ready');
-        } else { // max two clients
+        } else {//<--Max three clients
             socket.emit('full', room);
         }
     });
