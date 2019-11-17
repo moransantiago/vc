@@ -91,7 +91,8 @@ socket.on('message', function (message) {
 ////////////////////////////////////////////////////
 
 var localVideo = document.querySelector('#localVideo');
-var remoteVideo = document.querySelector('#remoteVideo');
+var remoteVideo1 = document.querySelector('#remoteVideo1');
+var remoteVideo2 = document.querySelector('#remoteVideo2');
 
 navigator.mediaDevices.getUserMedia({
   audio: false,
@@ -231,7 +232,7 @@ function requestTurn(turnURL) {
 function handleRemoteStreamAdded(event) {
   console.log('Remote stream added.');
   remoteStream = event.stream;
-  remoteVideo.srcObject = remoteStream;
+  !isStarted ? remoteVideo1.srcObject = remoteStream : remoteVideo2.srcObject = remoteStream;
   console.log(event);
 }
 
