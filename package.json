@@ -4,16 +4,14 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "start": "node index",
-    "dev": "nodemon",
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "start": "browserify ./src/main.js -o ./src/bundle.js && node index",
+    "dev": "nodemon"
   },
   "author": "moransantiago",
   "license": "ISC",
   "dependencies": {
     "express": "^4.17.1",
-    "node-static": "^0.7.11",
-    "socket.io": "^2.3.0"
+    "simple-peer": "^9.6.2"
   },
   "devDependencies": {
     "nodemon": "^1.19.4"
