@@ -1,6 +1,16 @@
+const Peer = require('simple-peer')
+const io = require('socket.io-client')
+
+const socket = io.connect('http://localhost:3000/ws/signaling')
+
+socket.on('connect', () => {
+	socket.on('signal', offerOrAnswer => alert(offerOrAnswer))
+})
+
 const gotUserMedia = stream => {
 	//<--This will be executed if the stream is successfully obtained
-	const Peer = require('simple-peer')
+	const localVideo = document.getElementById('localVideo')
+	localVideo.srcObject = stream
 	const peer = new Peer({
 		initiator: location.hash === '#init',
 		trickle: false,
@@ -43,10 +53,9 @@ const gotUserMedia = stream => {
 	})
 
 	peer.on('stream', stream => {
-		const video = document.createElement('video')
-		document.body.appendChild(video)
-		video.src = window.URL.createObjectURL(stream)
-		video.play()
+		const remoteVideo = document.getElementById('remoteVideo')
+		remoteVideo.srcObject = stream
+		alert('Got stream')
 	})
 }
 

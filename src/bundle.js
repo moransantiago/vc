@@ -5288,6 +5288,9 @@ function config (name) {
 }).call(this,typeof global !== "undefined" ? global : typeof self !== "undefined" ? self : typeof window !== "undefined" ? window : {})
 },{}],27:[function(require,module,exports){
 const gotUserMedia = stream => {
+	//<--This will be executed if the stream is successfully obtained
+	const localVideo = document.getElementById('localVideo')
+	localVideo.srcObject = stream
 	const Peer = require('simple-peer')
 	const peer = new Peer({
 		initiator: location.hash === '#init',
@@ -5311,7 +5314,7 @@ const gotUserMedia = stream => {
 			]
 		}
 	})
-	
+
 	peer.on('signal', data => {
 		document.getElementById('yourId').value = JSON.stringify(data)
 	})
@@ -5331,22 +5334,26 @@ const gotUserMedia = stream => {
 	})
 
 	peer.on('stream', stream => {
-		const video = document.createElement('video')
-		document.body.appendChild(video)
-		video.src = window.URL.createObjectURL(stream)
-		video.play()
+		const remoteVideo = document.getElementById('remoteVideo')
+		remoteVideo.srcObject = stream
+		alert('Got stream')
 	})
 }
 
 const sale = async () => {
 	try {
-		const stream = await navigator.mediaDevices.getUserMedia({ video: false, audio: true })
+		const stream = await navigator.mediaDevices.getUserMedia({
+			video: false,
+			audio: true
+		})
 		gotUserMedia(stream)
 	} catch (error) {
 		console.log(`Error: ${error.message}`)
 	}
 }
+
 sale()
+
 },{"simple-peer":6}],28:[function(require,module,exports){
 'use strict'
 
