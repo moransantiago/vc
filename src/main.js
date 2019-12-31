@@ -1,8 +1,14 @@
+const Peer = require('simple-peer')
+const io = require('socket.io-client')
+
 const gotUserMedia = stream => {
-	//<--This will be executed if the stream is successfully obtained
+	// => This will be executed if the stream is successfully obtained
 	const localVideo = document.getElementById('localVideo')
-	localVideo.srcObject = stream
-	const Peer = require('simple-peer')
+	if ('srcObject' in localVideo) {
+		localVideo.srcObject = stream
+	} else {
+		localVideo.src = window.URL.createObjectURL(stream) // for older browsers
+	}
 	const peer = new Peer({
 		initiator: location.hash === '#init',
 		trickle: false,
@@ -26,8 +32,17 @@ const gotUserMedia = stream => {
 		}
 	})
 
+	const socket = io(`/ws/signaling`)
+
+	socket.on('connect', () => {
+		socket.on('signal', offerOrAnswer => {
+			peer.signal(offerOrAnswer)
+		})
+	})
+
 	peer.on('signal', data => {
-		document.getElementById('yourId').value = JSON.stringify(data)
+		console.log(data)
+		socket.emit('signal', data) // => Whenever a peer recieves a signal, it emit the signal event to every connected peer
 	})
 
 	document.getElementById('connect').addEventListener('click', () => {
@@ -46,8 +61,13 @@ const gotUserMedia = stream => {
 
 	peer.on('stream', stream => {
 		const remoteVideo = document.getElementById('remoteVideo')
-		remoteVideo.srcObject = stream
-		console.log('Got stream');
+		if ('srcObject' in remoteVideo) {
+			remoteVideo.srcObject = stream
+		} else {
+			remoteVideo.src = window.URL.createObjectURL(stream) // for older browsers
+		}
+		remoteVideo.play()
+		alert('Got track')
 	})
 }
 
