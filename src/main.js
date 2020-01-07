@@ -1,7 +1,11 @@
 const Peer = require('simple-peer')
 const io = require('socket.io-client')
+let myOffer
+let isInARoom = false
+let imInitiator = false
 
-const gotUserMedia = stream => { // => This will be executed if the stream is successfully obtained
+const gotUserMedia = stream => {
+	// => This will be executed if the stream is successfully obtained
 	bindVideoToHtml(document.getElementById('localVideo'), stream) // => Bind the media that we recieve from the user into localVideo html element
 	const peer = createPeer(stream)
 	const socket = io('http://localhost:3000/ws/signaling')
@@ -10,11 +14,21 @@ const gotUserMedia = stream => { // => This will be executed if the stream is su
 		socket.on('signal', offerOrAnswer => {
 			peer.signal(offerOrAnswer)
 		})
+
+		socket.on('joiner', () => {
+			console.log('A new user has joined this room')
+		})
+
+		socket.on('initiator', () => { imInitiator = true })
 	})
 
 	peer.on('signal', data => {
 		const offerOrAnswer = JSON.stringify(data)
-		socket.emit('signal', offerOrAnswer) // => Whenever a peer recieves a signal, it emit the signal event to every connected peer
+		if (isInARoom) {
+			socket.emit('signal', offerOrAnswer) // => Whenever a peer recieves a signal, it emit the signal event to every connected peer
+		} else {
+			myOffer = offerOrAnswer
+		}
 	})
 
 	peer.on('connect', () => {
@@ -34,11 +48,35 @@ const gotUserMedia = stream => { // => This will be executed if the stream is su
 		const yourMessage = document.getElementById('yourMessage').value
 		peer.send(yourMessage)
 	})
+
+	document.getElementById('room1').addEventListener('click', () => {
+		if (myOffer && !imInitiator) {
+			socket.emit('signal', myOffer)
+		}
+		socket.emit('join', 'room1')
+		isInARoom = true
+	})
+
+	document.getElementById('room2').addEventListener('click', () => {
+		socket.emit('join', 'room2')
+		if (myOffer && !imInitiator) {
+			socket.emit('signal', myOffer)
+		}
+		isInARoom = true
+	})
+
+	document.getElementById('room3').addEventListener('click', () => {
+		if (myOffer && !imInitiator) {
+			socket.emit('signal', myOffer)
+		}
+		socket.emit('join', 'room3')
+		isInARoom = true
+	})
 }
 
-const createPeer = stream => (
+const createPeer = stream =>
 	new Peer({
-		initiator: location.hash === '#init',
+		initiator: true,
 		trickle: false,
 		stream: stream,
 		config: {
@@ -59,7 +97,6 @@ const createPeer = stream => (
 			]
 		}
 	})
-)
 
 const bindVideoToHtml = (DOMElement, stream) => {
 	if ('srcObject' in DOMElement) {
@@ -71,7 +108,10 @@ const bindVideoToHtml = (DOMElement, stream) => {
 
 const sale = async () => {
 	try {
-		const stream = await navigator.mediaDevices.getUserMedia({ video: false, audio: true})
+		const stream = await navigator.mediaDevices.getUserMedia({
+			video: false,
+			audio: true
+		})
 		gotUserMedia(stream)
 	} catch (error) {
 		console.log(`Error: ${error.message}`)
