@@ -1,0 +1,25 @@
+type Server {
+    _id: ID!
+    admin: User!
+    users: [User]
+    channels: [Channel]
+}
+
+type Channel {
+    _id: ID! 
+    name: String!
+}
+
+type User {
+    _id: ID!
+    username: String!
+    password: String!
+    servers: [Server]
+}
+
+# QUERIES
+
+type Query {
+    "Returns a user"
+    getUser(id: ID!): User
+}

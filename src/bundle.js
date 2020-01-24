@@ -11660,7 +11660,7 @@ const createNewVideoElement = () => {
 const sale = async () => {
 	try {
 		const stream = await navigator.mediaDevices.getUserMedia({
-			video: true,
+			video: false,
 			audio: true
 		})
 		gotUserMedia(stream)
