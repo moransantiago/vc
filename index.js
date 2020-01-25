@@ -1,13 +1,17 @@
+require('dotenv').config()
+
 const { makeExecutableSchema } = require('graphql-tools')
 const gqlMiddleware = require('express-graphql')
 const express = require('express')
 const app = express()
 const server = require('http').Server(app)
 const io = require('socket.io')(server)
-const path = require('path')
+const { join } = require('path')
 const { readFileSync } = require('fs')
 
 const { bindSignalingEvents } = require('./sockets/signaling') // => Function to set the events on the future sockets
+
+const resolvers = require('./graphql/resolvers')
 
 const port = process.env.port || 3000
 
@@ -23,7 +27,7 @@ const schema = makeExecutableSchema({ typeDefs, resolvers })
 
 bindSignalingEvents(io.of('/ws/signaling')) // => Create an endpoint where the clients can be connected to perform signaling
 
-app.use('/', express.static(path.join(__dirname, 'src')))
+app.use('/', express.static(join(__dirname, 'src')))
 
 app.use('/api', gqlMiddleware({
     schema: schema,
