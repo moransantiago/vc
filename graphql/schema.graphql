@@ -1,6 +1,17 @@
+type User {
+	_id: ID!
+	username: String!
+    email: String!
+	password: String!
+	servers: [Server]
+	friends: [User]
+	friendRequests: [User]
+}
+
 type Server {
 	_id: ID!
-	admin: User!
+	admin: ID!
+	name: String!
 	users: [User]
 	channels: [Channel]
 }
@@ -8,14 +19,6 @@ type Server {
 type Channel {
 	_id: ID!
 	name: String!
-}
-
-type User {
-	_id: ID!
-	username: String!
-    email: String!
-	password: String!
-	servers: [Server]
 }
 
 # INPUTS
@@ -37,15 +40,28 @@ input UserEditInput {
 # => SERVERS
 
 input ServerInput {
-	admin: User!
-	users: [User]
-	channels: [Channel]
+	admin: ID!
+	name: String!
+	users: [ID]
+	channels: [ID]
 }
 
 input ServerEditInput {
-	admin: User
-	users: [User]
-	channels: [Channel]
+	admin: ID
+	name: String
+	users: [ID]
+	channels: [ID]
+}
+
+# => CHANNELS
+
+input ChannelInput {
+	name: String!
+	server: ID!
+}
+
+input ChannelEditInput {
+	name: String
 }
 
 # QUERIES
@@ -76,4 +92,14 @@ type Mutation {
 	editServer(id: ID!, input: ServerEditInput): Server
 	"Deletes a server"
 	deleteServer(id: ID!): ID
+	"Creates a channel"
+	createChannel(input: ChannelInput!): Channel
+	"Edits a channel"
+	editChannel(id: ID!, input: ChannelEditInput): Channel
+	"Deletes a channel"
+	deleteChannel(id: ID!): ID
+	"Adds a user to a server"
+	addUserToServer(userId: ID!, serverId: ID!): Server
+	"Adds a user to the friends list"
+	addFriend(userId: ID!, friendId: ID!): [User] # => Returns both users new friend
 }
