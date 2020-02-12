@@ -1,0 +1,105 @@
+type User {
+	_id: ID!
+	username: String!
+    email: String!
+	password: String!
+	servers: [Server]
+	friends: [User]
+	friendRequests: [User]
+}
+
+type Server {
+	_id: ID!
+	admin: ID!
+	name: String!
+	users: [User]
+	channels: [Channel]
+}
+
+type Channel {
+	_id: ID!
+	name: String!
+}
+
+# INPUTS
+
+# => USERS
+
+input UserInput {
+	username: String!
+    email: String!
+	password: String!
+}
+
+input UserEditInput {
+	username: String
+    email: String
+	password: String
+}
+
+# => SERVERS
+
+input ServerInput {
+	admin: ID!
+	name: String!
+	users: [ID]
+	channels: [ID]
+}
+
+input ServerEditInput {
+	admin: ID
+	name: String
+	users: [ID]
+	channels: [ID]
+}
+
+# => CHANNELS
+
+input ChannelInput {
+	name: String!
+	server: ID!
+}
+
+input ChannelEditInput {
+	name: String
+}
+
+# QUERIES
+
+type Query {
+	"Gets all users"
+	getUsers: [User]
+	"Gets a user"
+	getUser(id: ID!): User
+	"Gets all servers"
+	getServers: [Server]
+	"Gets a server"
+	getServer(id: ID!): Server
+}
+
+# MUTATIONS
+
+type Mutation {
+	"Creates a user"
+	createUser(input: UserInput!): User
+	"Edits a user"
+	editUser(id: ID!, input: UserEditInput): User
+	"Deletes a user"
+	deleteUser(id: ID!): ID
+	"Creates a server"
+	createServer(input: ServerInput!): Server
+	"Edits a server"
+	editServer(id: ID!, input: ServerEditInput): Server
+	"Deletes a server"
+	deleteServer(id: ID!): ID
+	"Creates a channel"
+	createChannel(input: ChannelInput!): Channel
+	"Edits a channel"
+	editChannel(id: ID!, input: ChannelEditInput): Channel
+	"Deletes a channel"
+	deleteChannel(id: ID!): ID
+	"Adds a user to a server"
+	addUserToServer(userId: ID!, serverId: ID!): Server
+	"Adds a user to the friends list"
+	addFriend(userId: ID!, friendId: ID!): [User] # => Returns both users new friend
+}
