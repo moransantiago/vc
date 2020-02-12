@@ -8,12 +8,13 @@ const server = require('http').Server(app)
 const io = require('socket.io')(server)
 const { join } = require('path')
 const { readFileSync } = require('fs')
+const cors = require('cors')
 
 const { bindSignalingEvents } = require('./sockets/signaling') // => Function to set the events on the future sockets
 
 const resolvers = require('./graphql/resolvers')
 
-const port = process.env.port || 3000
+const port = process.env.port || 3333
 
 //  Define initial schema
 const typeDefs = readFileSync(
@@ -23,7 +24,7 @@ const typeDefs = readFileSync(
 
 const schema = makeExecutableSchema({ typeDefs, resolvers })
 
-// app.use(cors())
+app.use(cors())
 
 bindSignalingEvents(io.of('/ws/signaling')) // => Create an endpoint where the clients can be connected to perform signaling
 

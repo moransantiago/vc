@@ -4,10 +4,17 @@ import { Router } from '@reach/router'
 
 import { Home } from './pages/Home'
 
+import { GlobalStyle } from './components/Styles/GlobalStyle'
+
 export const App = () => {
 	return (
-		<Router>
-			<Home path="/" />
-		</Router>
+		<>
+			<GlobalStyle />
+			<Router>
+				<Home path="/" />
+				<Home path="/:serverId" />
+				<Home path="/:serverId/?channelId" />
+			</Router>
+		</>
 	)
 }
