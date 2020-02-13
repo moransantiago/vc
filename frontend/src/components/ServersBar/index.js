@@ -11,7 +11,7 @@ export const ServersBar = ({
 }) => (
 	<Div className="has-background-light column is-6 is-offset-3">
 		{servers.map((server, index) => (
-			<Link to={`/${server._id}`} key={index}>
+			<Link to={`/${server._id}/${server.channels[0]._id}`} key={index}>
 				<Server />
 			</Link>
 		))}

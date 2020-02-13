@@ -8,13 +8,14 @@ import { ServersBar } from '../components/ServersBar'
 
 import { GetUserData } from '../containers/GetUserData'
 
-export const Home = ({ serverId }) => (
+export const Home = ({ serverId, channelId }) => (
 	<>
 		<GetUserData id={'5e2e60a24e824700d9d78277'}>
 			{({ loading, error, data }) => {
 				if (loading) return 'Loading'
 				if (error) return 'Internal server error'
 				const channels = serverId ? data.getUser.servers.filter(server => server._id === serverId)[0].channels : null
+				const channel = channelId ? channels.filter(channel => channel._id === channelId)[0] : null
 				return (
 					<>
 						<ServersBar servers={data.getUser.servers} />
@@ -26,8 +27,8 @@ export const Home = ({ serverId }) => (
 								fontFamily: 'Montserrat'
 							}}
 						>
-							<LeftColumn channels={channels} />
-							<Chat />
+							<LeftColumn serverId={serverId} channels={channels} />
+							<Chat channel={channel} />
 							<FriendsColumn
 								friends={data.getUser.friends}
 								friendRequests={data.getUser.friendRequests}

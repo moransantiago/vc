@@ -1,6 +1,6 @@
 import styled, { css } from 'styled-components'
 
-import { fadeIn } from '../Styles/animations'
+import { buttonsHover } from '../Styles/animations'
 
 export const DivContainer = styled.div`
 	border-radius: 4px;
@@ -17,7 +17,7 @@ export const DivContainer = styled.div`
 	${props =>
 		!props.isOnline &&
 		css`
-			 {
+			{
 				opacity: 0.5;
 			}
 		`}
@@ -51,9 +51,7 @@ export const Button = styled.button`
 	border-radius: 3px;
 	background-color: inherit;
 	&:hover {
-		${props => (!props.disabled && fadeIn({ time: '0.6s' }))};
-		background-color: ${props => (!props.disabled ? '#e6e6e6' : "none")};
-		border: ${props => (!props.disabled ? '1px solid #d9d9d9' : "none")};
+		${props => (!props.disabled && buttonsHover({ time: '0.2s' }))};
 	}
 `
 

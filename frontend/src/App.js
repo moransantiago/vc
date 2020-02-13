@@ -13,7 +13,7 @@ export const App = () => {
 			<Router>
 				<Home path="/" />
 				<Home path="/:serverId" />
-				<Home path="/:serverId/?channelId" />
+				<Home path="/:serverId/:channelId" />
 			</Router>
 		</>
 	)

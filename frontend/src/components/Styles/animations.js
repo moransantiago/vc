@@ -1,23 +1,23 @@
 import { css, keyframes } from 'styled-components'
 
-export const fadeIn = ({ time = '1s', type = 'ease' } = {}) =>
+export const buttonsHover = ({ time = '0.5s', type = 'ease' } = {}) =>
 	css`
-		animation: ${time} ${fadeInKeyFrames} ${type};
+		animation: ${time} ${buttonsHoverKeyFrames} ${type} forwards; /* => forwards makes the animation stay as it finishes */
 	`
 export const inputFocus = ({ time = '0.8s', type = 'ease' } = {}) =>
 	css`
 		animation: ${time} ${inputKeyFrames} ${type} forwards;
 	`
 
-const fadeInKeyFrames = keyframes`
+const buttonsHoverKeyFrames = keyframes`
     from {
-        opacity: 0.4;
-        filter: blur(1px);
+        background-color: inherit;
+		border: 1px solid inherit;
     }
 
     to {
-        opacity: 1;
-        filter: blur(0);
+		background-color: #e6e6e6;
+		border: 1px solid #d9d9d9;
     }
 `
 
