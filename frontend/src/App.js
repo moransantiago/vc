@@ -7,14 +7,14 @@ import { Home } from './pages/Home'
 import { GlobalStyle } from './components/Styles/GlobalStyle'
 
 export const App = () => {
-	return (
-		<>
-			<GlobalStyle />
-			<Router>
-				<Home path="/" />
-				<Home path="/:serverId" />
-				<Home path="/:serverId/:channelId" />
-			</Router>
-		</>
-	)
+    return (
+        <>
+            <GlobalStyle />
+            <Router>
+                <Home path='/' />
+                <Home path='/:serverId' />
+                <Home path='/:serverId/:channelId' />
+            </Router>
+        </>
+    )
 }

@@ -14,8 +14,8 @@ export const Home = ({ serverId, channelId }) => (
 			{({ loading, error, data }) => {
 				if (loading) return 'Loading'
 				if (error) return 'Internal server error'
-				const channels = serverId ? data.getUser.servers.filter(server => server._id === serverId)[0].channels : null
-				const channel = channelId ? channels.filter(channel => channel._id === channelId)[0] : null
+				const server = serverId ? data.getUser.servers.filter(server => server._id === serverId)[0] : null
+				const channel = channelId ? server.channels.filter(channel => channel._id === channelId)[0] : null
 				return (
 					<>
 						<ServersBar servers={data.getUser.servers} />
@@ -27,7 +27,7 @@ export const Home = ({ serverId, channelId }) => (
 								fontFamily: 'Montserrat'
 							}}
 						>
-							<LeftColumn serverId={serverId} channels={channels} />
+							<LeftColumn serverName={server && server.name} channels={server && server.channels} />
 							<Chat channel={channel} />
 							<FriendsColumn
 								friends={data.getUser.friends}

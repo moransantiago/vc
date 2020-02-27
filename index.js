@@ -17,7 +17,7 @@ const resolvers = require('./graphql/resolvers')
 const port = process.env.port || 3333
 
 //  Define initial schema
-const typeDefs = readFileSync(
+const typeDefs = readFileSync (
     join(__dirname, './graphql/schema.graphql'),
     'utf-8'
 )

@@ -4,20 +4,24 @@ import { DivColumn, DivContainer, Title, Link } from './styles'
 
 import { Card } from '../Card/index'
 
-export const LeftColumn = ({ serverId, channels }) => {
-	console.log(serverId)
+export const LeftColumn = ({ serverName, channels }) => {
 	return channels ? (
-		<DivColumn className="column is-2 has-background-light">
-			<Title>Server</Title>
+		<DivColumn className='column is-2 has-background-light'>
+			<Title>{serverName}</Title>
 			<DivContainer>
 				{channels.map((channel, index) => (
-					<Link to={`/${serverId}/${channel._id}`} key={index}>
+					<Link to={`../${channel._id}`} key={index}>
 						<Card title={channel.name} />
 					</Link>
 				))}
 			</DivContainer>
 		</DivColumn>
 	) : (
-		<p>Loading...</p>
+		<DivColumn className='column is-2 has-background-light'>
+			<Title>Server</Title>
+			<DivContainer>
+				<p>Loading...</p>
+			</DivContainer>
+		</DivColumn>
 	)
 }
