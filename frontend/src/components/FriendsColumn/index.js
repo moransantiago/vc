@@ -92,7 +92,7 @@ export const FriendsColumn = ({ friends, friendRequests }) => {
 								</div>
 							</div>
 						</div>
-						<Tag className='tag'>1</Tag>
+						<Tag className='tag'>{friendRequests.length}</Tag>
 					</div>
 					<MdSettings
 						size='30px'

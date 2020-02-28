@@ -34,6 +34,9 @@ export const DivButtons = styled.div`
 `
 
 export const Tag = styled.span`
+	position: absolute;
+	top: -5px;
+	left: 18px;
 	border-radius: 50px !important;
 	border: 2px solid #dbdbdb;
 	color: #ffffff !important;

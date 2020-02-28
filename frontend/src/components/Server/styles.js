@@ -2,7 +2,7 @@ import styled, { css } from 'styled-components'
 
 import { Link as LinkRouter } from '@reach/router'
 
-import { transformServer } from '../Styles/animations'
+import { zoomServer } from '../Styles/animations'
 
 export const Img = styled.img`
 	border-radius: 20%;
@@ -17,17 +17,16 @@ export const Img = styled.img`
 `
 
 export const Link = styled(LinkRouter)`
-	margin: 0 3px 0 3px;
-	border: 1px solid #ddd;
+	margin: 0 4px 0 4px;
 	border-radius: 20%;
 	&:hover {
-		${transformServer({ time: '0.1s' })};
+		${zoomServer({ time: '0.1s' })};
 	}
 	${props =>
 		props.currentServer &&
 		css`
 			 {
-				border: 2px solid red;
+				transform: scale(1.1);
 			}
 		`}
 `

@@ -5,7 +5,7 @@ let myOffer
 let imInitiator = false
 const peers = [] // => Will be an array of objects: { id: <name>, peer: new Peer() }
 
-const gotUserMedia = stream => {
+const gotUserMedia = (stream, channelId, clientId) => {
 	// => This will be executed if the stream is successfully obtained
 	bindVideoToHtml(document.getElementById('localVideo'), stream) // => Bind the media that we recieve from the user into localVideo html element
 	const socket = io('http://localhost:3000/ws/signaling')
@@ -120,13 +120,13 @@ const createNewVideoElement = () => {
 	return newVideoElement
 }
 
-const sale = async () => {
+const sale = async (channelId) => {
 	try {
 		const stream = await navigator.mediaDevices.getUserMedia({
 			video: false,
 			audio: true
 		})
-		gotUserMedia(stream)
+		gotUserMedia(stream, channelId)
 	} catch (error) {
 		console.log(`Error: ${error.message}`)
 	}

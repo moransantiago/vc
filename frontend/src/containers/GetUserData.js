@@ -4,8 +4,8 @@ import { Query } from 'react-apollo'
 import { gql } from 'apollo-boost'
 
 const getUser = gql`
-	query getUser($id: ID!) {
-		getUser(id: $id) {
+	query getUser($username: String!) {
+		getUser(username: $username) {
 			_id
 			username
 			email
@@ -29,8 +29,8 @@ const getUser = gql`
 	}
 `
 
-export const GetUserData = ({ id, children }) => (
-	<Query query={getUser} variables={{ id }}>
+export const GetUserData = ({ username, children }) => (
+	<Query query={getUser} variables={{ username }}>
 		{children}
 	</Query>
 )

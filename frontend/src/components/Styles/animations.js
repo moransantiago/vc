@@ -10,9 +10,9 @@ export const inputFocus = ({ time = '0.8s', type = 'ease' } = {}) =>
 		animation: ${time} ${inputKeyFrames} ${type} forwards;
     `
     
-export const transformServer = ({ time = '0.8s', type = 'ease' } = {}) =>
+export const zoomServer = ({ time = '0.8s', type = 'ease' } = {}) =>
 	css`
-		animation: ${time} ${transformServerKeyFrames} ${type} forwards;
+		animation: ${time} ${zoomServerKeyFrames} ${type} forwards;
 	`
 
 const buttonsHoverKeyFrames = keyframes`
@@ -39,7 +39,7 @@ const inputKeyFrames = keyframes`
     }
 `
 
-const transformServerKeyFrames = keyframes`
+const zoomServerKeyFrames = keyframes`
     from {
         transform: scale(1);
     }

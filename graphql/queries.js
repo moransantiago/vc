@@ -16,10 +16,10 @@ module.exports = {
             errorHandler(error)
         }
     },
-    getUser: async (root, { id }) => {
+    getUser: async (root, { username }) => {
         try {
             const db = await mydb()
-            const user = await db.collection('users').findOne({ _id: ObjectID(id) })
+            const user = await db.collection('users').findOne({ username: username })
     
             return user
         } catch (error) {
