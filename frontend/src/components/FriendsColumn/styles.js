@@ -41,9 +41,9 @@ export const Tag = styled.span`
 `
 
 export const Input = styled.input`
+	border: 1px solid #e8e8e8;
 	background-color: #ededed;
 	border-radius: 4px;
-	border: 0;
 	height: 35px;
 	width: 100%;
 	padding: 5px 10px;

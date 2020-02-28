@@ -25,7 +25,7 @@ export const FriendsColumn = ({ friends, friendRequests }) => {
 	return (
 		<DivColumn className='column is-2 has-background-light'>
 			<Title>Friends</Title>
-			<div>
+			<div style={{ marginTop: '25px' }}>
 				<DivFriends>
 					<Subtitle>Online</Subtitle>
 					{friends.map((friend, index) => (

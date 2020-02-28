@@ -3,10 +3,16 @@ import { css, keyframes } from 'styled-components'
 export const buttonsHover = ({ time = '0.5s', type = 'ease' } = {}) =>
 	css`
 		animation: ${time} ${buttonsHoverKeyFrames} ${type} forwards; /* => forwards makes the animation stay as it finishes */
-	`
+    `
+    
 export const inputFocus = ({ time = '0.8s', type = 'ease' } = {}) =>
 	css`
 		animation: ${time} ${inputKeyFrames} ${type} forwards;
+    `
+    
+export const transformServer = ({ time = '0.8s', type = 'ease' } = {}) =>
+	css`
+		animation: ${time} ${transformServerKeyFrames} ${type} forwards;
 	`
 
 const buttonsHoverKeyFrames = keyframes`
@@ -30,5 +36,14 @@ const inputKeyFrames = keyframes`
     to {
         filter: blur(0);
         border: 2px solid rgb(140, 136, 168);
+    }
+`
+
+const transformServerKeyFrames = keyframes`
+    from {
+        transform: scale(1);
+    }
+    to {
+        transform: scale(1.1);
     }
 `

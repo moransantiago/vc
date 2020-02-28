@@ -15,10 +15,10 @@ export const Home = ({ serverId, channelId }) => (
 				if (loading) return 'Loading'
 				if (error) return 'Internal server error'
 				const server = serverId ? data.getUser.servers.filter(server => server._id === serverId)[0] : null
-				const channel = channelId ? server.channels.filter(channel => channel._id === channelId)[0] : null
+				const channel = channelId && server ? server.channels.filter(channel => channel._id === channelId)[0] : null
 				return (
 					<>
-						<ServersBar servers={data.getUser.servers} />
+						<ServersBar servers={data.getUser.servers} currentServer={serverId} />
 						<div
 							className="columns is-marginless"
 							style={{
@@ -27,7 +27,7 @@ export const Home = ({ serverId, channelId }) => (
 								fontFamily: 'Montserrat'
 							}}
 						>
-							<LeftColumn serverName={server && server.name} channels={server && server.channels} />
+							<LeftColumn server={server && {id: serverId, name: server.name}} channels={server && server.channels} />
 							<Chat channel={channel} />
 							<FriendsColumn
 								friends={data.getUser.friends}

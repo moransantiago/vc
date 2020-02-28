@@ -4,13 +4,13 @@ import { DivColumn, DivContainer, Title, Link } from './styles'
 
 import { Card } from '../Card/index'
 
-export const LeftColumn = ({ serverName, channels }) => {
+export const LeftColumn = ({ server, channels }) => {
 	return channels ? (
 		<DivColumn className='column is-2 has-background-light'>
-			<Title>{serverName}</Title>
+			<Title>{server.name}</Title>
 			<DivContainer>
 				{channels.map((channel, index) => (
-					<Link to={`../${channel._id}`} key={index}>
+					<Link to={`/${server.id}/${channel._id}`} key={index}>
 						<Card title={channel.name} />
 					</Link>
 				))}

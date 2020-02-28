@@ -1,5 +1,13 @@
 import React from 'react'
 
-import { Img } from './styles'
+import { Img, Link } from './styles'
 
-export const Server = ({ img = 'https://upload.wikimedia.org/wikipedia/commons/8/8f/Indio_Solari_2_color.jpg' }) => <Img src={img} />
+export const Server = ({
+	_id,
+	currentServer = false,
+	img = 'https://upload.wikimedia.org/wikipedia/commons/8/8f/Indio_Solari_2_color.jpg'
+}) => (
+	<Link currentServer={currentServer} to={`/${_id}`}>
+		<Img src={img} />
+	</Link>
+)
