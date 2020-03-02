@@ -1,11 +1,9 @@
 const Peer = require('simple-peer')
 const io = require('socket.io-client')
 const myId = prompt('Insert your username')
-let myOffer
-let imInitiator = false
 const peers = [] // => Will be an array of objects: { id: <name>, peer: new Peer() }
 
-const gotUserMedia = (stream, channelId, clientId) => {
+const gotUserMedia = stream => {
 	// => This will be executed if the stream is successfully obtained
 	bindVideoToHtml(document.getElementById('localVideo'), stream) // => Bind the media that we recieve from the user into localVideo html element
 	const socket = io('http://localhost:3000/ws/signaling')
@@ -29,39 +27,24 @@ const gotUserMedia = (stream, channelId, clientId) => {
 			setPeerEvents(newPeer, socket, id)
 			peers.push({ id, peer: newPeer })
 		})
-
-		socket.on('initiator', () => {
-			imInitiator = true
-		})
 	})
 
 	document.getElementById('room1').addEventListener('click', () => {
 		socket.emit('join', { id: myId, room: 'room1' }) // => PEERS ALWAYS HAVE TO EMIT THIS EVENT TO CONNECT TO THE ROOM BEFORE THEY EMIT SIGNAL EVENT
-		if (myOffer && !imInitiator) {
-			socket.emit('signal', { id: peer.otherId, offerOrAnswer: myOffer, peerId: myId })
-		}
 	})
 
 	document.getElementById('room2').addEventListener('click', () => {
 		socket.emit('join', { id: myId, room: 'room2' }) // => PEERS ALWAYS HAVE TO EMIT THIS EVENT TO CONNECT TO THE ROOM BEFORE THEY EMIT SIGNAL EVENT
-		if (myOffer && !imInitiator) {
-			socket.emit('signal', { id: peer.otherId, offerOrAnswer: myOffer, peerId: myId })
-		}
 	})
 
 	document.getElementById('room3').addEventListener('click', () => {
 		socket.emit('join', { id: myId, room: 'room3' }) // => PEERS ALWAYS HAVE TO EMIT THIS EVENT TO CONNECT TO THE ROOM BEFORE THEY EMIT SIGNAL EVENT
-		if (myOffer && !imInitiator) {
-			socket.emit('signal', { id: peer.otherId, offerOrAnswer: myOffer, peerId: myId })
-		}
 	})
 }
 
 const setPeerEvents = (peer, socket, id) => {
-	peer.otherId = id // => To perform signaling
-
 	peer.on('signal', offerOrAnswer => {
-		socket.emit('signal', { id: peer.otherId, offerOrAnswer, peerId: myId })
+		socket.emit('signal', { id, offerOrAnswer, peerId: myId })
 		// => Whenever a peer recieves a signal, it emit the signal event to every connected peer
 	})
 
@@ -120,13 +103,13 @@ const createNewVideoElement = () => {
 	return newVideoElement
 }
 
-const sale = async (channelId) => {
+const sale = async () => {
 	try {
 		const stream = await navigator.mediaDevices.getUserMedia({
 			video: false,
 			audio: true
 		})
-		gotUserMedia(stream, channelId)
+		gotUserMedia(stream)
 	} catch (error) {
 		console.log(`Error: ${error.message}`)
 	}

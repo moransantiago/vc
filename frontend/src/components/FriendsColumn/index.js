@@ -83,16 +83,22 @@ export const FriendsColumn = ({ friends, friendRequests }) => {
 						>
 							<div className='dropdown-content'>
 								<div className='dropdown-item'>
-									{friendRequests.map((user, index) => (
-										<Card
-											key={index}
-											title={user.username}
-										/>
-									))}
+									{friendRequests.length > 0 ? (
+										friendRequests.map((user, index) => (
+											<Card
+												key={index}
+												title={user.username}
+											/>
+										))
+									) : (
+										<h1>You don't have friend requests</h1>
+									)}
 								</div>
 							</div>
 						</div>
-						<Tag className='tag'>{friendRequests.length}</Tag>
+						{friendRequests.length > 0 && (
+							<Tag className='tag'>{friendRequests.length}</Tag>
+						)}
 					</div>
 					<MdSettings
 						size='30px'
