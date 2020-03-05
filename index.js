@@ -14,7 +14,7 @@ const { bindSignalingEvents } = require('./sockets/signaling') // => Function to
 
 const resolvers = require('./graphql/resolvers')
 
-const port = process.env.port || 3000
+const port = process.env.port || 3333
 
 //  Define initial schema
 const typeDefs = readFileSync (
