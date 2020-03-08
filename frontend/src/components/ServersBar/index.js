@@ -10,7 +10,7 @@ export const ServersBar = ({
 }) => (
 	<Div className='has-background-light column is-6 is-offset-3'>
 		{servers.map((server, index) => (
-			<Server {...server} currentServer={currentServer === servers[index]._id ? true : false} key={index} />
+			<Server {...server} currentserver={currentServer === servers[index]._id ? true : false} key={index} />
 		))}
 	</Div>
 )

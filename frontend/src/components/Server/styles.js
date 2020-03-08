@@ -23,7 +23,7 @@ export const Link = styled(LinkRouter)`
 		${zoomServer({ time: '0.1s' })};
 	}
 	${props =>
-		props.currentServer &&
+		props.currentserver &&
 		css`
 			 {
 				transform: scale(1.1);

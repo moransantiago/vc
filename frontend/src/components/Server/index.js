@@ -4,10 +4,10 @@ import { Img, Link } from './styles'
 
 export const Server = ({
 	_id,
-	currentServer = false,
+	currentserver = false,
 	img = 'https://upload.wikimedia.org/wikipedia/commons/8/8f/Indio_Solari_2_color.jpg'
 }) => (
-	<Link currentServer={currentServer} to={`/${_id}`}>
+	<Link currentserver={currentserver} to={`/${_id}`}>
 		<Img src={img} />
 	</Link>
 )

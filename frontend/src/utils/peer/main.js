@@ -9,16 +9,15 @@ export const peerSetUp = async username => {
 		const socket = io('http://localhost:3333/ws/signaling')
 
 		socket.on('connect', () => {
-			socket.on('signal', ({ id, offerOrAnswer, peerId }) => {
+			socket.on('signal', ({ id, data, peerId }) => {
+				const offerOrAnswer = JSON.parse(data)
 				if (offerOrAnswer.type === 'offer' && id === username) {
 					const newPeer = createPeer(false)
 					setPeerEvents(newPeer, socket, peerId)
 					newPeer.signal(offerOrAnswer)
 					peers.push({ id: peerId, peer: newPeer })
 				} else if (offerOrAnswer.type === 'answer' && id === username) {
-					const signaledFrom = peers.filter(
-						peer => peer.id === peerId
-					)
+					const signaledFrom = peers.filter(peer => peer.id === peerId)
 					signaledFrom[0].peer.signal(offerOrAnswer)
 				}
 			})
@@ -50,7 +49,8 @@ export const peerSetUp = async username => {
 	}
 
 	const setPeerEvents = (peer, socket, id) => {
-		peer.on('signal', offerOrAnswer => {
+		peer.on('signal', data => {
+			const offerOrAnswer = JSON.stringify(data)
 			socket.emit('signal', { id, offerOrAnswer, peerId: username })
 			// => Whenever a peer recieves a signal, it emit the signal event to every connected peer
 		})

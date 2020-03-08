@@ -18,7 +18,7 @@ export const zoomServer = ({ time = '0.8s', type = 'ease' } = {}) =>
 const buttonsHoverKeyFrames = keyframes`
     from {
         background-color: inherit;
-		border: 1px solid inherit;
+		border: 1px solid #e6e6e6;
     }
 
     to {
