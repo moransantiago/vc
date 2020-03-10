@@ -2,6 +2,8 @@
 
 const mydb = require('./db')
 const { ObjectID } = require('mongodb')
+const { config } = require('../config')
+const jwt = require('jsonwebtoken')
 
 const errorHandler = require('./errorHandler')
 
@@ -16,11 +18,17 @@ module.exports = {
             errorHandler(error)
         }
     },
-    getUser: async (root, { username }) => {
+    getUser: async (root, { username }, { headers: { authorization } }) => {
         try {
-            const db = await mydb()
-            const user = await db.collection('users').findOne({ username: username })
-    
+            const user = await jwt.verify(authorization, config.authJwtSecret, async(err, tokenPayload) => {
+                if (err) throw new Error('User must be authorized')
+
+                const db = await mydb()
+                const user = await db.collection('users').findOne({ username })
+        
+                return user
+            })
+
             return user
         } catch (error) {
             errorHandler(error)

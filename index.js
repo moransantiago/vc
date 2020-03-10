@@ -1,5 +1,3 @@
-require('dotenv').config()
-
 const { makeExecutableSchema } = require('graphql-tools')
 const gqlMiddleware = require('express-graphql')
 const express = require('express')
@@ -17,9 +15,9 @@ const resolvers = require('./graphql/resolvers')
 const port = process.env.port || 3333
 
 //  Define initial schema
-const typeDefs = readFileSync (
-    join(__dirname, './graphql/schema.graphql'),
-    'utf-8'
+const typeDefs = readFileSync(
+	join(__dirname, './graphql/schema.graphql'),
+	'utf-8'
 )
 
 const schema = makeExecutableSchema({ typeDefs, resolvers })
@@ -30,10 +28,15 @@ bindSignalingEvents(io.of('/ws/signaling')) // => Create an endpoint where the c
 
 app.use('/', express.static(join(__dirname, 'src')))
 
-app.use('/api', gqlMiddleware({
-    schema: schema,
-    rootValue: resolvers,
-    graphiql: true
-}));
+app.use(
+	'/api',
+	gqlMiddleware({
+		schema: schema,
+		rootValue: resolvers,
+		graphiql: true
+	})
+)
 
-server.listen(port, () => console.log(`Listening http://localhost:${server.address().port}`))
+server.listen(port, () =>
+	console.log(`Listening http://localhost:${server.address().port}`)
+)

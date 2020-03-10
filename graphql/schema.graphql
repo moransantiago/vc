@@ -102,4 +102,8 @@ type Mutation {
 	addUserToServer(userId: ID!, serverId: ID!): Server
 	"Adds a user to the friends list"
 	addFriend(userId: ID!, friendId: ID!): [User] # => Returns both users new friend
+	"Returns a token to perform auth"
+	logIn(username: String!, password: String!): String
+	"Creates a personal user and returns a token to perform auth"
+	signUp(input: UserInput!): String
 }

@@ -1,15 +1,9 @@
 'use strict'
 
 const { MongoClient } = require('mongodb')
+const { config } = require('../config')
 
-const {
-    DB_USER,
-    DB_PASSWD,
-    DB_HOST,
-    DB_NAME
-} = process.env
-
-const mongoUrl = `mongodb+srv://${DB_USER}:${DB_PASSWD}@${DB_HOST}/${DB_NAME}`
+const mongoUrl = `mongodb+srv://${config.dbUser}:${config.dbPassword}@${config.dbHost}/${config.dbName}`
 
 const connectDB = async () => {
     try {
@@ -17,7 +11,7 @@ const connectDB = async () => {
             useNewUrlParser: true,
             useUnifiedTopology: true
         })
-        const connection = client.db(DB_NAME)
+        const connection = client.db(config.dbName)
 
         return connection
     } catch (error) {

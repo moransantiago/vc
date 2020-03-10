@@ -32,9 +32,9 @@ export const Input = styled.input`
 `
 
 export const Div = styled.div`
-	padding: 10px;
+	padding: 16px;
     border-radius: 3px;
-	background-color: #ededed;
+	background-color: #f7f7f7;
 `
 
 export const Button = styled.button`
@@ -51,9 +51,10 @@ export const Button = styled.button`
 `
 
 export const Title = styled.h2`
-	font-size: 16px;
+	font-size: 22px;
 	font-weight: 500;
 	padding: 8px 0;
+	font-family: Montserrat;
 `
 
 export const Error = styled.span`

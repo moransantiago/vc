@@ -1,8 +1,8 @@
 'use strict'
 
-const errorHandler = error => {
-    console.log(error);
-    throw new Error('Internal server error');
+const errorHandler = err => {
+	console.log(err)
+	throw new Error(err.message)
 }
 
-module.exports = errorHandler;
+module.exports = errorHandler
