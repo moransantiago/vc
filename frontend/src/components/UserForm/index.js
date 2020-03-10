@@ -10,9 +10,9 @@ export const UserForm = ({ disabled, onSubmit, error, title }) => {
 	const username = useInputValue('')
 	const password = useInputValue('')
 
-	const handleSubmit = e => {
+	const handleSubmit = async e => {
 		e.preventDefault()
-		onSubmit({ username: username.value, password: password.value })
+		await onSubmit({ username: username.value, password: password.value })
 	}
 
 	return (
@@ -31,12 +31,12 @@ export const UserForm = ({ disabled, onSubmit, error, title }) => {
 						type='password'
 						{...password}
 					/>
+					{error && <Error>{error}</Error>}
 					<SubmitButton disabled={disabled}>
 						{disabled ? 'Loading' : title}
 					</SubmitButton>
 				</Div>
 			</Form>
-			{error && <Error>{error}</Error>}
 		</>
 	)
 }

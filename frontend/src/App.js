@@ -1,22 +1,27 @@
-import React from 'react'
+import React, { useContext } from 'react'
 
-import { Router } from '@reach/router'
+import { Router, Redirect } from '@reach/router'
 
 import { Home } from './pages/Home'
 import { Login } from './pages/Login'
 
 import { GlobalStyle } from './components/Styles/GlobalStyle'
 
+import { Context } from './Context'
+
 export const App = () => {
-    return (
-        <>
-            <GlobalStyle />
-            <Router>
-                <Home path='/' />
-                <Home path='/:serverId' />
-                <Home path='/:serverId/:channelId' />
-                <Login path='/login' />
-            </Router>
-        </>
-    )
+	const { isAuth } = useContext(Context)
+
+	return (
+		<>
+			<GlobalStyle />
+			<Router>
+				<Login path='/login' />
+				{!isAuth && <Redirect from='/' to='/login' />}
+				<Home path='/' />
+				<Home path='/:serverId' />
+				<Home path='/:serverId/:channelId' />
+			</Router>
+		</>
+	)
 }

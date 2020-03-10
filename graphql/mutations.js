@@ -13,6 +13,7 @@ module.exports = {
 	createUser: async (root, { input }) => {
 		try {
 			const db = await mydb()
+			input.password = await bcrypt.hash(input.password, 10)
 			const user = await db.collection('users').insertOne(input)
 			input._id = user.insertedId
 
@@ -24,6 +25,7 @@ module.exports = {
 	editUser: async (root, { id, input }) => {
 		try {
 			const db = await mydb()
+			input.password = await bcrypt.hash(input.password, 10)
 			await db
 				.collection('users')
 				.updateOne({ _id: ObjectID(id) }, { $set: input })
@@ -224,7 +226,7 @@ module.exports = {
 			errorHandler(error)
 		}
 	},
-	logIn: async (root, { username, password }) => {
+	logIn: async (root, { input: { username, password } }) => {
 		try {
 			const db = await mydb()
 			const user = await db.collection('users').findOne({ username })
