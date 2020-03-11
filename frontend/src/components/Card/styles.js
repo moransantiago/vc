@@ -1,4 +1,4 @@
-import styled, { css } from 'styled-components'
+import styled from 'styled-components'
 
 import { buttonsHover } from '../Styles/animations'
 
@@ -14,13 +14,9 @@ export const DivContainer = styled.div`
 	&:hover {
 		background-color: #f0f0f0;
 	}
-	${props =>
-		!props.isOnline &&
-		css`
-			{
-				opacity: 0.5;
-			}
-		`}
+	&[disabled] {
+		opacity: 0.5;
+	}
 `
 
 export const Image = styled.img`

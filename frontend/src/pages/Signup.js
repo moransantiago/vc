@@ -6,7 +6,7 @@ import { UserForm } from '../components/UserForm'
 
 import { Context } from '../Context'
 
-export const Login = () => {
+export const Signup = () => {
     const { activateAuth } = useContext(Context)
 
 	return (
@@ -21,7 +21,7 @@ export const Login = () => {
                 }
 				const errorMsg = error && 'Wrong username or password'
 
-				return <UserForm onSubmit={onSubmit} disabled={loading} error={errorMsg} title='Login' />
+				return <UserForm onSubmit={onSubmit} disabled={loading} error={errorMsg} title='Sign Up' />
 			}}
 		</LoginMutation>
 	)

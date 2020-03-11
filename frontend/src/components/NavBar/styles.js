@@ -27,3 +27,17 @@ export const NavSpan = styled.span`
 	margin-left: 15px;
 	text-align: left !important;
 `
+
+export const Button = styled.button`
+	font-family: Montserrat;
+	color: #8c88a8;
+	font-size: 16px;
+	border-radius: 8px;
+	background-color: inherit;
+	border: 1px solid #8c88a8;
+	padding: 10px;
+	&:hover{
+		border: 1px solid #464646;
+		color: #464646;
+	}
+`

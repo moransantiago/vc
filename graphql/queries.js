@@ -34,6 +34,22 @@ module.exports = {
             errorHandler(error)
         }
     },
+    getMe: async (root, variables, { headers: { authorization } }) => {
+        try {
+            const user = await jwt.verify(authorization, config.authJwtSecret, async(err, tokenPayload) => {
+                if (err) throw new Error('User must be authorized')
+
+                const db = await mydb()
+                const user = await db.collection('users').findOne({ username: tokenPayload.username })
+        
+                return user
+            })
+            
+            return user
+        } catch (error) {
+            errorHandler(error)
+        }
+    },
     getServers: async () => {
         try {
             const db = await mydb()

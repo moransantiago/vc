@@ -4,6 +4,7 @@ import { Router, Redirect } from '@reach/router'
 
 import { Home } from './pages/Home'
 import { Login } from './pages/Login'
+import { Signup } from './pages/Signup'
 
 import { GlobalStyle } from './components/Styles/GlobalStyle'
 
@@ -16,11 +17,13 @@ export const App = () => {
 		<>
 			<GlobalStyle />
 			<Router>
-				<Login path='/login' />
-				{!isAuth && <Redirect from='/' to='/login' />}
+				{!isAuth && <Login path='/login' />}
+				{!isAuth && <Signup path='/signup' />}
+				{!isAuth && <Redirect noThrow  from='/' to='/login'/>}
 				<Home path='/' />
-				<Home path='/:serverId' />
-				<Home path='/:serverId/:channelId' />
+				{isAuth && <Home path='/:serverId' />}
+				{isAuth && <Home path='/:serverId/:channelId' />}
+				{isAuth && <Redirect noThrow  from='/login' to='/' />}
 			</Router>
 		</>
 	)

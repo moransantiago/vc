@@ -8,7 +8,7 @@ export const Button = styled.button`
     height: 32px;
     display: block;
     width: 100%;
-    margin: 8px 0 0 0;
+    margin: 8px 0;
     text-align: center;
     font-family: Montserrat;
     &[disabled] {

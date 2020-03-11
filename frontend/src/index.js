@@ -18,9 +18,10 @@ const client = new ApolloClient({
 			}
 		})
 	},
-	onError: error => {
-		const { networkError } = error
-		if (networkError && networkError.result.code === 'invalid_token') {
+	onError: error => { // => Catches the error
+		const { graphQLErrors } = error
+		if (graphQLErrors && graphQLErrors[0].message === 'User must be authorized') {
+			// => In case the jwt expires or is corrupted (not valid), removes it
 			window.sessionStorage.removeItem('token')
 			window.location.href = '/'
 		}

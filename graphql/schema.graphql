@@ -76,6 +76,8 @@ type Query {
 	getUsers: [User]
 	"Gets a user"
 	getUser(username: String!): User
+	"Gets the logged user using the jwt payload"
+	getMe: User
 	"Gets all servers"
 	getServers: [Server]
 	"Gets a server"

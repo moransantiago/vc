@@ -1,6 +1,6 @@
 import React from 'react'
 
-import { Form, Input, Title, Error, Div } from './styles'
+import { Form, Input, Title, Error, Div, Link } from './styles'
 
 import { SubmitButton } from '../SubmitButton'
 
@@ -35,6 +35,17 @@ export const UserForm = ({ disabled, onSubmit, error, title }) => {
 					<SubmitButton disabled={disabled}>
 						{disabled ? 'Loading' : title}
 					</SubmitButton>
+					{title === 'Login' ? (
+						<span>
+							New here?
+							<Link to='/signup'> Create an account</Link>
+						</span>
+					) : (
+						<span>
+							Already have an account?
+							<Link to='/login'> Login here</Link>
+						</span>
+					)}
 				</Div>
 			</Form>
 		</>

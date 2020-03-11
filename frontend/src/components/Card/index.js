@@ -5,22 +5,22 @@ import { DivContainer, Header, Image, Buttons, Button } from './styles'
 import { MdCall, MdMessage } from 'react-icons/md'
 
 export const Card = ({
-    isOnline = true,
+    disabled = false,
     title,
     userImage = 'https://citas.in/media/authors/diego-maradona.detail.jpg',
     isUser = false
 }) => (
-    <DivContainer isOnline={isOnline}>
+    <DivContainer disabled={disabled}>
         <Header>
             <Image src={userImage} />
             {title}
         </Header>
         {isUser && (
             <Buttons>
-                <Button disabled={!isOnline}>
+                <Button disabled={disabled}>
                     <MdCall size='15px' />
                 </Button>
-                <Button disabled={!isOnline}>
+                <Button disabled={disabled}>
                     <MdMessage size='15px' />
                 </Button>
             </Buttons>

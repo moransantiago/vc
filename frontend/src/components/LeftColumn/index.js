@@ -20,7 +20,7 @@ const useJoinChannel = username => {
 
 export const LeftColumn = ({ server, channels }) => {
 	const { username } = useContext(Context)
-	const [socket, setSocket] = useJoinChannel(username)
+	const [socket] = useJoinChannel(username)
 
 	return channels ? (
 		<DivColumn className='column is-2 has-background-light'>

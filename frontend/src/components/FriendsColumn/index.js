@@ -43,7 +43,7 @@ export const FriendsColumn = ({ friends, friendRequests }) => {
 						<Card
 							key={index}
 							title={friend}
-							isOnline={false}
+							disabled={true}
 							isUser
 						/>
 					))}
