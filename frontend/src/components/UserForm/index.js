@@ -1,6 +1,6 @@
 import React from 'react'
 
-import { Form, Input, Title, Error, Div, Link } from './styles'
+import { Form, Input, Title, Error, Div, Span, Link } from './styles'
 
 import { SubmitButton } from '../SubmitButton'
 
@@ -8,11 +8,12 @@ import { useInputValue } from '../../hooks/useInputValue'
 
 export const UserForm = ({ disabled, onSubmit, error, title }) => {
 	const username = useInputValue('')
+	const email = useInputValue('')
 	const password = useInputValue('')
 
 	const handleSubmit = async e => {
 		e.preventDefault()
-		await onSubmit({ username: username.value, password: password.value })
+		await onSubmit({ username: username.value, email: email.value, password: password.value })
 	}
 
 	return (
@@ -25,6 +26,14 @@ export const UserForm = ({ disabled, onSubmit, error, title }) => {
 						placeholder='Username'
 						{...username}
 					/>
+					{title === 'Sign Up' && (
+						<Input
+							disabled={disabled}
+							placeholder='Email'
+							type='email'
+							{...email}
+						/>
+					)}
 					<Input
 						disabled={disabled}
 						placeholder='Password'
@@ -36,15 +45,15 @@ export const UserForm = ({ disabled, onSubmit, error, title }) => {
 						{disabled ? 'Loading' : title}
 					</SubmitButton>
 					{title === 'Login' ? (
-						<span>
+						<Span>
 							New here?
 							<Link to='/signup'> Create an account</Link>
-						</span>
+						</Span>
 					) : (
-						<span>
+						<Span>
 							Already have an account?
 							<Link to='/login'> Login here</Link>
-						</span>
+						</Span>
 					)}
 				</Div>
 			</Form>

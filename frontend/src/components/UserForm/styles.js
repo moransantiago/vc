@@ -13,6 +13,11 @@ export const Form = styled.form`
 	background-color: #e0e0e0;
 `
 
+export const Span = styled.span`
+	font-family: Montserrat;
+	font-size: 12px;
+`
+
 export const Input = styled.input`
 	border: 1px solid #ededed;
 	background-color: #ededed;

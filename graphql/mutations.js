@@ -228,6 +228,10 @@ module.exports = {
 	},
 	logIn: async (root, { input: { username, password } }) => {
 		try {
+			if (!username || !password) {
+				throw new Error('Fields must be filled in')
+			}
+
 			const db = await mydb()
 			const user = await db.collection('users').findOne({ username })
 
@@ -249,6 +253,10 @@ module.exports = {
 	},
 	signUp: async (root, { input }) => {
 		try {
+			if (!input.username || !input.email || !input.password) {
+				throw new Error('Fields must be filled in')
+			}
+
 			const db = await mydb()
 			const user = await db.collection('users').findOne({ $or: [{ username: input.username }, { email: input.email }] })
 

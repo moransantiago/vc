@@ -5,7 +5,7 @@ export const buttonsHover = ({ time = '0.5s', type = 'ease' } = {}) =>
 		animation: ${time} ${buttonsHoverKeyFrames} ${type} forwards; /* => forwards makes the animation stay as it finishes */
     `
     
-export const inputFocus = ({ time = '0.8s', type = 'ease' } = {}) =>
+export const inputFocus = ({ time = '0.2s', type = 'ease' } = {}) =>
 	css`
 		animation: ${time} ${inputKeyFrames} ${type} forwards;
     `
@@ -30,12 +30,12 @@ const buttonsHoverKeyFrames = keyframes`
 const inputKeyFrames = keyframes`
     from {
         filter: blur(0.2px);
-        border: 2px solid #ededed;
+        border: 1px solid #ededed;
     }
 
     to {
         filter: blur(0);
-        border: 2px solid rgb(140, 136, 168);
+        border: 1px solid rgb(140, 136, 168);
     }
 `
 

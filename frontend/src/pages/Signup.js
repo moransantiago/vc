@@ -1,6 +1,6 @@
 import React, { useContext } from 'react'
 
-import { LoginMutation } from '../containers/LoginMutation'
+import { SignupMutation } from '../containers/SignupMutation'
 
 import { UserForm } from '../components/UserForm'
 
@@ -10,19 +10,19 @@ export const Signup = () => {
     const { activateAuth } = useContext(Context)
 
 	return (
-		<LoginMutation>
-			{(logIn, { loading, error }) => {
-				const onSubmit = ({ username, password }) => {
-					const input = { username, password }
+		<SignupMutation>
+			{(signUp, { loading, error }) => {
+				const onSubmit = ({ username, email, password }) => {
+					const input = { username, email, password }
 					const variables = { input }
-					logIn({ variables })
-						.then(({ data: { logIn } }) => { activateAuth(logIn) })
-						.catch(err => { console.log(err) })
-                }
-				const errorMsg = error && 'Wrong username or password'
+					signUp({ variables })
+						.then(({ data: { signUp } }) => { activateAuth(signUp) })
+						.catch(err => err)
+				}
+				const errorMsg = error && error.graphQLErrors && error.graphQLErrors[0].message
 
 				return <UserForm onSubmit={onSubmit} disabled={loading} error={errorMsg} title='Sign Up' />
 			}}
-		</LoginMutation>
+		</SignupMutation>
 	)
 }

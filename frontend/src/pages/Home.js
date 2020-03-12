@@ -12,7 +12,6 @@ import { GetMe } from '../containers/GetMe'
 const HomePage = ({ serverId, channelId }) => (
 	<GetMe>
 		{({ loading, error, data }) => {
-			console.log(data)
 			if (loading) return <Loader message='Loading'/>
 			if (error) return 'Internal server error'
 			const server = serverId ? data.getMe.servers.filter(server => server._id === serverId)[0] : null
