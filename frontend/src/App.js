@@ -1,19 +1,29 @@
-import React from 'react'
+import React, { useContext } from 'react'
 
-import { Router } from '@reach/router'
+import { Router, Redirect } from '@reach/router'
 
 import { Home } from './pages/Home'
+import { Login } from './pages/Login'
+import { Signup } from './pages/Signup'
 
 import { GlobalStyle } from './components/Styles/GlobalStyle'
 
+import { Context } from './Context'
+
 export const App = () => {
+	const { isAuth } = useContext(Context)
+
 	return (
 		<>
 			<GlobalStyle />
 			<Router>
-				<Home path="/" />
-				<Home path="/:serverId" />
-				<Home path="/:serverId/?channelId" />
+				{!isAuth && <Login path='/login' />}
+				{!isAuth && <Signup path='/signup' />}
+				{!isAuth && <Redirect noThrow  from='/' to='/login'/>}
+				<Home path='/' />
+				{isAuth && <Home path='/:serverId' />}
+				{isAuth && <Home path='/:serverId/:channelId' />}
+				{isAuth && <Redirect noThrow  from='/login' to='/' />}
 			</Router>
 		</>
 	)

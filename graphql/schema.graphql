@@ -37,6 +37,11 @@ input UserEditInput {
 	password: String
 }
 
+input UserCredentials {
+	username: String!
+	password: String!
+}
+
 # => SERVERS
 
 input ServerInput {
@@ -70,7 +75,9 @@ type Query {
 	"Gets all users"
 	getUsers: [User]
 	"Gets a user"
-	getUser(id: ID!): User
+	getUser(username: String!): User
+	"Gets the logged user using the jwt payload"
+	getMe: User
 	"Gets all servers"
 	getServers: [Server]
 	"Gets a server"
@@ -102,4 +109,8 @@ type Mutation {
 	addUserToServer(userId: ID!, serverId: ID!): Server
 	"Adds a user to the friends list"
 	addFriend(userId: ID!, friendId: ID!): [User] # => Returns both users new friend
+	"Returns a token to perform auth"
+	logIn(input: UserCredentials!): String
+	"Creates a personal user and returns a token to perform auth"
+	signUp(input: UserInput!): String
 }

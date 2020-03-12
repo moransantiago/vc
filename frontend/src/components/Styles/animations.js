@@ -1,34 +1,49 @@
 import { css, keyframes } from 'styled-components'
 
-export const fadeIn = ({ time = '1s', type = 'ease' } = {}) =>
+export const buttonsHover = ({ time = '0.5s', type = 'ease' } = {}) =>
 	css`
-		animation: ${time} ${fadeInKeyFrames} ${type};
-	`
-export const inputFocus = ({ time = '0.8s', type = 'ease' } = {}) =>
+		animation: ${time} ${buttonsHoverKeyFrames} ${type} forwards; /* => forwards makes the animation stay as it finishes */
+    `
+    
+export const inputFocus = ({ time = '0.2s', type = 'ease' } = {}) =>
 	css`
 		animation: ${time} ${inputKeyFrames} ${type} forwards;
+    `
+    
+export const zoomServer = ({ time = '0.8s', type = 'ease' } = {}) =>
+	css`
+		animation: ${time} ${zoomServerKeyFrames} ${type} forwards;
 	`
 
-const fadeInKeyFrames = keyframes`
+const buttonsHoverKeyFrames = keyframes`
     from {
-        opacity: 0.4;
-        filter: blur(1px);
+        background-color: inherit;
+		border: 1px solid #e6e6e6;
     }
 
     to {
-        opacity: 1;
-        filter: blur(0);
+		background-color: #e6e6e6;
+		border: 1px solid #d9d9d9;
     }
 `
 
 const inputKeyFrames = keyframes`
     from {
         filter: blur(0.2px);
-        border: 2px solid #ededed;
+        border: 1px solid #ededed;
     }
 
     to {
         filter: blur(0);
-        border: 2px solid rgb(140, 136, 168);
+        border: 1px solid rgb(140, 136, 168);
+    }
+`
+
+const zoomServerKeyFrames = keyframes`
+    from {
+        transform: scale(1);
+    }
+    to {
+        transform: scale(1.1);
     }
 `
