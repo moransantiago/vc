@@ -24,6 +24,7 @@ export const App = () => {
 				{isAuth && <Home path='/:serverId' />}
 				{isAuth && <Home path='/:serverId/:channelId' />}
 				{isAuth && <Redirect noThrow  from='/login' to='/' />}
+				{isAuth && <Redirect noThrow  from='/signup' to='/' />}
 			</Router>
 		</>
 	)

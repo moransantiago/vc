@@ -9,14 +9,20 @@ import {
 	Subtitle,
 	Tag,
 	DivFriends,
-	Input
+	Input,
+	Buttons,
+	Button
 } from './styles'
 
-import { Card } from '../Card/index'
+import { SearchFriends } from '../../containers/SearchFriends'
+
+import { UsersSearch } from '../UsersSearch'
+import { Card } from '../Card'
 
 import { useInputValue } from '../../hooks/useInputValue'
 
-import { MdSettings } from 'react-icons/md'
+import { MdSettings, MdCall, MdMessage } from 'react-icons/md'
+
 import { FaUserFriends } from 'react-icons/fa'
 
 export const FriendsColumn = ({ friends, friendRequests }) => {
@@ -24,31 +30,54 @@ export const FriendsColumn = ({ friends, friendRequests }) => {
 
 	return (
 		<DivColumn className='column is-2 has-background-light'>
-			<Title>Friends</Title>
-			<div style={{ marginTop: '25px' }}>
-				<DivFriends>
-					<Subtitle>Online</Subtitle>
-					{friends.map((friend, index) => (
-						<Card key={index} title={friend.username} isUser />
-					))}
-					<Subtitle>Offline</Subtitle>
-					{[
-						'Agustin',
-						'Santiago',
-						'Manuel',
-						'Agustin',
-						'Santiago',
-						'Manuel'
-					].map((friend, index) => (
-						<Card
-							key={index}
-							title={friend}
-							disabled={true}
-							isUser
-						/>
-					))}
-				</DivFriends>
-			</div>
+			{!friendSearchInput.value ? (
+				<>
+					<Title>Friends</Title>
+					<div style={{ marginTop: '25px' }}>
+						<DivFriends>
+							<Subtitle>Online</Subtitle>
+							{friends.map((friend, index) => (
+								<Card
+									key={index}
+									title={friend.username}
+									isUser
+								/>
+							))}
+							<Subtitle>Offline</Subtitle>
+							{[
+								'Agustin',
+								'Santiago',
+								'Manuel',
+								'Agustin',
+								'Santiago',
+								'Manuel'
+							].map((friend, index) => (
+								<Card
+									key={index}
+									title={friend}
+									disabled={true}
+								>
+									<Buttons>
+										<Button disabled={true}>
+											<MdCall size='15px' />
+										</Button>
+										<Button>
+											<MdMessage size='15px' />
+										</Button>
+									</Buttons>
+								</Card>
+							))}
+						</DivFriends>
+					</div>
+				</>
+			) : (
+				<SearchFriends username={friendSearchInput.value}>
+					{({ loading, error, data }) => {
+						if (loading) return <h1></h1>
+						return <UsersSearch users={data && data.filterUsers} />
+					}}
+				</SearchFriends>
+			)}
 			<div>
 				<Input
 					placeholder='Find new friends'
