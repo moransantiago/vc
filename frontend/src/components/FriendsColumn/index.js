@@ -39,10 +39,7 @@ export const FriendsColumn = ({ friends, friendRequests }) => {
 						<DivFriends>
 							<Subtitle>Online</Subtitle>
 							{friends.map((friend, index) => (
-								<Card
-									key={index}
-									title={friend.username}
-								>
+								<Card key={index} title={friend.username}>
 									<Buttons>
 										<Button>
 											<MdCall size='15px' />
@@ -82,7 +79,7 @@ export const FriendsColumn = ({ friends, friendRequests }) => {
 				</>
 			) : (
 				<AddFriend>
-					{(addFriend, { loading, error }) => {
+					{addFriend => {
 						const onClick = ({ userId }) => {
 							const variables = { userId }
 							addFriend({ variables })
@@ -92,7 +89,7 @@ export const FriendsColumn = ({ friends, friendRequests }) => {
 
 						return (
 							<SearchFriends username={friendSearchInput.value}>
-								{({ loading, error, data }) => {
+								{({ loading, data }) => {
 									if (loading)
 										return (
 											<h1 style={{ 'font-size': '22px' }}>
@@ -146,7 +143,7 @@ export const FriendsColumn = ({ friends, friendRequests }) => {
 							<div className='dropdown-content is-paddingless'>
 								<div className='dropdown-item is-paddingless'>
 									<AddFriend>
-										{(addFriend, { loading, error }) => {
+										{addFriend => {
 											const onClick = ({ userId }) => {
 												const variables = { userId }
 												addFriend({ variables }).catch(

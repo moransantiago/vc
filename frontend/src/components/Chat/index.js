@@ -26,7 +26,7 @@ export const Chat = ({ channel }) => (
 				<Input type='text' placeholder={`Your message on chat`}></Input>
 			</DivInput>
 		</DivColumn>
-		<DivColumn className='column is-3 has-background-grey-lighter'>
+		<DivColumn id='videos' className='column is-3 has-background-grey-lighter'>
 			<video id='localVideo' autoPlay={true} muted playsInline />
 		</DivColumn>
 	</>

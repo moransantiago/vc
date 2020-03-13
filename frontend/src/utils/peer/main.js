@@ -103,9 +103,9 @@ export const peerSetUp = async username => {
 	}
 
 	const createNewVideoElement = () => {
-		const body = document.getElementById('body')
+		const videoContainer = document.getElementById('videos')
 		const newVideoElement = document.createElement('video')
-		body.appendChild(newVideoElement)
+		videoContainer.appendChild(newVideoElement)
 
 		return newVideoElement
 	}
