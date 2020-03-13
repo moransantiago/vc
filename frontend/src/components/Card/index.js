@@ -1,6 +1,6 @@
 import React from 'react'
 
-import { DivContainer, Header, Image } from './styles'
+import { DivContainer, Header, Image, Title } from './styles'
 
 export const Card = ({
     disabled = false,
@@ -11,7 +11,7 @@ export const Card = ({
     <DivContainer disabled={disabled}>
         <Header>
             <Image src={userImage} />
-            {title}
+            <Title>{title}</Title>
         </Header>
         {children}
     </DivContainer>

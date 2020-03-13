@@ -19,16 +19,23 @@ export const DivContainer = styled.div`
 
 export const Image = styled.img`
 	border: 1px solid #ddd;
-	margin: 0 14px 0 0;
+	margin: 0 8px 0 0;
 	border-radius: 50%;
 	height: auto;
 	overflow: hidden;
 	object-fit: cover;
-	height: 35px;
-	width: 35px;
+	height: 30px;
+	width: 30px;
+	min-width: 30px;
+	min-height: 30px;
 `
 
 export const Header = styled.div`
 	display: flex;
 	align-items: center;
+	overflow-x: hidden;
+`
+
+export const Title = styled.h1`
+	font-size: 15px;
 `

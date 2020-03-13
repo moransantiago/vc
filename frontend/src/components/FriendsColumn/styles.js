@@ -29,7 +29,7 @@ export const Button = styled.button`
 	border-radius: 3px;
 	background-color: inherit;
 	&:hover {
-		${props => (!props.disabled && buttonsHover({ time: '0.2s' }))};
+		${props => !props.disabled && buttonsHover({ time: '0.2s' })};
 	}
 `
 
@@ -37,6 +37,12 @@ export const Title = styled.h1`
 	position: fixed;
 	font-size: 20px !important;
 	margin: 0 0 4px 0;
+`
+
+export const DivDropdown = styled.div`
+	left: -20px;
+	width: 240px;
+	padding: 0;
 `
 
 export const DivFriends = styled.div`
