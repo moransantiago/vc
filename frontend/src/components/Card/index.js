@@ -1,29 +1,18 @@
 import React from 'react'
 
-import { DivContainer, Header, Image, Buttons, Button } from './styles'
-
-import { MdCall, MdMessage } from 'react-icons/md'
+import { DivContainer, Header, Image, Title } from './styles'
 
 export const Card = ({
     disabled = false,
+    children,
     title,
-    userImage = 'https://citas.in/media/authors/diego-maradona.detail.jpg',
-    isUser = false
+    userImage = 'https://citas.in/media/authors/diego-maradona.detail.jpg'
 }) => (
     <DivContainer disabled={disabled}>
         <Header>
             <Image src={userImage} />
-            {title}
+            <Title>{title}</Title>
         </Header>
-        {isUser && (
-            <Buttons>
-                <Button disabled={disabled}>
-                    <MdCall size='15px' />
-                </Button>
-                <Button disabled={disabled}>
-                    <MdMessage size='15px' />
-                </Button>
-            </Buttons>
-        )}
+        {children}
     </DivContainer>
 )

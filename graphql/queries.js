@@ -34,6 +34,22 @@ module.exports = {
             errorHandler(error)
         }
     },
+    filterUsers: async (root, { username }, { headers: { authorization } }) => {
+        try {
+            const users = await jwt.verify(authorization, config.authJwtSecret, async err => {
+                if (err) throw new Error('User must be authorized')
+
+                const db = await mydb()
+                const users = await db.collection('users').find({ $text: { $search: username } }).toArray()
+                
+                return users
+            })
+
+            return users
+        } catch (error) {
+            errorHandler(error)
+        }
+    },
     getMe: async (root, variables, { headers: { authorization } }) => {
         try {
             const user = await jwt.verify(authorization, config.authJwtSecret, async(err, tokenPayload) => {

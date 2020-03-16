@@ -76,6 +76,8 @@ type Query {
 	getUsers: [User]
 	"Gets a user"
 	getUser(username: String!): User
+	"Gets users based on a search"
+	filterUsers(username: String!): [User]
 	"Gets the logged user using the jwt payload"
 	getMe: User
 	"Gets all servers"
@@ -108,7 +110,7 @@ type Mutation {
 	"Adds a user to a server"
 	addUserToServer(userId: ID!, serverId: ID!): Server
 	"Adds a user to the friends list"
-	addFriend(userId: ID!, friendId: ID!): [User] # => Returns both users new friend
+	addFriend(userId: ID!): [User] # => Returns both users
 	"Returns a token to perform auth"
 	logIn(input: UserCredentials!): String
 	"Creates a personal user and returns a token to perform auth"

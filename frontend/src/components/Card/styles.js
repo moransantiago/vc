@@ -1,7 +1,5 @@
 import styled from 'styled-components'
 
-import { buttonsHover } from '../Styles/animations'
-
 export const DivContainer = styled.div`
 	border-radius: 4px;
 	padding: 2% 4%;
@@ -21,37 +19,23 @@ export const DivContainer = styled.div`
 
 export const Image = styled.img`
 	border: 1px solid #ddd;
-	margin: 0 14px 0 0;
+	margin: 0 8px 0 0;
 	border-radius: 50%;
 	height: auto;
 	overflow: hidden;
 	object-fit: cover;
-	height: 35px;
-	width: 35px;
-`
-
-export const Buttons = styled.div`
-	display: flex;
-	align-items: center;
-	justify-content: center;
-`
-
-export const Button = styled.button`
-	display: flex;
-	align-items: center;
-	justify-content: center;
-	border: 0;
 	height: 30px;
 	width: 30px;
-	padding: 1px;
-	border-radius: 3px;
-	background-color: inherit;
-	&:hover {
-		${props => (!props.disabled && buttonsHover({ time: '0.2s' }))};
-	}
+	min-width: 30px;
+	min-height: 30px;
 `
 
 export const Header = styled.div`
 	display: flex;
 	align-items: center;
+	overflow-x: hidden;
+`
+
+export const Title = styled.h1`
+	font-size: 15px;
 `

@@ -12,7 +12,7 @@ import { GetMe } from '../containers/GetMe'
 const HomePage = ({ serverId, channelId }) => (
 	<GetMe>
 		{({ loading, error, data }) => {
-			if (loading) return <Loader message='Loading'/>
+			if (loading) return <Loader message='Loading...'/>
 			if (error) return 'Internal server error'
 			const server = serverId ? data.getMe.servers.filter(server => server._id === serverId)[0] : null
 			const channel = channelId && server ? server.channels.filter(channel => channel._id === channelId )[0] : null

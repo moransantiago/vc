@@ -1,6 +1,6 @@
 import styled from 'styled-components'
 
-import { inputFocus } from '../Styles/animations'
+import { inputFocus, buttonsHover } from '../Styles/animations'
 
 export const DivColumn = styled.div`
 	border-top-left-radius: 5px;
@@ -12,10 +12,37 @@ export const DivColumn = styled.div`
 	justify-content: space-between;
 `
 
+export const Buttons = styled.div`
+	display: flex;
+	align-items: center;
+	justify-content: center;
+`
+
+export const Button = styled.button`
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	border: 0;
+	height: 30px;
+	width: 30px;
+	padding: 1px;
+	border-radius: 3px;
+	background-color: inherit;
+	&:hover {
+		${props => !props.disabled && buttonsHover({ time: '0.2s' })};
+	}
+`
+
 export const Title = styled.h1`
 	position: fixed;
 	font-size: 20px !important;
 	margin: 0 0 4px 0;
+`
+
+export const DivDropdown = styled.div`
+	left: -20px;
+	width: 240px;
+	padding: 0;
 `
 
 export const DivFriends = styled.div`
