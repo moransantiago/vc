@@ -16,7 +16,9 @@ export const Login = () => {
 					const input = { username, password }
 					const variables = { input }
 					logIn({ variables })
-						.then(({ data: { logIn } }) => { activateAuth(logIn) })
+						.then(({ data: { logIn } }) => {
+							activateAuth(logIn)
+						 })
 						.catch(err => err)
                 }
 				const errorMsg = error && 'Wrong username or password'

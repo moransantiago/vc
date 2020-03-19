@@ -170,22 +170,12 @@ module.exports = {
 				
 				const db = await mydb()
 				const existsFriendReq = await db.collection('users').findOne({
-					$or: [
-						{
-							$and: [
-								{ _id: ObjectID(id) },
-								{ friendRequests: { $eq: ObjectID(userId) } }
-							]
-						},
-						{ friends: { $eq: ObjectID(userId) } }
+					$and: [
+						{ _id: ObjectID(id) },
+						{ friendRequests: { $eq: ObjectID(userId) } }
 					]
-					// This query will find an object
-					// !IF!
-					// 1 => The _id is: ObjectID(id)
-					// !AND!
-					// 2 => The friends _id wich is an <array>, matches userId
 				})
-				// I DELETE THE FRIEND REQ FROM USERID AND ADD IT TO MY FRIENDS, THINK ABOUT ELSE
+				// I DELETE THE FRIEND REQ FROM USERID AND ADD IT TO MY FRIENDS
 				if (existsFriendReq) {
 					await db
 						.collection('users')
@@ -218,6 +208,58 @@ module.exports = {
 						.updateOne(
 							{ _id: ObjectID(userId) },
 							{ $addToSet: { friendRequests: ObjectID(id) } }
+						)
+				}
+		
+				return [
+					await db.collection('users').findOne({ _id: ObjectID(id) }),
+					await db.collection('users').findOne({ _id: ObjectID(userId) })
+				]
+				})
+			
+			return users
+		} catch (error) {
+			errorHandler(error)
+		}
+	},
+	removeFriend: async (root, { userId }) => {
+		try {
+			const users = await jwt.verify(authorization, config.authJwtSecret, async (err, { id }) => {
+				if (err) throw new Error('User must be authorized')
+				
+				const db = await mydb()
+				const isAlreadyMyFriend = await db.collection('users').findOne({
+					$and: [
+						{ _id: ObjectID(id) },
+						{ friends: { $eq: ObjectID(userId) } }
+					]
+				})
+				// I THE USER IS ALREADY MY FRIEND DELETE THE USER ID FROM FRIENDS ARRAY AND MY USER ID FROM THE OTHERS ARRAY
+				if (isAlreadyMyFriend) {
+					await db
+						.collection('users')
+						.updateOne(
+							{ _id: ObjectID(id) },
+							{ $pull: { friends: ObjectID(userId) } }
+						)
+					await db
+						.collection('users')
+						.updateOne(
+							{ _id: ObjectID(userId) },
+							{ $pull: { friends: ObjectID(id) } }
+						)
+				} else { // OR I DELETE THE FRIEND REQ FROM BOTH USERS
+					await db
+						.collection('users')
+						.updateOne(
+							{ _id: ObjectID(id) },
+							{ $pull: { friendRequests: ObjectID(userId) } }
+						)
+					await db
+						.collection('users')
+						.updateOne(
+							{ _id: ObjectID(userId) },
+							{ $pull: { friendRequests: ObjectID(id) } }
 						)
 				}
 		

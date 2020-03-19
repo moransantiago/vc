@@ -109,8 +109,10 @@ type Mutation {
 	deleteChannel(id: ID!): ID
 	"Adds a user to a server"
 	addUserToServer(userId: ID!, serverId: ID!): Server
-	"Adds a user to the friends list"
+	"Adds a user id to the friend requests array OR adds a user id to the friend array (if the friend req was already sent)"
 	addFriend(userId: ID!): [User] # => Returns both users
+	"Removes a friend request from the friend requests array OR removes a user id from the friend array (if the userId was already a friend)"
+	removeFriend(userId: ID!): [User] # => Returns both users
 	"Returns a token to perform auth"
 	logIn(input: UserCredentials!): String
 	"Creates a personal user and returns a token to perform auth"

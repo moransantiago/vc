@@ -30,7 +30,7 @@ const getMe = gql`
 `
 
 export const GetMe = ({ children }) => (
-	<Query query={getMe}>
+	<Query query={getMe} fetchPolicy='network-only'>
 		{children}
 	</Query>
 )

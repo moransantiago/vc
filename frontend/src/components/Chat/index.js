@@ -13,7 +13,7 @@ import {
 
 export const Chat = ({ channel }) => (
 	<>
-		<DivColumn className='column is-paddingless is-5 has-background-grey-lighter'>
+		<DivColumn className='column is-paddingless is-5'>
 			<DivTitle>
 				<Title>
 					{channel ? `${channel.name}'s chat` : `Channel's name`}

@@ -3,9 +3,8 @@ import styled from 'styled-components'
 import { inputFocus, buttonsHover } from '../Styles/animations'
 
 export const DivColumn = styled.div`
-	border-top-left-radius: 5px;
-	margin-top: 35px;
 	padding: 15px 15px 15px 15px;
+	background-color: #282828;
 	box-shadow: 0px 10px 14px rgba(0, 0, 0, 0.2);
 	display: flex;
 	flex-direction: column;
@@ -37,6 +36,7 @@ export const Title = styled.h1`
 	position: fixed;
 	font-size: 20px !important;
 	margin: 0 0 4px 0;
+	color: #e6e6e6;
 `
 
 export const DivDropdown = styled.div`
@@ -52,12 +52,19 @@ export const DivFriends = styled.div`
 export const Subtitle = styled.h2`
 	font-size: 15px !important;
 	margin: 9px 0 8px 4px;
+	color: #e6e6e6;
 `
 
 export const DivButtons = styled.div`
 	padding: 6% 6% 0 6%;
 	display: flex;
 	justify-content: space-between;
+`
+
+export const DivScrollable = styled.div`
+	margin: 25px 0 0 0;
+	overflow-y: auto;
+	overflow-x: auto;
 `
 
 export const Tag = styled.span`

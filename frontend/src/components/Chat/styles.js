@@ -3,12 +3,16 @@ import styled from 'styled-components'
 import { inputFocus } from '../Styles/animations'
 
 export const DivColumn = styled.div`
-	margin-top: 70px;
+	margin-top: 60px;
+	background-color: #282828;
+	border: 1px solid #4f4f4f;
 `
 
 export const DivTitle = styled.div`
 	padding: 12px 12px 12px 38px;
-	background-color: #d1d1d1;
+	background-color: #282828;
+	color: #e6e6e6;
+	border-bottom: 1px solid #4f4f4f;
 `
 
 export const DivBodyChat = styled.div`
@@ -18,14 +22,14 @@ export const DivBodyChat = styled.div`
 	height: 75%;
 `
 
-export const Title = styled.h1`
+export const Title = styled.p`
 	font-size: 20px;
+	font-weight: 500;
 `
 
 export const Input = styled.input`
 	border: 1px solid #ededed;
 	background-color: #ededed;
-	border-radius: 4px;
 	height: 35px;
 	width: 100%;
 	padding: 5px 10px;
@@ -39,5 +43,5 @@ export const Input = styled.input`
 `
 
 export const DivInput = styled.div`
-	padding: 0 5% 5% 5%;
+	height: auto;
 `

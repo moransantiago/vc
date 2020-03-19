@@ -9,10 +9,11 @@ import { Context } from '../../Context'
 import { peerSetUp } from '../../utils/peer/main'
 
 const useJoinChannel = username => {
-	const [socket, setSocket] = useState('')
+	const [socket, setSocket] = useState()
 
 	useEffect(() => {
-		peerSetUp(username).then(socket => setSocket(socket))
+		peerSetUp(username)
+			.then(socket => setSocket(socket))
 	}, [username])
 
 	return [socket, setSocket]
@@ -23,7 +24,7 @@ export const LeftColumn = ({ server, channels }) => {
 	const [socket] = useJoinChannel(username)
 
 	return channels ? (
-		<DivColumn className='column is-2 has-background-light'>
+		<DivColumn className='column is-2'>
 			<Title>{server.name}</Title>
 			<DivContainer>
 				{channels.map((channel, index) => (
@@ -41,7 +42,7 @@ export const LeftColumn = ({ server, channels }) => {
 			</DivContainer>
 		</DivColumn>
 	) : (
-		<DivColumn className='column is-2 has-background-light'>
+		<DivColumn className='column is-2'>
 			<Title>Server</Title>
 			<DivContainer>
 				<p>Loading...</p>

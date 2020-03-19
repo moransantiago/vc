@@ -1,10 +1,11 @@
-import React from 'react'
+import React, { useState } from 'react'
 
 import 'bulma/css/bulma.css'
 
 import {
 	DivButtons,
 	DivColumn,
+	DivScrollable,
 	Title,
 	Subtitle,
 	Tag,
@@ -23,26 +24,29 @@ import { Card } from '../Card'
 
 import { useInputValue } from '../../hooks/useInputValue'
 
-import { MdSettings, MdCall, MdMessage, MdDone, MdCancel } from 'react-icons/md'
+import { MdSettings, MdMessage, MdDone, MdCancel } from 'react-icons/md'
+import { FiPhoneCall } from 'react-icons/fi'
 
 import { FaUserFriends } from 'react-icons/fa'
 
 export const FriendsColumn = ({ friends, friendRequests }) => {
 	const friendSearchInput = useInputValue('')
+	const [ myFriends, setFriends ] = useState(friends)
+	const [ myFriendRequests, setFriendRequests ] = useState(friendRequests)
 
 	return (
-		<DivColumn className='column is-2 has-background-light'>
+		<DivColumn className='column is-2'>
 			{!friendSearchInput.value ? (
 				<>
 					<Title>Friends</Title>
-					<div style={{ marginTop: '25px' }}>
+					<DivScrollable>
 						<DivFriends>
 							<Subtitle>Online</Subtitle>
-							{friends.map((friend, index) => (
+							{myFriends.map((friend, index) => (
 								<Card key={index} title={friend.username}>
 									<Buttons>
 										<Button>
-											<MdCall size='15px' />
+											<FiPhoneCall size='15px' />
 										</Button>
 										<Button>
 											<MdMessage size='15px' />
@@ -66,7 +70,7 @@ export const FriendsColumn = ({ friends, friendRequests }) => {
 								>
 									<Buttons>
 										<Button disabled={true}>
-											<MdCall size='15px' />
+											<FiPhoneCall size='15px' />
 										</Button>
 										<Button>
 											<MdMessage size='15px' />
@@ -75,7 +79,7 @@ export const FriendsColumn = ({ friends, friendRequests }) => {
 								</Card>
 							))}
 						</DivFriends>
-					</div>
+					</DivScrollable>
 				</>
 			) : (
 				<AddFriend>
@@ -152,11 +156,7 @@ export const FriendsColumn = ({ friends, friendRequests }) => {
 											}
 
 											return friendRequests.length > 0 ? (
-												friendRequests.map(
-													(
-														{ username, _id },
-														index
-													) => (
+												myFriendRequests.map(({ username, _id }, index) => (
 														<Card
 															key={index}
 															title={username}
@@ -164,11 +164,9 @@ export const FriendsColumn = ({ friends, friendRequests }) => {
 															<Buttons>
 																<Button
 																	onClick={() => {
-																		onClick(
-																			{
-																				userId: _id
-																			}
-																		)
+																		onClick({ userId: _id })
+																		setFriends([ ...friends, { _id, username } ])
+																		setFriendRequests([ ...friendRequests ].push({ username, _id }))
 																	}}
 																>
 																	<MdDone size='15px' />

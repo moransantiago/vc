@@ -19,9 +19,8 @@ export const App = () => {
 			<Router>
 				{!isAuth && <Login path='/login' />}
 				{!isAuth && <Signup path='/signup' />}
-				{!isAuth && <Redirect noThrow  from='/' to='/login'/>}
-				<Home path='/' />
-				{isAuth && <Home path='/:serverId' />}
+				{!isAuth && <Redirect noThrow  from='/' to='/login' />}
+				{isAuth && <Home path='/' />}
 				{isAuth && <Home path='/:serverId/:channelId' />}
 				{isAuth && <Redirect noThrow  from='/login' to='/' />}
 				{isAuth && <Redirect noThrow  from='/signup' to='/' />}

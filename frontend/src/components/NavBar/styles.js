@@ -1,7 +1,8 @@
 import styled from 'styled-components'
 
+import { Link as LinkRouter } from '@reach/router'
+
 export const Image = styled.img`
-	border: 1px solid #ddd;
 	border-radius: 50%;
 	height: auto;
 	overflow: hidden;
@@ -11,24 +12,29 @@ export const Image = styled.img`
 	width: 45px;
 `
 
-export const Nav = styled.nav`
+export const Nav = styled.div`
 	display: flex;
 	flex-direction: row;
-	align-items: center !important;
-	margin: 0 400px 0 0;
-	height: 10vh;
-	padding: 8px;
-	border: 2px solid #ededed;
+	align-items: center;
+	justify-content: space-between;
+	min-height: 15px;
+	width: 100vw;
+	background-color: #242424;
 `
 
-export const NavSpan = styled.span`
+export const NavHeader = styled.span`
 	display: flex;
-	flex-direction: column;
-	margin-left: 15px;
-	text-align: left !important;
 `
 
-export const Button = styled.button`
+export const Paragraph = styled.p`
+	color: #e6e6e6;
+	margin-left: 15px;
+	display: table-cell;
+	vertical-align: middle;
+	font-weight: bold;
+`
+
+export const Link = styled(LinkRouter)`
 	font-family: Montserrat;
 	color: #8c88a8;
 	font-size: 16px;

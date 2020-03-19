@@ -10,7 +10,7 @@ export const DivContainer = styled.div`
 	justify-content: space-between;
 	align-items: center !important;
 	&:hover {
-		background-color: #f0f0f0;
+		background-color: #393939;
 	}
 	&[disabled] {
 		opacity: 0.5;
@@ -18,7 +18,6 @@ export const DivContainer = styled.div`
 `
 
 export const Image = styled.img`
-	border: 1px solid #ddd;
 	margin: 0 8px 0 0;
 	border-radius: 50%;
 	height: auto;
@@ -38,4 +37,5 @@ export const Header = styled.div`
 
 export const Title = styled.h1`
 	font-size: 15px;
+	color: #e6e6e6;
 `
