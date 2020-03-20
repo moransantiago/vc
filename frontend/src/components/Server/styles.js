@@ -6,6 +6,7 @@ import { zoomServer } from '../Styles/animations'
 
 export const Img = styled.img`
 	border-radius: 20%;
+	border: 1px solid #4f4f4f;
 	overflow: hidden;
 	object-fit: cover;
 	width: 50px;

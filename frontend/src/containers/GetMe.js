@@ -8,7 +8,6 @@ const getMe = gql`
 		getMe {
 			_id
 			username
-			email
 			servers {
 				_id
 				name

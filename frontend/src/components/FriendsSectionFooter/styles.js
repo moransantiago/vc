@@ -1,6 +1,6 @@
 import styled from 'styled-components'
 
-import { inputFocus, buttonsHover } from '../Styles/animations'
+import { buttonsHover } from '../Styles/animations'
 
 export const Buttons = styled.div`
 	display: flex;
@@ -35,8 +35,13 @@ export const Subtitle = styled.h2`
 	color: #e6e6e6;
 `
 
+export const DivFooter = styled.div`
+	position: fixed;
+	bottom: 0px;
+`
+
 export const DivButtons = styled.div`
-	padding: 6% 6% 0 6%;
+	padding: 6% 6% 6% 6%;
 	display: flex;
 	justify-content: space-between;
 `
@@ -52,18 +57,13 @@ export const Tag = styled.span`
 `
 
 export const Input = styled.input`
-	border: 1px solid #e8e8e8;
-	background-color: #ededed;
+	border: 0;
+	background-color: #5e5e5e;
 	border-radius: 4px;
-	height: 35px;
+	color: #b3b3b3;
+	font-weight: bolder;
+	height: 32px;
 	width: 100%;
 	padding: 5px 10px;
 	font-family: Montserrat;
-	&:hover {
-		background-color: #e8e8e8;
-	}
-	&:focus {
-		${inputFocus()};
-	}
 `
-

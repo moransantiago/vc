@@ -1,10 +1,6 @@
 import React from 'react'
 
-import { LeftColumn } from '../components/LeftColumn'
-import { Chat } from '../components/Chat/index'
-import { FriendsColumn } from '../components/FriendsColumn/index'
-import { NavBar } from '../components/NavBar/index'
-import { ServersBar } from '../components/ServersBar'
+import { HomeComponent } from '../components/HomeComponent'
 import { Loader } from '../components/Loader'
 
 import { GetMe } from '../containers/GetMe'
@@ -18,35 +14,7 @@ const HomePage = ({ serverId, channelId, navigate }) => (
 			const channel = channelId && server ? server.channels.filter(channel => channel._id === channelId )[0] : data.getMe.servers[0].channels[0]._id
 			if (!serverId || !channelId) navigate(`/${server}/${channel}`)
 
-			return (
-				<>
-					<NavBar username={data.getMe.username} />
-					<ServersBar servers={data.getMe.servers} currentServer={serverId}/>
-					<div
-						className='columns is-marginless'
-						style={{
-							backgroundColor: 'rgb(140, 136, 168)',
-							height: '100vh',
-							fontFamily: 'Montserrat'
-						}}
-					>
-						<LeftColumn
-							server={
-								server && {
-									id: serverId,
-									name: server.name
-								}
-							}
-							channels={server && server.channels}
-						/>
-						<Chat channel={channel} />
-						<FriendsColumn
-							friends={data.getMe.friends}
-							friendRequests={data.getMe.friendRequests}
-						/>
-					</div>
-				</>
-			)
+			return <HomeComponent data={data.getMe} server={server} channel={channel} />
 		}}
 	</GetMe>
 )

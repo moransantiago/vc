@@ -7,13 +7,13 @@ import { DivScrollable, Title, Subtitle, Buttons, Button, DivFriends } from './s
 import { MdMessage } from 'react-icons/md'
 import { FiPhoneCall } from 'react-icons/fi'
 
-export const MyFriends = ({ myFriends }) => (
+export const MyFriends = ({ friends }) => (
     <>
 		<Title>Friends</Title>
 		<DivScrollable>
 			<DivFriends>
 				<Subtitle>Online</Subtitle>
-				{myFriends.map((friend, index) => (
+				{friends.map((friend, index) => (
 					<Card key={index} title={friend.username}>
 						<Buttons>
 							<Button>

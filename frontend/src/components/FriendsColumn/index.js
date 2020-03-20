@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React from 'react'
 
 import 'bulma/css/bulma.css'
 
@@ -10,18 +10,16 @@ import { DivColumn } from './styles'
 
 import { useInputValue } from '../../hooks/useInputValue'
 
-export const FriendsColumn = ({ friends, friendRequests }) => {
+export const FriendsColumn = ({ friends, friendRequests, addNewFriend }) => {
 	const friendSearchInput = useInputValue('')
-	const [ myFriends, setFriends ] = useState(friends)
-	const [ myFriendRequests, setFriendRequests ] = useState(friendRequests)
 
 	return (
 		<DivColumn className='column is-2'>
 			{!friendSearchInput.value
-				? <MyFriends myFriends={myFriends} />
+				? <MyFriends friends={friends} />
 				: <SearchFriendsColumn keyword={friendSearchInput.value} />
 			}
-			<FriendsSectionFooter myFriends={myFriends} myFriendRequests={myFriendRequests} setFriends={setFriends} setFriendRequests={setFriendRequests} friendSearchInput={friendSearchInput}/>
+			<FriendsSectionFooter friendRequests={friendRequests} addNewFriend={addNewFriend} friendSearchInput={friendSearchInput} />
 		</DivColumn>
 	)
 }

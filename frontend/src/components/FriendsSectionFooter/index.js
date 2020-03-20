@@ -4,13 +4,13 @@ import { AddFriend } from '../../containers/AddFriend'
 
 import { Card } from '../Card'
 
-import { DivButtons, Subtitle, Tag, DivDropdown, Input, Buttons, Button } from './styles'
+import { DivFooter, DivButtons, Subtitle, Tag, DivDropdown, Input, Buttons, Button } from './styles'
 
 import { MdSettings, MdDone, MdCancel } from 'react-icons/md'
 import { FaUserFriends } from 'react-icons/fa'
 
-export const FriendsSectionFooter = ({ myFriends, myFriendRequests, setFriends, setFriendRequests, friendSearchInput }) => (
-	<div>
+export const FriendsSectionFooter = ({ friendRequests, addNewFriend, friendSearchInput }) => (
+	<DivFooter>
 		<Input placeholder='Find new friends' type='text' {...friendSearchInput} />
 		<DivButtons>
 			<div className='dropdown is-up is-hoverable'>
@@ -45,23 +45,12 @@ export const FriendsSectionFooter = ({ myFriends, myFriendRequests, setFriends, 
 									const onClick = ({ userId, username }) => {
 										const variables = { userId }
 										addFriend({ variables })
-											.then(() => {
-												setFriends([
-													...myFriends,
-													{ _id: userId, username }
-												])
-												setFriendRequests(
-													[...myFriendRequests].push({
-														_id: userId,
-														username
-													})
-												)
-											})
+											.then(() => { addNewFriend({ _id: userId, username }) })
 											.catch(err => err)
 									}
 
-									return myFriendRequests.length > 0 ? (
-										myFriendRequests.map(
+									return friendRequests.length > 0 ? (
+										friendRequests.map(
 											({ username, _id }, index) => (
 												<Card
 													key={index}
@@ -93,9 +82,9 @@ export const FriendsSectionFooter = ({ myFriends, myFriendRequests, setFriends, 
 						</div>
 					</div>
 				</DivDropdown>
-				{myFriendRequests.length > 0 && <Tag className='tag'>{myFriendRequests.length}</Tag>}
+				{friendRequests.length > 0 && <Tag className='tag'>{friendRequests.length}</Tag>}
 			</div>
 			<MdSettings size='30px' onClick={() => { alert('Settings!') }} />
 		</DivButtons>
-	</div>
+	</DivFooter>
 )
