@@ -3,6 +3,7 @@ import React from 'react'
 import 'bulma/css/bulma.css'
 
 import {
+	DivContainer,
 	DivColumn,
 	DivTitle,
 	DivBodyChat,
@@ -12,8 +13,8 @@ import {
 } from './styles'
 
 export const Chat = ({ channel }) => (
-	<>
-		<DivColumn className='column is-paddingless is-5'>
+	<DivContainer className='columns'>
+		<DivColumn className='column is-8'>
 			<DivTitle>
 				<Title>
 					{channel ? `${channel.name}'s chat` : `Channel's name`}
@@ -26,8 +27,8 @@ export const Chat = ({ channel }) => (
 				<Input type='text' placeholder={`Your message on chat`}></Input>
 			</DivInput>
 		</DivColumn>
-		<DivColumn id='videos' className='column is-3 has-background-grey-lighter'>
+		<DivColumn id='videos' className='column is-4 has-background-grey-lighter'>
 			<video id='localVideo' autoPlay={true} muted playsInline />
 		</DivColumn>
-	</>
+	</DivContainer>
 )

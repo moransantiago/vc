@@ -5,6 +5,8 @@ import Montserrat from '../../assets/fonts/Montserrat-Regular.ttf'
 export const GlobalStyle = createGlobalStyle`
   	html, body {
 		height: 100%;
+        width: 100%;
+        margin: 0;
   	}
 
 	@font-face {

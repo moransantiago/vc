@@ -15,11 +15,20 @@ export const Img = styled.img`
 	min-height: 40px;
 	max-height: 100%;
 	max-width: 100%;
+	&:after {
+					content: '.';
+					position: absolute;
+					top: 0;
+					font-size: 34px;
+					line-height: 20px;
+				}
 `
 
 export const Link = styled(LinkRouter)`
 	margin: 0 4px 0 4px;
+	display: inline-flex;
 	border-radius: 20%;
+	color: #ffffff;
 	&:hover {
 		${zoomServer({ time: '0.1s' })};
 	}
@@ -27,6 +36,13 @@ export const Link = styled(LinkRouter)`
 		props.currentserver &&
 		css`
 			 {
+				&:after {
+					content: '.';
+					position: absolute;
+					top: 0;
+					font-size: 34px;
+					line-height: 20px;
+				}
 				transform: scale(1.1);
 			}
 		`}

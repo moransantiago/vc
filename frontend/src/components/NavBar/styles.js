@@ -15,9 +15,10 @@ export const Image = styled.img`
 export const Nav = styled.div`
 	display: flex;
 	flex-direction: row;
-	align-items: center;
 	justify-content: space-between;
-	min-height: 15px;
+	align-items: center;
+	min-height: 50px;
+	height: 50px;
 	width: 100vw;
 	background-color: #242424;
 `

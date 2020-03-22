@@ -36,8 +36,6 @@ export const Subtitle = styled.h2`
 `
 
 export const DivFooter = styled.div`
-	position: fixed;
-	bottom: 0px;
 `
 
 export const DivButtons = styled.div`

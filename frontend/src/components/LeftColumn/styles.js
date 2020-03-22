@@ -3,7 +3,7 @@ import styled from 'styled-components'
 import { Link as LinkRouter } from '@reach/router'
 
 export const DivColumn = styled.div`
-	background-color: #2f2e2e;
+	background-color: #3c3c3c;
 	padding: 15px 15px 15px 15px;
 	display: flex;
 	flex-direction: column;
