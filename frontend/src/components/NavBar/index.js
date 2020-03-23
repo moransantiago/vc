@@ -13,7 +13,7 @@ export const NavBar = ({ username }) => {
 		<Nav>
 			<NavHeader>
 				<Image src='https://citas.in/media/authors/diego-maradona.detail.jpg' />
-				<Paragraph className='is-size-5'>{username}</Paragraph>
+				<Paragraph>{username}</Paragraph>
 			</NavHeader>
 			<Link to='/' onClick={removeAuth}>Log out</Link>
 		</Nav>

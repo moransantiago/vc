@@ -12,10 +12,19 @@ export const DivColumn = styled.div`
 	height: calc(100vh - 60px - 50px);
 `
 
+export const DivColumnVideos = styled.div`
+	padding: 2%;
+	display: flex;
+	flex-direction: column;
+	background-color: #282828;
+	height: calc(100vh - 60px - 50px);
+	border: 1px solid;
+`
+
 export const DivTitle = styled.div`
 	padding: 12px 12px 12px 38px;
 	background-color: #282828;
-	color: #e6e6e6;
+	color: #ededed;
 	border-bottom: 1px solid #4f4f4f;
 	border-top: 1px solid #4f4f4f;
 	flex-grow: 1;
@@ -26,11 +35,12 @@ export const DivBodyChat = styled.div`
 	overflow-y: auto;
 	word-wrap: break-word;
 	flex-grow: 1;
+	color: #b7b7b7;
 `
 
 export const Title = styled.p`
-	font-size: 20px;
-	font-weight: 500;
+	font-size: 25px;
+	font-weight: bold;
 `
 
 export const Input = styled.input`
@@ -39,7 +49,7 @@ export const Input = styled.input`
 	background-color: #5e5e5e;
 	border-radius: 4px;
 	width: 100%;
-	color: #b3b3b3;
+	color: #ededed;
 	font-weight: bolder;
 	font-size: 16px;
 	padding: 10px;

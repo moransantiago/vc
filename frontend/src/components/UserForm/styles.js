@@ -46,7 +46,7 @@ export const Div = styled.div`
 
 export const Title = styled.h2`
 	font-size: 22px;
-	font-weight: 500;
+	font-weight: bold;
 	padding: 8px 0;
 	font-family: Montserrat;
 `

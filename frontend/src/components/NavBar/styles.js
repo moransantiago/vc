@@ -4,12 +4,10 @@ import { Link as LinkRouter } from '@reach/router'
 
 export const Image = styled.img`
 	border-radius: 50%;
-	height: auto;
 	overflow: hidden;
-    margin: 0 0 0 10px;
 	object-fit: cover;
-	height: 45px;
-	width: 45px;
+	height: 35px;
+	width: 35px;
 `
 
 export const Nav = styled.div`
@@ -20,31 +18,36 @@ export const Nav = styled.div`
 	min-height: 50px;
 	height: 50px;
 	width: 100vw;
+	padding: 0 20px;
 	background-color: #242424;
 `
 
 export const NavHeader = styled.span`
 	display: flex;
+	align-items: center;
 `
 
 export const Paragraph = styled.p`
-	color: #e6e6e6;
+	color: #ededed;
 	margin-left: 15px;
-	display: table-cell;
-	vertical-align: middle;
 	font-weight: bold;
 `
 
 export const Link = styled(LinkRouter)`
 	font-family: Montserrat;
-	color: #8c88a8;
 	font-size: 16px;
-	border-radius: 8px;
-	background-color: inherit;
-	border: 1px solid #8c88a8;
-	padding: 10px;
-	&:hover{
-		border: 1px solid #464646;
-		color: #464646;
+	border-radius: 3px;
+	border: 0;
+	height: 34px;
+	width: 90px;
+	font-size: 16px;
+	background-color: #c86740;
+	color: #e6e6e6;
+	font-weight: bold;
+	text-align: center;
+	padding: 5px;
+	&:hover {
+		background-color: #9b5134;
+		color: #aeaeae;
 	}
 `

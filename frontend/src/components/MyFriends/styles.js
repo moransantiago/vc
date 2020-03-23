@@ -26,14 +26,15 @@ export const Button = styled.button`
 export const Subtitle = styled.h2`
 	font-size: 15px !important;
 	margin: 9px 0 8px 4px;
-	color: #e6e6e6;
+	color: #ededed;
 `
 
 export const Title = styled.h1`
 	position: fixed;
 	font-size: 20px !important;
+	font-weight: bold;
 	margin: 0 0 4px 0;
-	color: #e6e6e6;
+	color: #ededed;
 `
 
 export const DivFriends = styled.div`

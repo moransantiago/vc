@@ -10,9 +10,10 @@ export const DivColumn = styled.div`
 `
 
 export const Title = styled.h1`
-	font-size: 20px !important;
+	font-size: 20px;
+	font-weight: bold;
 	margin: 0 0 10px 0;
-	color: #e6e6e6;
+	color: #ededed;
 `
 
 export const DivContainer = styled.div`

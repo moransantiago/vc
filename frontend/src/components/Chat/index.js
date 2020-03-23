@@ -5,6 +5,7 @@ import 'bulma/css/bulma.css'
 import {
 	DivContainer,
 	DivColumn,
+	DivColumnVideos,
 	DivTitle,
 	DivBodyChat,
 	Title,
@@ -27,8 +28,8 @@ export const Chat = ({ channel }) => (
 				<Input type='text' placeholder={`Your message on chat`}></Input>
 			</DivInput>
 		</DivColumn>
-		<DivColumn id='videos' className='column is-4 has-background-grey-lighter'>
+		<DivColumnVideos id='videos' className='column is-4'>
 			<video id='localVideo' autoPlay={true} muted playsInline />
-		</DivColumn>
+		</DivColumnVideos>
 	</DivContainer>
 )

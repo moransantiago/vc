@@ -13,7 +13,7 @@ const HomePage = ({ serverId, channelId, navigate }) => (
 			const server = serverId ? data.getMe.servers.filter(server => server._id === serverId)[0] : data.getMe.servers[0]._id
 			const channel = channelId && server ? server.channels.filter(channel => channel._id === channelId )[0] : data.getMe.servers[0].channels[0]._id
 			if (!serverId || !channelId) navigate(`/${server}/${channel}`)
-
+			
 			return <HomeComponent data={data.getMe} server={server} channel={channel} />
 		}}
 	</GetMe>

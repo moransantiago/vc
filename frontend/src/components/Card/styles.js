@@ -37,5 +37,5 @@ export const Header = styled.div`
 
 export const Title = styled.h1`
 	font-size: 15px;
-	color: #e6e6e6;
+	color: #ededed;
 `

@@ -32,7 +32,7 @@ export const DivDropdown = styled.div`
 export const Subtitle = styled.h2`
 	font-size: 15px !important;
 	margin: 9px 0 8px 4px;
-	color: #e6e6e6;
+	color: #ededed;
 `
 
 export const DivFooter = styled.div`
@@ -58,8 +58,8 @@ export const Input = styled.input`
 	border: 0;
 	background-color: #5e5e5e;
 	border-radius: 4px;
-	color: #b3b3b3;
-	font-weight: bolder;
+	color: #ededed;
+	font-weight: bold;
 	height: 32px;
 	width: 100%;
 	padding: 5px 10px;

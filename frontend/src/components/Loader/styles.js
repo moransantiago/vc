@@ -7,13 +7,15 @@ export const Div = styled.div`
 	width: 100vw;
 	justify-content: center;
 	align-items: center;
-    background-color: #ededed;
+    background-color: #373737;
 `
 
 export const Title = styled.h1`
     font-family: Montserrat;
     font-size: 30px;
+	font-weight: bold;
     margin: 25px 0 0 0;
+	color: #ededed;
 `
 
 export const Loader = styled.svg`
@@ -23,7 +25,7 @@ export const Loader = styled.svg`
 	height: 50px;
 
 	& .path {
-		stroke: #5652bf;
+		stroke: #c86740;
 		stroke-linecap: round;
 		animation: dash 1.5s ease-in-out infinite;
 	}
