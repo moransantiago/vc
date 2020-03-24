@@ -18,15 +18,16 @@ export const DivColumnVideos = styled.div`
 	flex-direction: column;
 	background-color: #282828;
 	height: calc(100vh - 60px - 50px);
-	border: 1px solid;
+	border-top: 1px solid;
+	border-left: 1px solid;
 `
 
 export const DivTitle = styled.div`
 	padding: 12px 12px 12px 38px;
 	background-color: #282828;
 	color: #ededed;
-	border-bottom: 1px solid #4f4f4f;
-	border-top: 1px solid #4f4f4f;
+	border-bottom: 1px solid #3c3c3c;
+	border-top: 1px solid #3c3c3c;
 	flex-grow: 1;
 `
 
@@ -60,7 +61,7 @@ export const DivInput = styled.div`
 	display: flex;
 	justify-content: center;
 	align-items: center;
-	border-top: 1px solid #4f4f4f;
+	border-top: 1px solid #3c3c3c;
 	padding: 3%;
 	flex-grow: 1;
 `

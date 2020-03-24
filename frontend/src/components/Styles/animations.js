@@ -13,6 +13,11 @@ export const inputFocus = ({ time = '0.2s', type = 'ease' } = {}) =>
 export const zoomServer = ({ time = '0.8s', type = 'ease' } = {}) =>
 	css`
 		animation: ${time} ${zoomServerKeyFrames} ${type} forwards;
+    `
+    
+export const selectServer = ({ time = '0.2s', type = 'ease' } = {}) =>
+	css`
+		animation: ${time} ${currentServerKeyFrames} ${type} forwards;
 	`
 
 const buttonsHoverKeyFrames = keyframes`
@@ -45,5 +50,16 @@ const zoomServerKeyFrames = keyframes`
     }
     to {
         transform: scale(1.1);
+    }
+`
+
+const currentServerKeyFrames = keyframes`
+    from {
+        width: 0%;
+        left: 50%;
+    }
+    to {
+        width: 70%;
+        left: 15%;
     }
 `

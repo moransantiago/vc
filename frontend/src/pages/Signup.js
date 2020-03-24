@@ -17,7 +17,7 @@ export const Signup = () => {
 					const variables = { input }
 					signUp({ variables })
 						.then(({ data: { signUp } }) => {
-							activateAuth(signUp)
+							activateAuth(signUp, username)
 						})
 						.catch(err => err)
 				}

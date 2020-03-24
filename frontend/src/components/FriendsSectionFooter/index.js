@@ -14,7 +14,7 @@ export const FriendsSectionFooter = ({ friendRequests, addNewFriend, friendSearc
 		<Input placeholder='Find new friends' type='text' {...friendSearchInput} />
 		<DivButtons>
 			<div className='dropdown is-up is-hoverable'>
-				<FaUserFriends size='30px' className='dropdown-trigger'>
+				<FaUserFriends color='#b7b7b7' size='30px' className='dropdown-trigger'>
 					<button
 						className='button'
 						aria-haspopup='true'
@@ -84,7 +84,7 @@ export const FriendsSectionFooter = ({ friendRequests, addNewFriend, friendSearc
 				</DivDropdown>
 				{friendRequests.length > 0 && <Tag className='tag'>{friendRequests.length}</Tag>}
 			</div>
-			<MdSettings size='30px' onClick={() => { alert('Settings!') }} />
+			<MdSettings color='#b7b7b7' size='30px' onClick={() => { alert('Settings!') }} />
 		</DivButtons>
 	</DivFooter>
 )

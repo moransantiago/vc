@@ -8,5 +8,5 @@ export const Div = styled.div`
 	background-color: #282828;
 	display: flex;
 	justify-content: center;
-	align-content: center;
+	align-items: center;
 `
