@@ -163,7 +163,7 @@ module.exports = {
 			errorHandler(error)
 		}
 	},
-	addFriend: async (root, { userId }, { headers: { authorization }}) => {
+	addFriend: async (root, { userId }, { headers: { authorization } }) => {
 		try {
 			const users = await jwt.verify(authorization, config.authJwtSecret, async (err, { id }) => {
 				if (err) throw new Error('User must be authorized')
@@ -222,7 +222,7 @@ module.exports = {
 			errorHandler(error)
 		}
 	},
-	removeFriend: async (root, { userId }) => {
+	removeFriend: async (root, { userId }, { headers: { authorization } }) => {
 		try {
 			const users = await jwt.verify(authorization, config.authJwtSecret, async (err, { id }) => {
 				if (err) throw new Error('User must be authorized')

@@ -17,10 +17,10 @@ export const MyFriends = ({ friends }) => (
 					<Card key={index} title={friend.username}>
 						<Buttons>
 							<Button>
-								<FiPhoneCall size='15px' />
+								<FiPhoneCall color='#b7b7b7' size='15px' />
 							</Button>
 							<Button>
-								<MdMessage size='15px' />
+								<MdMessage color='#b7b7b7' size='15px' />
 							</Button>
 						</Buttons>
 					</Card>

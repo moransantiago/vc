@@ -12,12 +12,13 @@ import { useInputValue } from '../../hooks/useInputValue'
 
 export const FriendsColumn = ({ friends, friendRequests, addNewFriend }) => {
 	const friendSearchInput = useInputValue('')
+	const friendsIdList = friends.map(friend => friend._id)
 
 	return (
 		<DivColumn className='column is-2'>
 			{!friendSearchInput.value
 				? <MyFriends friends={friends} />
-				: <SearchFriendsColumn keyword={friendSearchInput.value} />
+				: <SearchFriendsColumn keyword={friendSearchInput.value} friends={friendsIdList}/>
 			}
 			<FriendsSectionFooter friendRequests={friendRequests} addNewFriend={addNewFriend} friendSearchInput={friendSearchInput} />
 		</DivColumn>

@@ -1,10 +1,8 @@
-import React, { useState, useEffect, useContext } from 'react'
+import React, { useState, useEffect } from 'react'
 
 import { DivColumn, DivContainer, Title, Link } from './styles'
 
 import { Card } from '../Card/index'
-
-import { Context } from '../../Context'
 
 import { peerSetUp } from '../../utils/peer/main'
 
@@ -19,8 +17,7 @@ const useJoinChannel = username => {
 	return [socket, setSocket]
 }
 
-export const LeftColumn = ({ server, channels }) => {
-	const { username } = useContext(Context)
+export const LeftColumn = ({ server, channels, username }) => {
 	const [socket] = useJoinChannel(username)
 
 	return channels ? (

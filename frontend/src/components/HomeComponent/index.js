@@ -22,7 +22,7 @@ export const HomeComponent = ({ data, server, channel }) => {
         <DivContainer>
             <NavBar username={userData.username} />
             <DivColumns>
-                <LeftColumn server={ server && { id: server._id, name: server.name } } channels={server && server.channels} />
+                <LeftColumn server={ server && { id: server._id, name: server.name } } channels={server && server.channels} username={userData.username} />
                 <ServersAndChatColumn servers={userData.servers} channel={channel} currentServer={server._id} />
                 <FriendsColumn friends={userData.friends} friendRequests={userData.friendRequests} addNewFriend={addNewFriend} />
             </DivColumns>

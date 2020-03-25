@@ -8,7 +8,7 @@ export const DivContainer = styled.div`
 	display: flex;
 	flex-direction: row;
 	justify-content: space-between;
-	align-items: center !important;
+	align-items: center;
 	&:hover {
 		background-color: #393939;
 	}

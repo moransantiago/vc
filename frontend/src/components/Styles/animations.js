@@ -23,12 +23,12 @@ export const selectServer = ({ time = '0.2s', type = 'ease' } = {}) =>
 const buttonsHoverKeyFrames = keyframes`
     from {
         background-color: inherit;
-		border: 1px solid #e6e6e6;
+		border: 1px solid inherit;
     }
 
     to {
-		background-color: #e6e6e6;
-		border: 1px solid #d9d9d9;
+		background-color: #3b3b3b;
+		border: 1px solid #2f2f2f;
     }
 `
 
