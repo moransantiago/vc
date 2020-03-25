@@ -36,13 +36,14 @@ module.exports = {
     },
     filterUsers: async (root, { username }, { headers: { authorization } }) => {
         try {
-            const users = await jwt.verify(authorization, config.authJwtSecret, async err => {
+            const users = await jwt.verify(authorization, config.authJwtSecret, async (err, tokenPayload) => {
                 if (err) throw new Error('User must be authorized')
 
                 const db = await mydb()
                 const users = await db.collection('users').find({ $text: { $search: username } }).toArray()
-                
-                return users
+                const filteredUsers = users.filter(user => user.username !== tokenPayload.username) // => Delete the user who made the req from the list in case it matches with the search
+
+                return filteredUsers
             })
 
             return users

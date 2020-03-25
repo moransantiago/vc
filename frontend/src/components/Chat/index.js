@@ -29,7 +29,6 @@ export const Chat = ({ channel }) => (
 			</DivInput>
 		</DivColumn>
 		<DivColumnVideos id='videos' className='column is-4'>
-			<video id='localVideo' autoPlay={true} muted playsInline />
 		</DivColumnVideos>
 	</DivContainer>
 )

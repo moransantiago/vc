@@ -11565,6 +11565,7 @@ const gotUserMedia = stream => {
 			peers.push({ id, peer: newPeer })
 		})
 	})
+	console.log(socket);
 
 	document.getElementById('room1').addEventListener('click', () => {
 		socket.emit('join', { id: myId, room: 'room1' }) // => PEERS ALWAYS HAVE TO EMIT THIS EVENT TO CONNECT TO THE ROOM BEFORE THEY EMIT SIGNAL EVENT

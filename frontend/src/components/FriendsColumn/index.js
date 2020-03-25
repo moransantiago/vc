@@ -10,7 +10,7 @@ import { DivColumn } from './styles'
 
 import { useInputValue } from '../../hooks/useInputValue'
 
-export const FriendsColumn = ({ friends, friendRequests, addNewFriend }) => {
+export const FriendsColumn = ({ friends, friendRequests, addNewFriend, removeFriend }) => {
 	const friendSearchInput = useInputValue('')
 	const friendsIdList = friends.map(friend => friend._id)
 
@@ -18,7 +18,7 @@ export const FriendsColumn = ({ friends, friendRequests, addNewFriend }) => {
 		<DivColumn className='column is-2'>
 			{!friendSearchInput.value
 				? <MyFriends friends={friends} />
-				: <SearchFriendsColumn keyword={friendSearchInput.value} friends={friendsIdList}/>
+				: <SearchFriendsColumn keyword={friendSearchInput.value} friends={friendsIdList} />
 			}
 			<FriendsSectionFooter friendRequests={friendRequests} addNewFriend={addNewFriend} friendSearchInput={friendSearchInput} />
 		</DivColumn>

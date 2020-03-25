@@ -7,7 +7,7 @@ export const Buttons = styled.div`
 	align-items: center;
 	justify-content: center;
 	&[disabled] {
-		opacity: 0.7;
+		opacity: 0.5;
 	}
 `
 
@@ -32,14 +32,19 @@ export const DivDropdown = styled.div`
 	padding: 0;
 `
 
+export const DivDropdownContainer = styled.div`
+	padding: 4px;
+	border: 1px solid #4b4b4b;
+	background-color: #424242;
+`
+
 export const Subtitle = styled.h2`
 	font-size: 15px !important;
 	margin: 9px 0 8px 4px;
 	color: #ededed;
 `
 
-export const DivFooter = styled.div`
-`
+export const DivFooter = styled.div``
 
 export const DivButtons = styled.div`
 	padding: 6% 6% 6% 6%;
@@ -49,12 +54,12 @@ export const DivButtons = styled.div`
 
 export const Tag = styled.span`
 	position: absolute;
-	top: -5px;
-	left: 18px;
+	top: -8px;
+	left: 20px;
 	border-radius: 50px !important;
 	border: 2px solid #dbdbdb;
 	color: #ffffff !important;
-	background-color: rgb(140, 136, 168) !important;
+	background-color: #cc6b44 !important;
 `
 
 export const Input = styled.input`

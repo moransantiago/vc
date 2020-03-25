@@ -10,6 +10,7 @@ import {
 	Subtitle,
 	Tag,
 	DivDropdown,
+	DivDropdownContainer,
 	Input,
 	Buttons,
 	Button
@@ -59,7 +60,7 @@ export const FriendsSectionFooter = ({
 					id='dropdown-menu4'
 					role='menu'
 				>
-					<div className='dropdown-content is-paddingless'>
+					<DivDropdownContainer className='dropdown-content is-paddingless'>
 						<div className='dropdown-item is-paddingless'>
 							<AddFriend>
 								{(addFriend, { loading }) => {
@@ -78,10 +79,7 @@ export const FriendsSectionFooter = ({
 									return friendRequests.length > 0 ? (
 										friendRequests.map(
 											({ username, _id }, index) => (
-												<Card
-													key={index}
-													title={username}
-												>
+												<Card key={index} title={username} >
 													<Buttons disabled={loading}>
 														<Button
 															disabled={loading}
@@ -104,12 +102,12 @@ export const FriendsSectionFooter = ({
 											)
 										)
 									) : (
-										<h1>You don't have friend requests</h1>
+										<Subtitle>You don't have friend requests</Subtitle>
 									)
 								}}
 							</AddFriend>
 						</div>
-					</div>
+					</DivDropdownContainer>
 				</DivDropdown>
 				{friendRequests.length > 0 && (
 					<Tag className='tag'>{friendRequests.length}</Tag>

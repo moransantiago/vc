@@ -5,7 +5,8 @@ export const peerSetUp = async username => {
 
 	const gotUserMedia = stream => {
 		// => This will be executed if the stream is successfully obtained
-		bindVideoToHtml(document.getElementById('localVideo'), stream) // => Bind the media that we recieve from the user into localVideo html element
+		const newVideo = createNewVideoElement(true)
+		bindVideoToHtml(newVideo, stream) // => Bind the media that we recieve from the user into localVideo html element
 		const socket = io('http://localhost:3333/ws/signaling')
 
 		socket.on('connect', () => {
@@ -68,7 +69,7 @@ export const peerSetUp = async username => {
 		})
 
 		peer.on('stream', stream => {
-			const newVideo = createNewVideoElement()
+			const newVideo = createNewVideoElement(false)
 			bindVideoToHtml(newVideo, stream)
 			// => Bind the stream that we recieve from the other peer into remoteVideo html element
 		})
@@ -102,9 +103,12 @@ export const peerSetUp = async username => {
 		DOMElement.play()
 	}
 
-	const createNewVideoElement = () => {
+	const createNewVideoElement = isMine => {
 		const videoContainer = document.getElementById('videos')
 		const newVideoElement = document.createElement('video')
+		newVideoElement.muted = isMine // => If the video is remote, we do not mute it
+		newVideoElement.playsInline = true
+		newVideoElement.autoPlay = true
 		videoContainer.appendChild(newVideoElement)
 
 		return newVideoElement

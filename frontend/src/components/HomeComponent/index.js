@@ -17,6 +17,12 @@ export const HomeComponent = ({ data, server, channel }) => {
         requestIndex && friendRequests.shift(requestIndex, 1)
         setUserData({ ...userData })
     }
+    // const removeFriend = user => {
+    //     const { friends } = userData
+    //     const friendIndex = friends.indexOf(user)
+    //     friendIndex && friends.shift(friendIndex, 1)
+    //     setUserData({ ...userData })
+    // }
     
     return (
         <DivContainer>

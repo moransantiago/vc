@@ -28,7 +28,7 @@ const buttonsHoverKeyFrames = keyframes`
 
     to {
 		background-color: #3b3b3b;
-		border: 1px solid #2f2f2f;
+		border: 1px solid #9b5134;
     }
 `
 

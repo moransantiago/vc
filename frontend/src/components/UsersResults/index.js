@@ -1,23 +1,31 @@
 import React from 'react'
 
 import { Card } from '../Card'
-import { ToggleFriendButton } from '../ToggleFriendButton'
 
-import { Title, Div } from './styles'
+import { MdPersonAdd, MdMessage } from 'react-icons/md'
+import { Title, Div, Button } from './styles'
 
-export const UsersResults = ({ users, friends }) => (
-	<div>
-		<Title>Results</Title>
-		<Div>
-			{users && users.length > 0 ? (
-				users.map(({ username, _id }, index) => (
-					<Card key={index} title={username}>
-						<ToggleFriendButton isFriend={friends.includes(_id)} id={_id}/>
-					</Card>
-				))
-			) : (
-				<h1>No users found</h1>
-			)}
-		</Div>
-	</div>
-)
+export const UsersResults = ({ users, friends, onClick }) => {
+	return (
+		<div>
+			<Title>Results</Title>
+			<Div>
+				{users && users.length > 0 ? (
+					users.map(({ username, _id }, index) => {
+						const Icon = friends.includes(_id) ? MdMessage : MdPersonAdd
+
+						return (
+							<Card key={index} title={username}>
+								<Button onClick={() => { onClick({ userId: _id }) }} >
+									<Icon color='#b7b7b7' size='15px' />
+								</Button>
+							</Card>
+						)
+					})
+				) : (
+					<h1>No users found</h1>
+				)}
+			</Div>
+		</div>
+	)
+}
