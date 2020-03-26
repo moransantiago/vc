@@ -10,8 +10,7 @@ export const peerSetUp = async username => {
 		const socket = io('http://localhost:3333/ws/signaling')
 
 		socket.on('connect', () => {
-			socket.on('signal', ({ id, data, peerId }) => {
-				const offerOrAnswer = JSON.parse(data)
+			socket.on('signal', ({ id, offerOrAnswer, peerId }) => {
 				if (offerOrAnswer.type === 'offer' && id === username) {
 					const newPeer = createPeer(false)
 					setPeerEvents(newPeer, socket, peerId)
@@ -50,8 +49,7 @@ export const peerSetUp = async username => {
 	}
 
 	const setPeerEvents = (peer, socket, id) => {
-		peer.on('signal', data => {
-			const offerOrAnswer = JSON.stringify(data)
+		peer.on('signal', offerOrAnswer => {
 			socket.emit('signal', { id, offerOrAnswer, peerId: username })
 			// => Whenever a peer recieves a signal, it emit the signal event to every connected peer
 		})
@@ -64,12 +62,9 @@ export const peerSetUp = async username => {
 			console.log(err)
 		})
 
-		peer.on('data', data => {
-			document.getElementById('messages').textContent += data + '\n'
-		})
-
 		peer.on('stream', stream => {
 			const newVideo = createNewVideoElement(false)
+			console.log(stream)
 			bindVideoToHtml(newVideo, stream)
 			// => Bind the stream that we recieve from the other peer into remoteVideo html element
 		})

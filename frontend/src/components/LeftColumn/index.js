@@ -10,8 +10,7 @@ const useJoinChannel = username => {
 	const [socket, setSocket] = useState()
 
 	useEffect(() => {
-		peerSetUp(username)
-			.then(socket => setSocket(socket))
+		peerSetUp(username).then(socket => setSocket(socket))
 	}, [username])
 
 	return [socket, setSocket]

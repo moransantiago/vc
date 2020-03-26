@@ -13,8 +13,10 @@ module.exports = {
 			})
 
 			socket.on('join', ({ id, room }) => { // => When the server recieves a join, it checks if there are empty and then joins the socket room
-				console.log(`User ${id} joined channel ${room}`)
-				socket.broadcast.to(room).emit('joiner', id) // => Broadcast to everyone in the room that a new user has joined
+				socket.join(room, () => {
+					console.log(`User ${id} joined channel ${room}`)
+					socket.broadcast.to(room).emit('joiner', id) // => Broadcast to everyone in the room that a new user has joined
+				})
 			})
 
 			socket.on('left', ({ id }) => {

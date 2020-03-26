@@ -1,5 +1,7 @@
 import styled from 'styled-components'
 
+import { buttonsHover } from '../Styles/animations'
+
 export const DivContainer = styled.div`
 	margin: 0;
 `
@@ -23,6 +25,9 @@ export const DivColumnVideos = styled.div`
 `
 
 export const DivTitle = styled.div`
+	display: flex;
+	justify-content: space-between;
+	align-items: center;
 	padding: 12px 12px 12px 38px;
 	background-color: #282828;
 	color: #ededed;
@@ -42,6 +47,21 @@ export const DivBodyChat = styled.div`
 export const Title = styled.p`
 	font-size: 25px;
 	font-weight: bold;
+`
+
+export const Button = styled.button`
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	border: 0;
+	height: 30px;
+	width: 30px;
+	padding: 1px;
+	border-radius: 3px;
+	background-color: inherit;
+	&:hover {
+		${props => !props.disabled && buttonsHover({ time: '0.2s' })};
+	}
 `
 
 export const Input = styled.input`
