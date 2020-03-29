@@ -12,7 +12,7 @@ export const peerSetUp = async username => {
 		socket.on('connect', () => {
 			socket.on('signal', ({ id, offerOrAnswer, peerId }) => {
 				if (offerOrAnswer.type === 'offer' && id === username) {
-					const newPeer = createPeer(false)
+					const newPeer = createPeer(false, stream)
 					setPeerEvents(newPeer, socket, peerId)
 					newPeer.signal(offerOrAnswer)
 					peers.push({ id: peerId, peer: newPeer })
@@ -24,7 +24,7 @@ export const peerSetUp = async username => {
 
 			socket.on('joiner', id => {
 				console.log('A new user has joined this room')
-				const newPeer = createPeer(true)
+				const newPeer = createPeer(true, stream)
 				setPeerEvents(newPeer, socket, id)
 				peers.push({ id, peer: newPeer })
 			})
@@ -61,19 +61,19 @@ export const peerSetUp = async username => {
 		peer.on('error', err => {
 			console.log(err)
 		})
-
+		
 		peer.on('stream', stream => {
 			const newVideo = createNewVideoElement(false)
-			console.log(stream)
 			bindVideoToHtml(newVideo, stream)
 			// => Bind the stream that we recieve from the other peer into remoteVideo html element
 		})
 	}
 
-	const createPeer = initiator =>
+	const createPeer = (initiator, stream) =>
 		new Peer({
 			initiator: initiator,
 			trickle: false,
+			stream: stream,
 			config: {
 				iceServers: [
 					{
@@ -101,7 +101,7 @@ export const peerSetUp = async username => {
 	const createNewVideoElement = isMine => {
 		const videoContainer = document.getElementById('videos')
 		const newVideoElement = document.createElement('video')
-		// newVideoElement.muted = isMine // => If the video is remote, we do not mute it
+		newVideoElement.muted = isMine // => If the video is remote, we do not mute it
 		newVideoElement.playsInline = true
 		newVideoElement.autoPlay = true
 		videoContainer.appendChild(newVideoElement)
