@@ -8,7 +8,7 @@ import Context from './Context'
 import { App } from './App'
 
 const client = new ApolloClient({
-	uri: 'http://localhost:3333/api',
+	uri: 'https://moran.mtprz.dev/api',
 	request: operation => {// <-- Set the token into the headers of each GraphQL request
 		const token = window.sessionStorage.getItem('token')
 		const authorization = token ? token : ''

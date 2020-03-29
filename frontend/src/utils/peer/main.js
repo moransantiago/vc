@@ -7,7 +7,7 @@ export const peerSetUp = async username => {
 		// => This will be executed if the stream is successfully obtained
 		const newVideo = createNewVideoElement(true)
 		bindVideoToHtml(newVideo, stream) // => Bind the media that we recieve from the user into localVideo html element
-		const socket = io('http://localhost:3333/ws/signaling')
+		const socket = io('https://moran.mtprz.dev/ws/signaling')
 
 		socket.on('connect', () => {
 			socket.on('signal', ({ id, offerOrAnswer, peerId }) => {
@@ -101,7 +101,7 @@ export const peerSetUp = async username => {
 	const createNewVideoElement = isMine => {
 		const videoContainer = document.getElementById('videos')
 		const newVideoElement = document.createElement('video')
-		newVideoElement.muted = isMine // => If the video is remote, we do not mute it
+		// newVideoElement.muted = isMine // => If the video is remote, we do not mute it
 		newVideoElement.playsInline = true
 		newVideoElement.autoPlay = true
 		videoContainer.appendChild(newVideoElement)
@@ -111,7 +111,7 @@ export const peerSetUp = async username => {
 
 	try {
 		const stream = await navigator.mediaDevices.getUserMedia({
-			video: false,
+			video: true,
 			audio: true
 		})
 		return gotUserMedia(stream)

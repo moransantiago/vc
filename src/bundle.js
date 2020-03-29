@@ -11543,7 +11543,7 @@ const peers = [] // => Will be an array of objects: { id: <name>, peer: new Peer
 const gotUserMedia = stream => {
 	// => This will be executed if the stream is successfully obtained
 	bindVideoToHtml(document.getElementById('localVideo'), stream) // => Bind the media that we recieve from the user into localVideo html element
-	const socket = io('http://localhost:3333/ws/signaling')
+	const socket = io('https://moran.mtprz.dev/ws/signaling')
 
 	socket.on('connect', () => {
 		socket.on('signal', ({ id, offerOrAnswer, peerId }) => {

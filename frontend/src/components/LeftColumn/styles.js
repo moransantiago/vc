@@ -7,18 +7,19 @@ export const DivColumn = styled.div`
 	padding: 15px 15px 15px 15px;
 	display: flex;
 	flex-direction: column;
+	overflow-y: auto;
 `
 
 export const Title = styled.h1`
-	font-size: 20px;
+	font-size: 24px;
 	font-weight: bold;
 	margin: 0 0 10px 0;
 	color: #ededed;
 `
 
-export const DivContainer = styled.div`
-	height: 85%;
-	overflow-y: auto;
+export const Subtitle = styled.h1`
+	font-size: 18px;
+	color: #ededed;
 `
 
 export const Link = styled(LinkRouter)`
