@@ -7,7 +7,7 @@ export const peerSetUp = async username => {
 		// => This will be executed if the stream is successfully obtained
 		const newVideo = createNewVideoElement(true)
 		bindVideoToHtml(newVideo, stream) // => Bind the media that we recieve from the user into localVideo html element
-		const socket = io('http://localhost:3333/ws/signaling')
+		const socket = io(`${process.env.REACT_APP_API}/ws/signaling`)
 
 		socket.on('connect', () => {
 			socket.on('signal', ({ id, offerOrAnswer, peerId }) => {

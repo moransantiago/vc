@@ -7,7 +7,8 @@ const io = require('socket.io')(server)
 const { join } = require('path')
 const { readFileSync } = require('fs')
 const cors = require('cors')
-// const helmet = require('helmet')
+const helmet = require('helmet')
+const { config } = require('./config')
 
 const { bindSignalingEvents } = require('./sockets/signaling') // => Function to set the events on the future sockets
 
@@ -24,7 +25,7 @@ const typeDefs = readFileSync(
 const schema = makeExecutableSchema({ typeDefs, resolvers })
 
 app.use(cors())
-// app.use(helmet())
+app.use(helmet())
 
 // app.use(express.static(join(__dirname, 'frontend/build')))
 
@@ -41,6 +42,4 @@ app.use(
 	})
 )
 
-server.listen(port, () =>
-	console.log(`Listening http://localhost:${server.address().port}`)
-)
+server.listen(port, () => console.log(`Listening ${config.url}`))
