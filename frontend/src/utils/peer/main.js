@@ -101,7 +101,7 @@ export const peerSetUp = async username => {
 	const createNewVideoElement = isMine => {
 		const videoContainer = document.getElementById('videos')
 		const newVideoElement = document.createElement('video')
-		newVideoElement.muted = isMine // => If the video is remote, we do not mute it
+		// newVideoElement.muted = isMine // => If the video is remote, we do not mute it
 		newVideoElement.playsInline = true
 		newVideoElement.autoPlay = true
 		videoContainer.appendChild(newVideoElement)

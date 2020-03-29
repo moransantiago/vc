@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react'
 
-import { DivColumn, DivContainer, Title, Link } from './styles'
+import { DivColumn, Title, Subtitle, Link } from './styles'
 
 import { Card } from '../Card/index'
 
@@ -22,7 +22,16 @@ export const LeftColumn = ({ server, channels, username }) => {
 	return channels ? (
 		<DivColumn className='column is-2'>
 			<Title>{server.name}</Title>
-			<DivContainer>
+			<div>
+				<Subtitle>Chats</Subtitle>
+				<div>
+					<Card img={false} title='chat-1' />
+					<Card img={false} title='chat-2' />
+					<Card img={false} title='memes' />
+				</div>
+			</div>
+			<div>
+				<Subtitle>Channels (voice)</Subtitle>
 				{channels.map((channel, index) => (
 					<Link
 						to={`/${server.id}/${channel._id}`}
@@ -32,17 +41,17 @@ export const LeftColumn = ({ server, channels, username }) => {
 						}}
 						key={index}
 					>
-						<Card title={channel.name} />
+						<Card img={false} title={channel.name} />
 					</Link>
 				))}
-			</DivContainer>
+			</div>
 		</DivColumn>
 	) : (
 		<DivColumn className='column is-2'>
 			<Title>Server</Title>
-			<DivContainer>
+			<div>
 				<p>Loading...</p>
-			</DivContainer>
+			</div>
 		</DivColumn>
 	)
 }

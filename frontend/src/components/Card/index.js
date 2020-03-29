@@ -6,11 +6,12 @@ export const Card = ({
     disabled = false,
     children,
     title,
+    img = true,
     userImage = 'https://citas.in/media/authors/diego-maradona.detail.jpg'
 }) => (
     <DivContainer disabled={disabled}>
         <Header>
-            <Image src={userImage} />
+            {img && <Image src={userImage} />}
             <Title>{title}</Title>
         </Header>
         {children}
