@@ -1,6 +1,7 @@
 import styled from 'styled-components'
 
 export const DivContainer = styled.div`
+	flex: 1;
 	border-radius: 4px;
 	padding: 2% 4%;
 	margin: 5px 0;

@@ -15,8 +15,9 @@ import {
 } from './styles'
 
 import { IoIosArrowBack, IoIosArrowForward } from 'react-icons/io'
+import { FiMaximize2 } from 'react-icons/fi'
 
-export const Chat = ({ channel }) => {
+export const Chat = ({ channel, onClick }) => {
 	const [ colapsed, setColapsed ] = useState(true)
 	const ArrowIcon = colapsed ? IoIosArrowBack : IoIosArrowForward
 
@@ -36,7 +37,10 @@ export const Chat = ({ channel }) => {
 					<Input type='text' placeholder={`Your message on chat`}></Input>
 				</DivInput>
 			</DivColumn>
-			<DivColumnVideos id='videos' className={`column ${colapsed ? 'is-1' : 'is-4'}`}>
+			<DivColumnVideos id='videos' colapsed style={{'align-items': `${colapsed ? 'center' : 'flex-end'}`}} className={`column ${colapsed ? 'is-1' : 'is-4'}`}>
+				<Button onClick={onClick}>
+					<FiMaximize2 size='16px' color='#ededed' />
+				</Button>
 			</DivColumnVideos>
 		</DivContainer>
 	)

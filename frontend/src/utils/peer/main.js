@@ -114,8 +114,9 @@ export const peerSetUp = async username => {
 			video: false,
 			audio: true
 		})
+
 		return gotUserMedia(stream)
 	} catch (error) {
-		console.log(`Error: ${error.message}`)
+		console.log(error)
 	}
 }

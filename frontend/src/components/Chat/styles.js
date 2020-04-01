@@ -1,4 +1,4 @@
-import styled from 'styled-components'
+import styled, { css } from 'styled-components'
 
 import { buttonsHover } from '../Styles/animations'
 
@@ -18,10 +18,19 @@ export const DivColumnVideos = styled.div`
 	padding: 2%;
 	display: flex;
 	flex-direction: column;
+	align-items: flex-end;
 	background-color: #282828;
 	height: calc(100vh - 60px - 50px);
 	border-top: 1px solid;
 	border-left: 1px solid;
+	overflow-y: auto;
+	${({ colapsed }) =>
+		colapsed &&
+		css`
+			 {
+				align-items: center;
+			}
+		`};
 `
 
 export const DivTitle = styled.div`
