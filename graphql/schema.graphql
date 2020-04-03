@@ -13,7 +13,13 @@ type Server {
 	admin: ID!
 	name: String!
 	users: [User]
+	chats: [Chat]
 	channels: [Channel]
+}
+
+type Chat {
+	_id: ID!
+	name: String!
 }
 
 type Channel {
@@ -48,6 +54,7 @@ input ServerInput {
 	admin: ID!
 	name: String!
 	users: [ID]
+	chats: [ID]
 	channels: [ID]
 }
 
@@ -55,7 +62,19 @@ input ServerEditInput {
 	admin: ID
 	name: String
 	users: [ID]
+	chats: [ID]
 	channels: [ID]
+}
+
+# => CHATS
+
+input ChatInput {
+	name: String!
+	server: ID!
+}
+
+input ChatEditInput {
+	name: String
 }
 
 # => CHANNELS
@@ -101,6 +120,12 @@ type Mutation {
 	editServer(id: ID!, input: ServerEditInput): Server
 	"Deletes a server"
 	deleteServer(id: ID!): ID
+	"Creates a chat"
+	createChat(input: ChatInput!): Chat
+	"Edits a chat"
+	editChat(id: ID!, input: ChatEditInput): Chat
+	"Deletes a chat"
+	deleteChat(id: ID!): ID
 	"Creates a channel"
 	createChannel(input: ChannelInput!): Channel
 	"Edits a channel"

@@ -5,8 +5,8 @@ export const peerSetUp = async username => {
 
 	const gotUserMedia = stream => {
 		// => This will be executed if the stream is successfully obtained
-		const newVideo = createNewVideoElement(true)
-		bindVideoToHtml(newVideo, stream) // => Bind the media that we recieve from the user into localVideo html element
+		const localVideo = createNewVideoElement(true)
+		bindVideoToHtml(localVideo, stream) // => Bind the media that we recieve from the user into localVideo html element
 		const socket = io(`${process.env.REACT_APP_API}/ws/signaling`)
 
 		socket.on('connect', () => {
@@ -30,13 +30,20 @@ export const peerSetUp = async username => {
 			})
 
 			socket.on('left', id => {
-				console.log('A user has left the channel');
-				const peerIndex = peers.indexOf(id)	// => Get the position of the left peer inside the connected peers
+				console.log('A user has left the channel')
+				const peerIds = peers.map(({ id }) => id)
+				const peerIndex = peerIds.indexOf(id)	// => Get the position of the left peer inside the connected peers
 				if (peerIndex > -1) { // => If finds the peer
 					peers[peerIndex].peer.destroy()
 					peers.splice(peerIndex, 1) // => Removes it
-					console.log(peers)
 				}
+			})
+
+			socket.on('you left room', id => {
+				peers.forEach(singlePeer => {
+					singlePeer.peer.destroy()
+				})
+				peers.splice(0, peers.length)	// => Reset the peers array cause I left room
 			})
 		})
 
@@ -101,6 +108,9 @@ export const peerSetUp = async username => {
 	const createNewVideoElement = isMine => {
 		const videoContainer = document.getElementById('videos')
 		const newVideoElement = document.createElement('video')
+		newVideoElement.style.flexGrow = 1
+		newVideoElement.style.flexShrink = 1
+		newVideoElement.style.flexBasis = '50%'
 		newVideoElement.muted = isMine // => If the video is remote, we do not mute it
 		newVideoElement.playsInline = true
 		newVideoElement.autoPlay = true

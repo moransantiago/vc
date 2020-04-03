@@ -77,6 +77,23 @@ module.exports = {
 				errorHandler(error)
 			}
 		},
+		chats: async ({ chats }) => {
+			try {
+				const db = await mydb()
+				const ids = chats ? chats.map(id => ObjectID(id)) : []
+				const chatsData =
+					ids.length > 0
+						? await db
+								.collection('chats')
+								.find({ _id: { $in: ids } })
+								.toArray()
+						: []
+
+				return chatsData
+			} catch (error) {
+				errorHandler(error)
+			}
+		},
 		channels: async ({ channels }) => {
 			try {
 				const db = await mydb()

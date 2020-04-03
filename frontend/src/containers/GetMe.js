@@ -11,6 +11,10 @@ const getMe = gql`
 			servers {
 				_id
 				name
+				chats {
+					_id
+					name
+				}
 				channels {
 					_id
 					name

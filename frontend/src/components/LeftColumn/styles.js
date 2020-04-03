@@ -26,6 +26,11 @@ export const Div = styled.div`
 	margin-bottom: 25px;
 `
 
+export const Button = styled.button`
+	all: unset;
+	width: 100%;
+`
+
 export const Link = styled(LinkRouter)`
 	color: #4a4a4a;
 	text-align: center;

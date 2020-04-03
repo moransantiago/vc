@@ -1,48 +1,40 @@
-import React, { useState, useEffect } from 'react'
+import React from 'react'
 
-import { DivColumn, Div, Title, Subtitle, Link } from './styles'
+import { DivColumn, Div, Title, Subtitle, Button, Link } from './styles'
 
 import { Card } from '../Card/index'
 
-import { peerSetUp } from '../../utils/peer/main'
+import { useRTCSocket } from '../../hooks/useRTCSocket'
 
-const useJoinChannel = username => {
-	const [socket, setSocket] = useState()
+export const LeftColumn = ({ server, username }) => {
+	const [socket] = useRTCSocket(username)
 
-	useEffect(() => {
-		peerSetUp(username).then(socket => setSocket(socket))
-	}, [username])
-
-	return [socket, setSocket]
-}
-
-export const LeftColumn = ({ server, channels, username }) => {
-	const [socket] = useJoinChannel(username)
-
-	return channels ? (
+	return server.chats ? (
 		<DivColumn className='column is-2'>
 			<Title>{server.name}</Title>
 			<Div>
 				<Subtitle>Chats (text)</Subtitle>
-				<div>
-					<Card img={false} title='chat-1' />
-					<Card img={false} title='chat-2' />
-					<Card img={false} title='memes' />
-				</div>
+				{server.chats.map((chat, index) => (
+					<Link to={`/${server._id}/${chat._id}`} key={index}>
+						<Card img={false} title={chat.name} />
+					</Link>
+				))}
 			</Div>
 			<div>
 				<Subtitle>Channels (voice)</Subtitle>
-				{channels.map((channel, index) => (
-					<Link
-						to={`/${server.id}/${channel._id}`}
+				{server.channels.map((channel, index) => (
+					<Button
+						key={index}
 						onClick={() => {
 							socket.emit('left', { id: username })
-							socket.emit('join', { id: username, room: channel._id })
+							socket.emit('join', {
+								id: username,
+								room: channel._id
+							})
 						}}
-						key={index}
 					>
 						<Card img={false} title={channel.name} />
-					</Link>
+					</Button>
 				))}
 			</div>
 		</DivColumn>
