@@ -22,8 +22,32 @@ export const Subtitle = styled.h1`
 	color: #ededed;
 `
 
+export const Div = styled.div`
+	margin-bottom: 25px;
+`
+
+export const Button = styled.button`
+	all: unset;
+	width: 100%;
+`
+
 export const Link = styled(LinkRouter)`
 	color: #4a4a4a;
-    text-align: center;
-    text-decoration: none;
+	text-align: center;
+	text-decoration: none;
+	position: relative;
+	display: flex;
+	&[aria-current] {
+		&::before {
+			content: '';
+			position: absolute;
+			width: 8px;
+			height: 20%;
+			top: 40%;
+			left: -18px;
+			border-radius: 50%;
+			background: #ffffff;
+			cursor: pointer;
+		}
+	}
 `

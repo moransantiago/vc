@@ -1,9 +1,20 @@
-import styled from 'styled-components'
+import styled, { css } from 'styled-components'
 
 import { buttonsHover } from '../Styles/animations'
 
 export const DivContainer = styled.div`
 	margin: 0;
+`
+
+export const DivConferenceHeader = styled.div`
+	margin: 0 0 20px 0;
+	display: flex;
+	justify-content: flex-end;
+	${({ colapsed }) => colapsed && css` { justify-content: center; } `}
+`
+
+export const Video = styled.video`
+	flex: 1 1 50%;
 `
 
 export const DivColumn = styled.div`
@@ -14,9 +25,17 @@ export const DivColumn = styled.div`
 	height: calc(100vh - 60px - 50px);
 `
 
+export const DivVideos = styled.div`
+	display: flex;
+	flex: 1;
+	flex-wrap: wrap;
+`
+
 export const DivColumnVideos = styled.div`
 	padding: 2%;
+	${({ colapsed }) => !colapsed ? css` { width: 33.33333333333333333333333333333333333333333% !important; } ` : css` { width: 8.33333333333333333333333333333333% !important; } ` }
 	display: flex;
+	flex-wrap: wrap;
 	flex-direction: column;
 	background-color: #282828;
 	height: calc(100vh - 60px - 50px);

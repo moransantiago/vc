@@ -8,6 +8,7 @@ const { join } = require('path')
 const { readFileSync } = require('fs')
 const cors = require('cors')
 const helmet = require('helmet')
+const { config } = require('./config')
 
 const { bindSignalingEvents } = require('./sockets/signaling') // => Function to set the events on the future sockets
 
@@ -41,6 +42,4 @@ app.use(
 	})
 )
 
-server.listen(port, () =>
-	console.log(`Listening http://localhost:${server.address().port}`)
-)
+server.listen(port, () => console.log(`Listening ${config.url}`))

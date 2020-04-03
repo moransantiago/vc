@@ -7,25 +7,29 @@ import {
 	DivColumn,
 	DivColumnVideos,
 	DivTitle,
+	DivVideos,
 	DivBodyChat,
 	Title,
 	DivInput,
 	Input,
-	Button
+	Button,
+	DivConferenceHeader
 } from './styles'
 
 import { IoIosArrowBack, IoIosArrowForward } from 'react-icons/io'
+import { FiMaximize2 } from 'react-icons/fi'
 
-export const Chat = ({ channel }) => {
-	const [ colapsed, setColapsed ] = useState(true)
+export const Chat = ({ chat, onClick }) => {
+	const [colapsed, setColapsed]  = useState(true)
+
 	const ArrowIcon = colapsed ? IoIosArrowBack : IoIosArrowForward
 
-	return (	
+	return (
 		<DivContainer className='columns'>
 			<DivColumn className={`column ${colapsed ? 'is-11' : 'is-8'}`}>
 				<DivTitle>
 					<Title>
-						{channel ? `${channel.name}'s chat` : `Channel's name`}
+						{chat ? `${chat.name}'s chat` : `Chat`}
 					</Title>
 					<Button onClick={() => setColapsed(colapsed ? false : true)}><ArrowIcon size='20px' color='#ededed' /></Button>
 				</DivTitle>
@@ -36,7 +40,14 @@ export const Chat = ({ channel }) => {
 					<Input type='text' placeholder={`Your message on chat`}></Input>
 				</DivInput>
 			</DivColumn>
-			<DivColumnVideos id='videos' className={`column ${colapsed ? 'is-1' : 'is-4'}`}>
+			<DivColumnVideos colapsed={colapsed} className={`column ${colapsed ? 'is-1' : 'is-4'}`}>
+				<DivConferenceHeader colapsed={colapsed}>
+					<Button onClick={onClick} >
+						<FiMaximize2 size='16px' color='#ededed' />
+					</Button>
+				</DivConferenceHeader>
+				<DivVideos id='videos'>
+				</DivVideos>
 			</DivColumnVideos>
 		</DivContainer>
 	)

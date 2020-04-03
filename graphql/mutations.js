@@ -84,6 +84,60 @@ module.exports = {
 			errorHandler(error)
 		}
 	},
+	createChat: async (root, { input }) => {
+		try {
+			const db = await mydb()
+			const server = input.server
+			delete input.server // => I delete the serverId property because it's not necessary to save it in the db
+			const chat = await db.collection('chats').insertOne(input)
+			input._id = chat.insertedId
+
+			await db
+				.collection('servers')
+				.updateOne(
+					{ _id: ObjectID(server) },
+					{ $addToSet: { chats: input._id } }
+				)
+
+			return input
+		} catch (error) {
+			errorHandler(error)
+		}
+	},
+	editChat: async (root, { id, input }) => {
+		try {
+			const db = await mydb()
+			await db
+				.collection('chats')
+				.updateOne({ _id: ObjectID(id) }, { $set: input })
+			const chat = await db
+				.collection('chats')
+				.findOne({ _id: ObjectID(id) })
+	
+			return chat
+		} catch (error) {
+			errorHandler(error)
+		}
+	},
+	deleteChat: async (root, { id }) => {
+		try {
+			const db = await mydb()
+			const { server } = await db
+				.collection('chats')
+				.findOne({ _id: ObjectID(id) })
+			await db.collection('chats').deleteOne({ _id: ObjectID(id) })
+			await db
+				.collection('servers')
+				.updateOne(
+					{ _id: ObjectID(server) },
+					{ $pull: { chats: ObjectID(id) } }
+				)
+	
+			return id
+		} catch (error) {
+			errorHandler(error)
+		}
+	},
 	createChannel: async (root, { input }) => {
 		try {
 			const db = await mydb()
