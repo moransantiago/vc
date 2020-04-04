@@ -11,7 +11,7 @@ export const Div = styled.div`
 `
 
 export const Title = styled.h1`
-    font-family: Montserrat;
+    font-family: BalooPaaji;
     font-size: 30px;
 	font-weight: bold;
     margin: 25px 0 0 0;

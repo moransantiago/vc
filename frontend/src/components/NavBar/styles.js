@@ -34,7 +34,7 @@ export const Paragraph = styled.p`
 `
 
 export const Link = styled(LinkRouter)`
-	font-family: Montserrat;
+	font-family: BalooPaaji;
 	font-size: 16px;
 	border-radius: 3px;
 	border: 0;

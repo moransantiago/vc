@@ -36,6 +36,7 @@ export const DivDropdownContainer = styled.div`
 	padding: 4px;
 	border: 1px solid #4b4b4b;
 	background-color: #424242;
+	text-align: center;
 `
 
 export const Subtitle = styled.h2`
@@ -71,5 +72,5 @@ export const Input = styled.input`
 	height: 32px;
 	width: 100%;
 	padding: 5px 10px;
-	font-family: Montserrat;
+	font-family: BalooPaaji;
 `

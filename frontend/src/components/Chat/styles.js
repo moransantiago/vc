@@ -39,8 +39,8 @@ export const DivColumnVideos = styled.div`
 	flex-direction: column;
 	background-color: #282828;
 	height: calc(100vh - 60px - 50px);
-	border-top: 1px solid;
-	border-left: 1px solid;
+	border-top: 1px solid #3c3c3c;
+	border-left: 1px solid #3c3c3c;
 `
 
 export const DivTitle = styled.div`
@@ -93,7 +93,7 @@ export const Input = styled.input`
 	font-weight: bolder;
 	font-size: 16px;
 	padding: 10px;
-	font-family: Montserrat;
+	font-family: BalooPaaji;
 `
 
 export const DivInput = styled.div`

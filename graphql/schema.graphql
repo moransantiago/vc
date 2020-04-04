@@ -103,6 +103,8 @@ type Query {
 	getServers: [Server]
 	"Gets a server"
 	getServer(id: ID!): Server
+	"Searches a server by name"
+	searchServer(name: String!): [Server]
 }
 
 # MUTATIONS

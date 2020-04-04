@@ -12,7 +12,7 @@ export const Button = styled.button`
     width: 100%;
     margin: 8px 0;
     text-align: center;
-    font-family: Montserrat;
+    font-family: BalooPaaji;
     &[disabled] {
         opacity: .3;
     }

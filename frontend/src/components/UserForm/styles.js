@@ -15,7 +15,7 @@ export const Form = styled.form`
 `
 
 export const Span = styled.span`
-	font-family: Montserrat;
+	font-family: BalooPaaji;
 	font-size: 12px;
 	color: #ededed;
 `
@@ -27,7 +27,7 @@ export const Input = styled.input`
 	height: 35px;
 	width: 100%;
 	padding: 5px 10px;
-	font-family: Montserrat;
+	font-family: BalooPaaji;
 	margin: 8px 0;
 	&[disabled] {
 		opacity: 0.3;
@@ -86,7 +86,7 @@ export const Title = styled.h2`
 	font-size: 26px;
 	font-weight: bold;
 	padding: 8px 0;
-	font-family: Montserrat;
+	font-family: BalooPaaji;
 	color: #ededed;
 `
 

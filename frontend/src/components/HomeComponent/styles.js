@@ -12,5 +12,5 @@ export const DivColumns = styled.div`
     height: -webkit-calc(100% - 50px);
     height: -moz-calc(100% - 50px);
     height: calc(100% - 50px);
-    font-family: Montserrat;
+    font-family: BalooPaaji;
 `
