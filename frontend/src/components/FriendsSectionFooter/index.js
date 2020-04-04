@@ -90,12 +90,12 @@ export const FriendsSectionFooter = ({
 																})
 															}}
 														>
-															<MdDone size='15px' />
+															<MdDone color='#b7b7b7' size='15px' />
 														</Button>
 														<Button
 															disabled={loading}
 														>
-															<MdCancel size='15px' />
+															<MdCancel color='#b7b7b7' size='15px' />
 														</Button>
 													</Buttons>
 												</Card>

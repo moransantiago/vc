@@ -53,6 +53,9 @@ export const DivTitle = styled.div`
 	border-bottom: 1px solid #3c3c3c;
 	border-top: 1px solid #3c3c3c;
 	flex-grow: 1;
+	-webkit-box-shadow: 0px 6px 12px -9px rgba(0,0,0,0.75);
+	-moz-box-shadow: 0px 6px 12px -9px rgba(0,0,0,0.75);
+	box-shadow: 0px 6px 12px -9px rgba(0,0,0,0.75);
 `
 
 export const DivBodyChat = styled.div`
@@ -97,6 +100,9 @@ export const Input = styled.input`
 `
 
 export const DivInput = styled.div`
+	-webkit-box-shadow: 0px -6px 12px -9px rgba(0,0,0,0.75);
+	-moz-box-shadow: 0px -6px 12px -9px rgba(0,0,0,0.75);
+	box-shadow: 0px -6px 12px -9px rgba(0,0,0,0.75);
 	display: flex;
 	justify-content: center;
 	align-items: center;

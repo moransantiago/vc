@@ -6,9 +6,6 @@ export const Buttons = styled.div`
 	display: flex;
 	align-items: center;
 	justify-content: center;
-	&[disabled] {
-		opacity: 0.5;
-	}
 `
 
 export const Button = styled.button`
