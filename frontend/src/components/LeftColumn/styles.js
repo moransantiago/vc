@@ -23,7 +23,7 @@ export const SpanServerTitle = styled.span`
 
 export const Title = styled.h1`
 	font-size: 24px;
-	font-weight: bold;
+	font-weight: bolder;
 	color: #ededed;
 `
 

@@ -4,7 +4,7 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "start": "browserify ./src/main.js -o ./src/bundle.js && node index",
+    "start": "node index",
     "dev": "nodemon"
   },
   "author": "moransantiago",

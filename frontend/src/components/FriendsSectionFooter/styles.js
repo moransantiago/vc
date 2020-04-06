@@ -19,8 +19,26 @@ export const Button = styled.button`
 	border-radius: 3px;
 	background-color: inherit;
 	&:hover {
-		${props => !props.disabled && buttonsHover({ time: '0.2s' })};
+		${(props) => !props.disabled && buttonsHover({ time: '0.2s' })};
 	}
+`
+
+export const CancelButton = styled.button`
+	position: absolute;
+	padding: 5px;
+	right: 4px;
+	top: 10%;
+	height: 80%;
+	border: 0;
+	background-color: inherit;
+	border-radius: 3px;
+	&:hover {
+		background-color: #535353;
+	}
+`
+
+export const DivInput = styled.div`
+	position: relative;
 `
 
 export const DivDropdown = styled.div`

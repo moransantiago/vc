@@ -62,7 +62,7 @@ export const DivBodyChat = styled.div`
 	padding: 0 5% 0 5%;
 	overflow-y: auto;
 	word-wrap: break-word;
-	flex-grow: 1;
+	flex-grow: 30;
 	color: #b7b7b7;
 `
 
