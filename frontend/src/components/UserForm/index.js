@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useEffect, useRef } from 'react'
 
 import {
 	Form,
@@ -21,6 +21,8 @@ export const UserForm = ({ disabled, onSubmit, error, title }) => {
 	const email = useInputValue('')
 	const password = useInputValue('')
 
+	const firstInput = useRef()
+
 	const handleSubmit = async e => {
 		e.preventDefault()
 		await onSubmit({
@@ -30,12 +32,15 @@ export const UserForm = ({ disabled, onSubmit, error, title }) => {
 		})
 	}
 
+	useEffect(() => firstInput.current.focus(), [])
+
 	return (
 		<DivColumns>
 			<DivColumn className='column is-4 is-offset-4'>
 				<Form disabled={disabled} onSubmit={handleSubmit}>
 					<Title>{title}</Title>
-					<Input
+					<Input 
+						ref={firstInput}
 						disabled={disabled}
 						placeholder='Username'
 						{...username}

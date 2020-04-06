@@ -11,7 +11,7 @@ import { DivColumn } from './styles'
 import { useInputValue } from '../../hooks/useInputValue'
 
 export const FriendsColumn = ({ friends, friendRequests, addNewFriend, removeFriend }) => {
-	const friendSearchInput = useInputValue('')
+	const friendSearchInput = useInputValue({ initialValue: '', resetOnEsc: true })
 	const friendsIdList = friends.map(friend => friend._id)
 
 	return (

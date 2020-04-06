@@ -1,13 +1,22 @@
 import React from 'react'
 
-import { DivContainer, DivColumn, SpanServerTitle, Div, Title, Subtitle, Button, Link } from './styles'
+import {
+	DivContainer,
+	DivColumn,
+	SpanServerTitle,
+	Div,
+	Title,
+	Subtitle,
+	Button,
+	Link,
+} from './styles'
 
 import { Card } from '../Card/index'
 
 import { useRTCSocket } from '../../hooks/useRTCSocket'
 
 export const LeftColumn = ({ server, username }) => {
-	const [socket] = useRTCSocket(username)
+	const [socket, setSocket, obtainSocket] = useRTCSocket()
 
 	return server.chats ? (
 		<DivContainer className='column is-2'>
@@ -28,13 +37,17 @@ export const LeftColumn = ({ server, username }) => {
 					{server.channels.map((channel, index) => (
 						<Button
 							key={index}
-							onClick={() => {
-								socket.emit('left', { id: username })
-								socket.emit('join', {
-									id: username,
-									room: channel._id,
-								})
-							}}
+							onClick={
+								async () => {
+									const socket = await obtainSocket(username)
+									socket.emit('left', { id: username })
+									socket.emit('join', {
+										id: username,
+										room: channel._id,
+									})
+									setSocket(socket)
+								}
+							}
 						>
 							<Card img={false} title={channel.name} />
 						</Button>
