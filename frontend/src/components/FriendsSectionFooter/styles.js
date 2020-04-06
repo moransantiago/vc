@@ -6,9 +6,6 @@ export const Buttons = styled.div`
 	display: flex;
 	align-items: center;
 	justify-content: center;
-	&[disabled] {
-		opacity: 0.5;
-	}
 `
 
 export const Button = styled.button`
@@ -22,8 +19,26 @@ export const Button = styled.button`
 	border-radius: 3px;
 	background-color: inherit;
 	&:hover {
-		${props => !props.disabled && buttonsHover({ time: '0.2s' })};
+		${(props) => !props.disabled && buttonsHover({ time: '0.2s' })};
 	}
+`
+
+export const CancelButton = styled.button`
+	position: absolute;
+	padding: 5px;
+	right: 4px;
+	top: 10%;
+	height: 80%;
+	border: 0;
+	background-color: inherit;
+	border-radius: 3px;
+	&:hover {
+		background-color: #535353;
+	}
+`
+
+export const DivInput = styled.div`
+	position: relative;
 `
 
 export const DivDropdown = styled.div`
@@ -36,6 +51,7 @@ export const DivDropdownContainer = styled.div`
 	padding: 4px;
 	border: 1px solid #4b4b4b;
 	background-color: #424242;
+	text-align: center;
 `
 
 export const Subtitle = styled.h2`
@@ -71,5 +87,5 @@ export const Input = styled.input`
 	height: 32px;
 	width: 100%;
 	padding: 5px 10px;
-	font-family: Montserrat;
+	font-family: BalooPaaji;
 `

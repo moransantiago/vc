@@ -39,8 +39,8 @@ export const DivColumnVideos = styled.div`
 	flex-direction: column;
 	background-color: #282828;
 	height: calc(100vh - 60px - 50px);
-	border-top: 1px solid;
-	border-left: 1px solid;
+	border-top: 1px solid #3c3c3c;
+	border-left: 1px solid #3c3c3c;
 `
 
 export const DivTitle = styled.div`
@@ -53,13 +53,16 @@ export const DivTitle = styled.div`
 	border-bottom: 1px solid #3c3c3c;
 	border-top: 1px solid #3c3c3c;
 	flex-grow: 1;
+	-webkit-box-shadow: 0px 6px 12px -9px rgba(0,0,0,0.75);
+	-moz-box-shadow: 0px 6px 12px -9px rgba(0,0,0,0.75);
+	box-shadow: 0px 6px 12px -9px rgba(0,0,0,0.75);
 `
 
 export const DivBodyChat = styled.div`
 	padding: 0 5% 0 5%;
 	overflow-y: auto;
 	word-wrap: break-word;
-	flex-grow: 1;
+	flex-grow: 30;
 	color: #b7b7b7;
 `
 
@@ -93,10 +96,13 @@ export const Input = styled.input`
 	font-weight: bolder;
 	font-size: 16px;
 	padding: 10px;
-	font-family: Montserrat;
+	font-family: BalooPaaji;
 `
 
 export const DivInput = styled.div`
+	-webkit-box-shadow: 0px -6px 12px -9px rgba(0,0,0,0.75);
+	-moz-box-shadow: 0px -6px 12px -9px rgba(0,0,0,0.75);
+	box-shadow: 0px -6px 12px -9px rgba(0,0,0,0.75);
 	display: flex;
 	justify-content: center;
 	align-items: center;

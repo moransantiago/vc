@@ -25,6 +25,13 @@ export const Nav = styled.div`
 export const NavHeader = styled.span`
 	display: flex;
 	align-items: center;
+	padding: 4px;
+	cursor: pointer;
+	&:hover {
+		background-color: #ededed;
+		background-color: #202020;
+		border-radius: 3px;
+	}
 `
 
 export const Paragraph = styled.p`
@@ -34,7 +41,7 @@ export const Paragraph = styled.p`
 `
 
 export const Link = styled(LinkRouter)`
-	font-family: Montserrat;
+	font-family: BalooPaaji;
 	font-size: 16px;
 	border-radius: 3px;
 	border: 0;

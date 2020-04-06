@@ -9,11 +9,13 @@ import {
 	DivButtons,
 	Subtitle,
 	Tag,
+	DivInput,
 	DivDropdown,
 	DivDropdownContainer,
 	Input,
 	Buttons,
-	Button
+	CancelButton,
+	Button,
 } from './styles'
 
 import { MdSettings, MdDone, MdCancel } from 'react-icons/md'
@@ -22,14 +24,22 @@ import { FaUserFriends } from 'react-icons/fa'
 export const FriendsSectionFooter = ({
 	friendRequests,
 	addNewFriend,
-	friendSearchInput
+	friendSearchInput,
 }) => (
 	<DivFooter>
-		<Input
-			placeholder='Find new friends'
-			type='text'
-			{...friendSearchInput}
-		/>
+		<DivInput>
+			<Input
+				placeholder='Find new friends'
+				type='text'
+				value={friendSearchInput.value}
+				onChange={friendSearchInput.onChange}
+			/>
+			{friendSearchInput.value && (
+				<CancelButton onClick={() => friendSearchInput.setValue('')}>
+					<MdCancel color='#b7b7b7' size='15px' />
+				</CancelButton>
+			)}
+		</DivInput>
 		<DivButtons>
 			<div className='dropdown is-up is-hoverable'>
 				<FaUserFriends
@@ -70,39 +80,50 @@ export const FriendsSectionFooter = ({
 											.then(() => {
 												addNewFriend({
 													_id: userId,
-													username
+													username,
 												})
 											})
-											.catch(err => err)
+											.catch((err) => err)
 									}
 
 									return friendRequests.length > 0 ? (
 										friendRequests.map(
 											({ username, _id }, index) => (
-												<Card key={index} title={username} >
+												<Card
+													key={index}
+													title={username}
+												>
 													<Buttons disabled={loading}>
 														<Button
 															disabled={loading}
 															onClick={() => {
 																onClick({
 																	userId: _id,
-																	username
+																	username,
 																})
 															}}
 														>
-															<MdDone size='15px' />
+															<MdDone
+																color='#b7b7b7'
+																size='15px'
+															/>
 														</Button>
 														<Button
 															disabled={loading}
 														>
-															<MdCancel size='15px' />
+															<MdCancel
+																color='#b7b7b7'
+																size='15px'
+															/>
 														</Button>
 													</Buttons>
 												</Card>
 											)
 										)
 									) : (
-										<Subtitle>You don't have friend requests</Subtitle>
+										<Subtitle>
+											You don't have friend requests
+										</Subtitle>
 									)
 								}}
 							</AddFriend>

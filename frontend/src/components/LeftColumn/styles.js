@@ -2,18 +2,28 @@ import styled from 'styled-components'
 
 import { Link as LinkRouter } from '@reach/router'
 
-export const DivColumn = styled.div`
-	background-color: #3c3c3c;
-	padding: 15px 15px 15px 15px;
+export const DivContainer = styled.div`
 	display: flex;
 	flex-direction: column;
+	padding: 0;
+	background-color: #3c3c3c;
+`
+
+export const DivColumn = styled.div`
+	padding: 15px;
 	overflow-y: auto;
+`
+
+export const SpanServerTitle = styled.span`
+	padding: 10px;
+	height: 61px;
+	background-color: #3c3c3c;
+	border-bottom: 1px solid #4d4d4d;
 `
 
 export const Title = styled.h1`
 	font-size: 24px;
-	font-weight: bold;
-	margin: 0 0 10px 0;
+	font-weight: bolder;
 	color: #ededed;
 `
 

@@ -3,7 +3,7 @@ import styled from 'styled-components'
 import { buttonsHover } from '../Styles/animations'
 
 export const Title = styled.h1`
-    font-family: Montserrat;
+    font-family: BalooPaaji;
     font-size: 22px;
     font-weight: bold;
 	color: #ededed;

@@ -1,13 +1,18 @@
-import { useState, useEffect } from 'react'
+import { useState } from 'react'
 
 import { peerSetUp } from '../utils/peer/main'
 
-export const useRTCSocket = username => {
-	const [socket, setSocket] = useState()
+export const useRTCSocket = () => {
+	const [socket, setSocket] = useState(null)
 
-	useEffect(() => {
-		peerSetUp(username).then(socket => setSocket(socket))
-	}, [username])
+	const obtainSocket = async username => {
+		if (socket === null) {
+			const webSocket = await peerSetUp(username)
+			await setSocket(webSocket)
+			
+			return webSocket
+		}
+	}
 
-	return [socket]
+	return [socket, obtainSocket]
 }

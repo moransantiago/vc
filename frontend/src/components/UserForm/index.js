@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useEffect, useRef } from 'react'
 
 import {
 	Form,
@@ -17,9 +17,11 @@ import { SubmitButton } from '../SubmitButton'
 import { useInputValue } from '../../hooks/useInputValue'
 
 export const UserForm = ({ disabled, onSubmit, error, title }) => {
-	const username = useInputValue('')
-	const email = useInputValue('')
-	const password = useInputValue('')
+	const username = useInputValue({ initialValue: '', resetOnEsc: false })
+	const email = useInputValue({ initialValue: '', resetOnEsc: false })
+	const password = useInputValue({ initialValue: '', resetOnEsc: false })
+
+	const firstInput = useRef()
 
 	const handleSubmit = async e => {
 		e.preventDefault()
@@ -30,29 +32,35 @@ export const UserForm = ({ disabled, onSubmit, error, title }) => {
 		})
 	}
 
+	useEffect(() => firstInput.current.focus(), [])
+
 	return (
 		<DivColumns>
 			<DivColumn className='column is-4 is-offset-4'>
 				<Form disabled={disabled} onSubmit={handleSubmit}>
 					<Title>{title}</Title>
 					<Input
+						ref={firstInput}
 						disabled={disabled}
 						placeholder='Username'
-						{...username}
+						value={username.value}
+						onChange={username.onChange}
 					/>
 					{title === 'Sign Up' && (
 						<Input
 							disabled={disabled}
 							placeholder='Email'
 							type='email'
-							{...email}
+							value={email.value}
+							onChange={email.onChange}
 						/>
 					)}
 					<Input
 						disabled={disabled}
 						placeholder='Password'
 						type='password'
-						{...password}
+						value={password.value}
+						onChange={password.onChange}
 					/>
 					{error && <Error>{error}</Error>}
 					<SubmitButton disabled={disabled}>

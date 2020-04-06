@@ -1,17 +1,25 @@
-const { makeExecutableSchema } = require('graphql-tools')
+//	=> gql
 const gqlMiddleware = require('express-graphql')
+const { makeExecutableSchema } = require('graphql-tools')
+
+//	=> Express
 const express = require('express')
 const app = express()
+
+//	=> socket.io
 const server = require('http').Server(app)
 const io = require('socket.io')(server)
+
+// => Utils
 const { join } = require('path')
 const { readFileSync } = require('fs')
 const cors = require('cors')
 const helmet = require('helmet')
+const morgan = require('morgan')
+
+// => My stuff
 const { config } = require('./config')
-
 const { bindSignalingEvents } = require('./sockets/signaling') // => Function to set the events on the future sockets
-
 const resolvers = require('./graphql/resolvers')
 
 const port = process.env.port || 4000
@@ -24,6 +32,7 @@ const typeDefs = readFileSync(
 
 const schema = makeExecutableSchema({ typeDefs, resolvers })
 
+app.use(morgan('common'))
 app.use(cors())
 app.use(helmet())
 

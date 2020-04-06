@@ -20,29 +20,27 @@ export const Link = styled(LinkRouter)`
 	display: inline-flex;
 	border-radius: 18%;
 	position: relative;
-	${props =>
-		!props.currentserver &&
-		css`
-			 {
-				&:hover {
-					${zoomServer({ time: '0.1s' })};
-				}
-			}
-		`};
-	${props =>
-		props.currentserver &&
-		css`
-			 {
-				&::after {
-					content: '';
-					position: absolute;
-					top: -7px;
-					height: 3px;
-					background: #ededed;
-					border-radius: 0px 0px 7px 7px;
-					${selectServer({ time: '0.2s' })};
-				}
-				transform: scale(1.1);
-			}
-		`};
+	${(props) =>
+		!props.currentserver
+			? css`
+					 {
+						&:hover {
+							${zoomServer({ time: '0.1s' })};
+						}
+					}
+			  `
+			: css`
+					 {
+						&::after {
+							content: '';
+							position: absolute;
+							top: -7px;
+							height: 3px;
+							background: #ededed;
+							border-radius: 0px 0px 7px 7px;
+							${selectServer({ time: '0.2s' })};
+						}
+						transform: scale(1.1);
+					}
+			  `};
 `

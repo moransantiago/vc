@@ -20,7 +20,7 @@ module.exports = {
     },
     getUser: async (root, { username }, { headers: { authorization } }) => {
         try {
-            const user = await jwt.verify(authorization, config.authJwtSecret, async(err, tokenPayload) => {
+            const user = await jwt.verify(authorization, config.authJwtSecret, async err => {
                 if (err) throw new Error('User must be authorized')
 
                 const db = await mydb()
@@ -53,7 +53,7 @@ module.exports = {
     },
     getMe: async (root, variables, { headers: { authorization } }) => {
         try {
-            const user = await jwt.verify(authorization, config.authJwtSecret, async(err, tokenPayload) => {
+            const user = await jwt.verify(authorization, config.authJwtSecret, async (err, tokenPayload) => {
                 if (err) throw new Error('User must be authorized')
 
                 const db = await mydb()
@@ -83,6 +83,25 @@ module.exports = {
             const server = await db.collection('servers').findOne({ _id: ObjectID(id) })
     
             return server
+        } catch (error) {
+            errorHandler(error)
+        }
+    },
+    searchServer: async (root, { name }, { headers: { authorization } }) => {
+        try {
+            const servers = await jwt.verify(authorization, config.authJwtSecret, async (err, tokenPayload) => {
+                if (err) throw new Error('User must be authorized')
+
+                const db = await mydb()
+                const servers = await db.collection('servers').find({ $text: { $search: name } }).toArray()
+                const user = await db.collection('users').findOne({ username: tokenPayload.username })
+                const userServersToString = user.servers.map(server => server.toString()) // => Map the servers ids
+                const filteredServers = servers.filter(server => !userServersToString.includes((server._id.toString()))) // => Delete the servers that user is already in
+
+                return filteredServers
+            })
+
+            return servers
         } catch (error) {
             errorHandler(error)
         }
