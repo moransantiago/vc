@@ -8,6 +8,7 @@ const { join } = require('path')
 const { readFileSync } = require('fs')
 const cors = require('cors')
 const helmet = require('helmet')
+const morgan = require('morgan')
 const { config } = require('./config')
 
 const { bindSignalingEvents } = require('./sockets/signaling') // => Function to set the events on the future sockets
@@ -24,6 +25,7 @@ const typeDefs = readFileSync(
 
 const schema = makeExecutableSchema({ typeDefs, resolvers })
 
+app.use(morgan('common'))
 app.use(cors())
 app.use(helmet())
 
