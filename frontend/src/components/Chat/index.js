@@ -16,6 +16,8 @@ import {
 	DivConferenceHeader
 } from './styles'
 
+import { ChatMessage } from '../ChatMessage/index'
+
 import { IoIosArrowBack, IoIosArrowForward } from 'react-icons/io'
 import { FiMaximize2 } from 'react-icons/fi'
 
@@ -34,6 +36,11 @@ export const Chat = ({ chat, onClick }) => {
 					<Button onClick={() => setColapsed(colapsed ? false : true)}><ArrowIcon size='20px' color='#ededed' /></Button>
 				</DivTitle>
 				<DivBodyChat>
+					<ChatMessage isMine />
+					<ChatMessage />
+					<ChatMessage />
+					<ChatMessage />
+					<ChatMessage />
 				</DivBodyChat>
 				<DivInput>
 					<Input type='text' placeholder={`Your message on chat`}></Input>

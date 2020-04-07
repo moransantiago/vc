@@ -59,7 +59,6 @@ export const DivTitle = styled.div`
 `
 
 export const DivBodyChat = styled.div`
-	padding: 0 5% 0 5%;
 	overflow-y: auto;
 	word-wrap: break-word;
 	flex-grow: 30;
