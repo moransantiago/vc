@@ -37,10 +37,14 @@ export const Chat = ({ chat, onClick }) => {
 				</DivTitle>
 				<DivBodyChat>
 					<ChatMessage isMine />
+					<ChatMessage isMine />
+					<ChatMessage />
+					<ChatMessage />
+					<ChatMessage isMine />
 					<ChatMessage />
 					<ChatMessage />
 					<ChatMessage />
-					<ChatMessage />
+					<ChatMessage isMine />
 				</DivBodyChat>
 				<DivInput>
 					<Input type='text' placeholder={`Your message on chat`}></Input>

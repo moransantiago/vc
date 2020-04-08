@@ -4,7 +4,7 @@ export const DivContainer = styled.div`
 	min-width: 100%;
 	height: auto;
 	display: flex;
-	padding: 1% 0 0 0;
+	padding: 1% 0;
 	${({ isMine }) =>
 		isMine &&
 		css`

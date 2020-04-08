@@ -33,6 +33,7 @@ export const FriendsSectionFooter = ({
 				type='text'
 				value={friendSearchInput.value}
 				onChange={friendSearchInput.onChange}
+				onKeyDown={friendSearchInput.onKeyDown}
 			/>
 			{friendSearchInput.value && (
 				<CancelButton onClick={() => friendSearchInput.setValue('')}>
