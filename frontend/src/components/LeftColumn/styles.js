@@ -48,7 +48,7 @@ export const Link = styled(LinkRouter)`
 	position: relative;
 	display: flex;
 	&[aria-current] {
-		&::before {
+		&:before {
 			content: '';
 			position: absolute;
 			width: 8px;

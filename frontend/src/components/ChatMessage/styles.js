@@ -59,7 +59,7 @@ export const Span = styled.span`
 	flex-direction: column;
 	color: #464646;
 	padding: 12px;
-	&::after {
+	&:after {
 		content: '';
 		background-color: #282828;
 		position: absolute;
