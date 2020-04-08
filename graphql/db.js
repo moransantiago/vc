@@ -9,7 +9,8 @@ const connectDB = async () => {
     try {
         const client = await MongoClient.connect(mongoUrl, {
             useNewUrlParser: true,
-            useUnifiedTopology: true
+            useUnifiedTopology: true,
+            poolSize: 80
         })
         const connection = client.db(config.dbName)
 

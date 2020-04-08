@@ -18,6 +18,7 @@ module.exports = {
 								.find({ _id: { $in: ids } })
 								.toArray()
 						: []
+				
 
 				return serversData
 			} catch (error) {
@@ -35,6 +36,7 @@ module.exports = {
 								.find({ _id: { $in: ids } })
 								.toArray()
 						: []
+				
 
 				return friendsData
 			} catch (error) {
@@ -52,6 +54,7 @@ module.exports = {
 								.find({ _id: { $in: ids } })
 								.toArray()
 						: []
+				
 
 				return usersData
 			} catch (error) {
@@ -71,6 +74,7 @@ module.exports = {
 								.find({ _id: { $in: ids } })
 								.toArray()
 						: []
+				
 
 				return usersData
 			} catch (error) {
@@ -88,6 +92,7 @@ module.exports = {
 								.find({ _id: { $in: ids } })
 								.toArray()
 						: []
+				
 
 				return chatsData
 			} catch (error) {
@@ -105,6 +110,7 @@ module.exports = {
 								.find({ _id: { $in: ids } })
 								.toArray()
 						: []
+				
 
 				return channelsData
 			} catch (error) {

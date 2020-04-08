@@ -72,7 +72,8 @@ export const Tag = styled.span`
 	position: absolute;
 	top: -8px;
 	left: 20px;
-	border-radius: 50px !important;
+	border-radius: 50% !important;
+	padding: 0 7px !important;
 	border: 2px solid #dbdbdb;
 	color: #ffffff !important;
 	background-color: #cc6b44 !important;

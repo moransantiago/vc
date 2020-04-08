@@ -16,7 +16,7 @@ module.exports = {
 			input.password = await bcrypt.hash(input.password, 10)
 			const user = await db.collection('users').insertOne(input)
 			input._id = user.insertedId
-
+			
 			return input
 		} catch (error) {
 			errorHandler(error)
@@ -32,7 +32,7 @@ module.exports = {
 			const student = await db
 				.collection('users')
 				.findOne({ _id: ObjectID(id) })
-
+			
 			return student
 		} catch (error) {
 			errorHandler(error)
@@ -42,7 +42,7 @@ module.exports = {
 		try {
 			const db = await mydb()
 			await db.collection('users').deleteOne({ _id: ObjectID(id) })
-
+			
 			return id
 		} catch (error) {
 			errorHandler(error)
@@ -53,7 +53,7 @@ module.exports = {
 			const db = await mydb()
 			const server = await db.collection('servers').insertOne(input)
 			input._id = server.insertedId
-
+			
 			return input
 		} catch (error) {
 			errorHandler(error)
@@ -68,7 +68,7 @@ module.exports = {
 			const server = await db
 				.collection('servers')
 				.findOne({ _id: ObjectID(id) })
-
+			
 			return server
 		} catch (error) {
 			errorHandler(error)
@@ -78,7 +78,7 @@ module.exports = {
 		try {
 			const db = await mydb()
 			await db.collection('servers').deleteOne({ _id: ObjectID(id) })
-
+			
 			return id
 		} catch (error) {
 			errorHandler(error)
@@ -98,7 +98,7 @@ module.exports = {
 					{ _id: ObjectID(server) },
 					{ $addToSet: { chats: input._id } }
 				)
-
+			
 			return input
 		} catch (error) {
 			errorHandler(error)
@@ -113,7 +113,7 @@ module.exports = {
 			const chat = await db
 				.collection('chats')
 				.findOne({ _id: ObjectID(id) })
-	
+
 			return chat
 		} catch (error) {
 			errorHandler(error)
@@ -132,7 +132,7 @@ module.exports = {
 					{ _id: ObjectID(server) },
 					{ $pull: { chats: ObjectID(id) } }
 				)
-	
+
 			return id
 		} catch (error) {
 			errorHandler(error)
@@ -152,7 +152,7 @@ module.exports = {
 					{ _id: ObjectID(server) },
 					{ $addToSet: { channels: input._id } }
 				)
-
+			
 			return input
 		} catch (error) {
 			errorHandler(error)
@@ -167,7 +167,7 @@ module.exports = {
 			const channel = await db
 				.collection('channels')
 				.findOne({ _id: ObjectID(id) })
-	
+
 			return channel
 		} catch (error) {
 			errorHandler(error)
@@ -186,7 +186,7 @@ module.exports = {
 					{ _id: ObjectID(server) },
 					{ $pull: { channels: ObjectID(id) } }
 				)
-	
+
 			return id
 		} catch (error) {
 			errorHandler(error)
@@ -211,7 +211,7 @@ module.exports = {
 			const server = await db
 				.collection('servers')
 				.findOne({ _id: ObjectID(serverId) })
-	
+
 			return server
 		} catch (error) {
 			errorHandler(error)
@@ -269,8 +269,8 @@ module.exports = {
 					await db.collection('users').findOne({ _id: ObjectID(id) }),
 					await db.collection('users').findOne({ _id: ObjectID(userId) })
 				]
-				})
-			
+			})
+		
 			return users
 		} catch (error) {
 			errorHandler(error)
@@ -321,8 +321,8 @@ module.exports = {
 					await db.collection('users').findOne({ _id: ObjectID(id) }),
 					await db.collection('users').findOne({ _id: ObjectID(userId) })
 				]
-				})
-			
+			})
+		
 			return users
 		} catch (error) {
 			errorHandler(error)

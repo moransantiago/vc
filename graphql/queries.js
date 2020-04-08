@@ -12,7 +12,7 @@ module.exports = {
         try {
             const db = await mydb()
             const users = await db.collection('users').find().toArray()
-    
+            
             return users
         } catch (error) {
             errorHandler(error)
@@ -28,7 +28,7 @@ module.exports = {
         
                 return user
             })
-
+            
             return user
         } catch (error) {
             errorHandler(error)
@@ -45,7 +45,7 @@ module.exports = {
 
                 return filteredUsers
             })
-
+            
             return users
         } catch (error) {
             errorHandler(error)
@@ -71,7 +71,7 @@ module.exports = {
         try {
             const db = await mydb()
             const servers = await db.collection('servers').find().toArray()
-    
+            
             return servers
         } catch (error) {
             errorHandler(error)
@@ -81,7 +81,7 @@ module.exports = {
         try {
             const db = await mydb()
             const server = await db.collection('servers').findOne({ _id: ObjectID(id) })
-    
+            
             return server
         } catch (error) {
             errorHandler(error)
@@ -100,7 +100,7 @@ module.exports = {
 
                 return filteredServers
             })
-
+            
             return servers
         } catch (error) {
             errorHandler(error)

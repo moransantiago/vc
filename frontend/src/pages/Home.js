@@ -31,8 +31,11 @@ const HomePage = ({ serverId, chatId, navigate }) => {
 					const { friends } = userData
 					const { friendRequests } = userData
 					friends.push(user)
-					const requestIndex = friendRequests.indexOf(user)
-					requestIndex && friendRequests.shift(requestIndex, 1)
+					const users = friendRequests.filter(({ _id }) => _id === user._id)
+					const requestIndex = friendRequests.indexOf(users[0])
+					if (requestIndex > -1) {
+						friendRequests.splice(requestIndex, 1)
+					}
 					setUserData({ ...userData })
 				}
 				// const removeFriend = user => {
