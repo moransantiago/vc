@@ -1,30 +1,26 @@
 import React, { useState } from 'react'
 
-import { HomeComponent } from '../components/HomeComponent'
+import { HomeLayout } from '../components/HomeLayout'
 import { Loader } from '../components/Loader'
 
 import { GetMe } from '../containers/GetMe'
 
 const HomePage = ({ serverId, chatId, navigate }) => {
-	const [userData, setUserData] = useState(undefined)
+	const {userData, setUserData} = useServerEvents()
 
 	return (
-		// => When the Query is COMPLETED (apollo client event)
-		// => Set our state data
+		// When the Query is COMPLETED (apollo client event), set our state data
 		<GetMe onCompleted={async ({ getMe }) => await setUserData(getMe)}>
 			{({ loading, error }) => {
 				if (loading || !userData) return <Loader message='Loading...' />
 				if (error) return 'Internal server error'
 
 				const server = serverId
-					? userData.servers.filter(
-							(server) => server._id === serverId
-					  )[0]
+					? userData.servers.filter(server => server._id === serverId)[0]
 					: userData.servers[0]._id
-				const chat =
-					chatId && server
-						? server.chats.filter((chat) => chat._id === chatId)[0]
-						: userData.servers[0].chats[0]._id
+				const chat = chatId && server
+					? server.chats.filter(chat => chat._id === chatId)[0]
+					: userData.servers[0].chats[0]._id
 				if (!serverId || !chatId) navigate(`/${server}/${chat}`)
 				
 				const addNewFriend = user => {
@@ -46,7 +42,7 @@ const HomePage = ({ serverId, chatId, navigate }) => {
 				// }
 
 				return (
-					<HomeComponent
+					<HomeLayout
 						userData={userData}
 						server={server}
 						chat={chat}

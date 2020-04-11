@@ -17,6 +17,7 @@ import { useRTCSocket } from '../../hooks/useRTCSocket'
 
 export const LeftColumn = ({ server, username }) => {
 	const [socket, obtainSocket] = useRTCSocket()
+	
 	const handleConnection = async channelId => {
 		if (!socket) {
 			const webSocket = await obtainSocket(username)

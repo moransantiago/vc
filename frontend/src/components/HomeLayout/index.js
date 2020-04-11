@@ -8,7 +8,7 @@ import { ConferenceModal } from '../ConferenceModal'
 
 import { DivContainer, DivColumns } from './styles'
 
-export const HomeComponent = ({ addNewFriend, userData, server, chat }) => {
+export const HomeLayout = ({ addNewFriend, userData, server, chat }) => {
 	const [isModalOpened, toggleModal] = useState(false)
 	
 	return (
