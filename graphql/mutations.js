@@ -16,7 +16,7 @@ module.exports = {
 			input.password = await bcrypt.hash(input.password, 10)
 			const user = await db.collection('users').insertOne(input)
 			input._id = user.insertedId
-			
+
 			return input
 		} catch (error) {
 			errorHandler(error)
@@ -32,7 +32,7 @@ module.exports = {
 			const student = await db
 				.collection('users')
 				.findOne({ _id: ObjectID(id) })
-			
+
 			return student
 		} catch (error) {
 			errorHandler(error)
@@ -42,7 +42,7 @@ module.exports = {
 		try {
 			const db = await mydb()
 			await db.collection('users').deleteOne({ _id: ObjectID(id) })
-			
+
 			return id
 		} catch (error) {
 			errorHandler(error)
@@ -53,7 +53,7 @@ module.exports = {
 			const db = await mydb()
 			const server = await db.collection('servers').insertOne(input)
 			input._id = server.insertedId
-			
+
 			return input
 		} catch (error) {
 			errorHandler(error)
@@ -68,7 +68,7 @@ module.exports = {
 			const server = await db
 				.collection('servers')
 				.findOne({ _id: ObjectID(id) })
-			
+
 			return server
 		} catch (error) {
 			errorHandler(error)
@@ -78,7 +78,7 @@ module.exports = {
 		try {
 			const db = await mydb()
 			await db.collection('servers').deleteOne({ _id: ObjectID(id) })
-			
+
 			return id
 		} catch (error) {
 			errorHandler(error)
@@ -88,7 +88,7 @@ module.exports = {
 		try {
 			const db = await mydb()
 			const server = input.server
-			delete input.server // => I delete the serverId property because it's not necessary to save it in the db
+			delete input.server // I delete the serverId property because it's not necessary to save it in the db
 			const chat = await db.collection('chats').insertOne(input)
 			input._id = chat.insertedId
 
@@ -98,7 +98,7 @@ module.exports = {
 					{ _id: ObjectID(server) },
 					{ $addToSet: { chats: input._id } }
 				)
-			
+
 			return input
 		} catch (error) {
 			errorHandler(error)
@@ -138,6 +138,46 @@ module.exports = {
 			errorHandler(error)
 		}
 	},
+	messageChat: async (
+		root,
+		{ id, messageInput },
+		{ headers: { authorization } }
+	) => {
+		try {
+			const chat = await jwt.verify(authorization, config.authJwtSecret, async (err) => {
+				if (err) throw new Error('User must be authorized')
+
+				const db = await mydb()
+				const server = await db.collection('servers').findOne({
+					$and: [
+						{ chats: { $eq: ObjectID(id) } },
+						{
+							users: {
+								$eq: ObjectID(messageInput.headers.author),
+							},
+						},
+					],
+				})
+				if (!server) throw new Error('Chat not found')
+
+				const chat = await db
+					.collection('chats')
+					.findOne({ _id: ObjectID(id) })
+				await db
+					.collection('chats')
+					.updateOne(
+						{ _id: ObjectID(id) },
+						{ $push: { messages: messageInput } }
+					)
+					
+				return chat
+			})
+
+			return chat
+		} catch (error) {
+			errorHandler(error)
+		}
+	},
 	createChannel: async (root, { input }) => {
 		try {
 			const db = await mydb()
@@ -152,7 +192,7 @@ module.exports = {
 					{ _id: ObjectID(server) },
 					{ $addToSet: { channels: input._id } }
 				)
-			
+
 			return input
 		} catch (error) {
 			errorHandler(error)
@@ -207,7 +247,7 @@ module.exports = {
 					{ _id: ObjectID(userId) },
 					{ $addToSet: { servers: ObjectID(serverId) } }
 				)
-	
+
 			const server = await db
 				.collection('servers')
 				.findOne({ _id: ObjectID(serverId) })
@@ -219,58 +259,68 @@ module.exports = {
 	},
 	addFriend: async (root, { userId }, { headers: { authorization } }) => {
 		try {
-			const users = await jwt.verify(authorization, config.authJwtSecret, async (err, { id }) => {
-				if (err) throw new Error('User must be authorized')
-				
-				const db = await mydb()
-				const existsFriendReq = await db.collection('users').findOne({
-					$and: [
-						{ _id: ObjectID(id) },
-						{ friendRequests: { $eq: ObjectID(userId) } }
+			const users = await jwt.verify(
+				authorization,
+				config.authJwtSecret,
+				async (err, { id }) => {
+					if (err) throw new Error('User must be authorized')
+
+					const db = await mydb()
+					const existsFriendReq = await db
+						.collection('users')
+						.findOne({
+							$and: [
+								{ _id: ObjectID(id) },
+								{ friendRequests: { $eq: ObjectID(userId) } },
+							],
+						})
+					// I DELETE THE FRIEND REQ FROM USERID AND ADD IT TO MY FRIENDS
+					if (existsFriendReq) {
+						await db
+							.collection('users')
+							.updateOne(
+								{ _id: ObjectID(id) },
+								{ $pull: { friendRequests: ObjectID(userId) } }
+							)
+						await db
+							.collection('users')
+							.updateOne(
+								{ _id: ObjectID(userId) },
+								{ $pull: { friendRequests: ObjectID(id) } }
+							)
+
+						await db
+							.collection('users')
+							.updateOne(
+								{ _id: ObjectID(id) },
+								{ $addToSet: { friends: ObjectID(userId) } }
+							)
+						await db
+							.collection('users')
+							.updateOne(
+								{ _id: ObjectID(userId) },
+								{ $addToSet: { friends: ObjectID(id) } }
+							)
+					} else {
+						await db
+							.collection('users')
+							.updateOne(
+								{ _id: ObjectID(userId) },
+								{ $addToSet: { friendRequests: ObjectID(id) } }
+							)
+					}
+
+					return [
+						await db
+							.collection('users')
+							.findOne({ _id: ObjectID(id) }),
+						await db
+							.collection('users')
+							.findOne({ _id: ObjectID(userId) }),
 					]
-				})
-				// I DELETE THE FRIEND REQ FROM USERID AND ADD IT TO MY FRIENDS
-				if (existsFriendReq) {
-					await db
-						.collection('users')
-						.updateOne(
-							{ _id: ObjectID(id) },
-							{ $pull: { friendRequests: ObjectID(userId) } }
-						)
-					await db
-						.collection('users')
-						.updateOne(
-							{ _id: ObjectID(userId) },
-							{ $pull: { friendRequests: ObjectID(id) } }
-						)
-		
-					await db
-						.collection('users')
-						.updateOne(
-							{ _id: ObjectID(id) },
-							{ $addToSet: { friends: ObjectID(userId) } }
-						)
-					await db
-						.collection('users')
-						.updateOne(
-							{ _id: ObjectID(userId) },
-							{ $addToSet: { friends: ObjectID(id) } }
-						)
-				} else {
-					await db
-						.collection('users')
-						.updateOne(
-							{ _id: ObjectID(userId) },
-							{ $addToSet: { friendRequests: ObjectID(id) } }
-						)
 				}
-		
-				return [
-					await db.collection('users').findOne({ _id: ObjectID(id) }),
-					await db.collection('users').findOne({ _id: ObjectID(userId) })
-				]
-			})
-		
+			)
+
 			return users
 		} catch (error) {
 			errorHandler(error)
@@ -278,51 +328,62 @@ module.exports = {
 	},
 	removeFriend: async (root, { userId }, { headers: { authorization } }) => {
 		try {
-			const users = await jwt.verify(authorization, config.authJwtSecret, async (err, { id }) => {
-				if (err) throw new Error('User must be authorized')
-				
-				const db = await mydb()
-				const isAlreadyMyFriend = await db.collection('users').findOne({
-					$and: [
-						{ _id: ObjectID(id) },
-						{ friends: { $eq: ObjectID(userId) } }
+			const users = await jwt.verify(
+				authorization,
+				config.authJwtSecret,
+				async (err, { id }) => {
+					if (err) throw new Error('User must be authorized')
+
+					const db = await mydb()
+					const isAlreadyMyFriend = await db
+						.collection('users')
+						.findOne({
+							$and: [
+								{ _id: ObjectID(id) },
+								{ friends: { $eq: ObjectID(userId) } },
+							],
+						})
+					// I THE USER IS ALREADY MY FRIEND DELETE THE USER ID FROM FRIENDS ARRAY AND MY USER ID FROM THE OTHERS ARRAY
+					if (isAlreadyMyFriend) {
+						await db
+							.collection('users')
+							.updateOne(
+								{ _id: ObjectID(id) },
+								{ $pull: { friends: ObjectID(userId) } }
+							)
+						await db
+							.collection('users')
+							.updateOne(
+								{ _id: ObjectID(userId) },
+								{ $pull: { friends: ObjectID(id) } }
+							)
+					} else {
+						// OR I DELETE THE FRIEND REQ FROM BOTH USERS
+						await db
+							.collection('users')
+							.updateOne(
+								{ _id: ObjectID(id) },
+								{ $pull: { friendRequests: ObjectID(userId) } }
+							)
+						await db
+							.collection('users')
+							.updateOne(
+								{ _id: ObjectID(userId) },
+								{ $pull: { friendRequests: ObjectID(id) } }
+							)
+					}
+
+					return [
+						await db
+							.collection('users')
+							.findOne({ _id: ObjectID(id) }),
+						await db
+							.collection('users')
+							.findOne({ _id: ObjectID(userId) }),
 					]
-				})
-				// I THE USER IS ALREADY MY FRIEND DELETE THE USER ID FROM FRIENDS ARRAY AND MY USER ID FROM THE OTHERS ARRAY
-				if (isAlreadyMyFriend) {
-					await db
-						.collection('users')
-						.updateOne(
-							{ _id: ObjectID(id) },
-							{ $pull: { friends: ObjectID(userId) } }
-						)
-					await db
-						.collection('users')
-						.updateOne(
-							{ _id: ObjectID(userId) },
-							{ $pull: { friends: ObjectID(id) } }
-						)
-				} else { // OR I DELETE THE FRIEND REQ FROM BOTH USERS
-					await db
-						.collection('users')
-						.updateOne(
-							{ _id: ObjectID(id) },
-							{ $pull: { friendRequests: ObjectID(userId) } }
-						)
-					await db
-						.collection('users')
-						.updateOne(
-							{ _id: ObjectID(userId) },
-							{ $pull: { friendRequests: ObjectID(id) } }
-						)
 				}
-		
-				return [
-					await db.collection('users').findOne({ _id: ObjectID(id) }),
-					await db.collection('users').findOne({ _id: ObjectID(userId) })
-				]
-			})
-		
+			)
+
 			return users
 		} catch (error) {
 			errorHandler(error)
@@ -337,16 +398,18 @@ module.exports = {
 			const db = await mydb()
 			const user = await db.collection('users').findOne({ username })
 
-            if (!user) {
-				throw new Error('Wrong username or password')
-            }
-
-            if (!(await bcrypt.compare(password, user.password))) {
+			if (!user) {
 				throw new Error('Wrong username or password')
 			}
-			
+
+			if (!(await bcrypt.compare(password, user.password))) {
+				throw new Error('Wrong username or password')
+			}
+
 			const payload = { id: user._id, username, email: user.email }
-			const token = jwt.sign(payload, config.authJwtSecret, { expiresIn: '15m' })
+			const token = jwt.sign(payload, config.authJwtSecret, {
+				expiresIn: '15m',
+			})
 
 			return token
 		} catch (error) {
@@ -360,9 +423,11 @@ module.exports = {
 			}
 
 			const db = await mydb()
-			const user = await db.collection('users').findOne({ $or: [{ username: input.username }, { email: input.email }] })
+			const user = await db.collection('users').findOne({
+				$or: [{ username: input.username }, { email: input.email }],
+			})
 
-            if (user) {
+			if (user) {
 				throw new Error(
 					user.username === input.username
 						? 'Username is already taken'
@@ -373,13 +438,19 @@ module.exports = {
 			input.password = await bcrypt.hash(input.password, 10)
 			const newUser = await db.collection('users').insertOne(input)
 			input._id = newUser.insertedId
-			
-			const payload = { id: input._id, username: input.username, email: input.email }
-			const token = jwt.sign(payload, config.authJwtSecret, { expiresIn: '15m' })
+
+			const payload = {
+				id: input._id,
+				username: input.username,
+				email: input.email,
+			}
+			const token = jwt.sign(payload, config.authJwtSecret, {
+				expiresIn: '15m',
+			})
 
 			return token
 		} catch (error) {
 			errorHandler(error)
 		}
-	}
+	},
 }
