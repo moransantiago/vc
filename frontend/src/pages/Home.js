@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React from 'react'
 
 import { HomeLayout } from '../components/HomeLayout'
 import { Loader } from '../components/Loader'

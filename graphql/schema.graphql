@@ -24,13 +24,14 @@ type Chat {
 }
 
 type Message {
+	_id: ID!
 	headers: MessageHeader!
     body: String!
 }
 
 type MessageHeader {
-	author: ID!
-    spam: Boolean!
+	author: User!
+    spoiler: Boolean!
 }
 
 type Channel {
@@ -108,7 +109,7 @@ input MessageInput {
 
 input MessageHeaderInput {
 	author: ID!
-    spam: Boolean!
+    spoiler: Boolean!
 }
 
 # QUERIES
@@ -152,7 +153,7 @@ type Mutation {
 	"Deletes a chat"
 	deleteChat(id: ID!): ID
 	"Appends a message to a chat"
-	messageChat(id: ID!, messageInput: MessageInput): Chat
+	messageChat(id: ID!, messageInput: MessageInput): Message
 	"Creates a channel"
 	createChannel(input: ChannelInput!): Channel
 	"Edits a channel"

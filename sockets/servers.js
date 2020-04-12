@@ -8,7 +8,7 @@ module.exports = {
                     {
                         headers: {
                             author: ID!,
-                            spam: bool!
+                            spoiler: bool!
                         },
                         body: String!
                     }

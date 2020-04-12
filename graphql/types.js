@@ -10,7 +10,7 @@ module.exports = {
 		servers: async ({ servers }) => {
 			try {
 				const db = await mydb()
-				const ids = servers ? servers.map(id => ObjectID(id)) : []
+				const ids = servers ? servers.map((id) => ObjectID(id)) : []
 				const serversData =
 					ids.length > 0
 						? await db
@@ -18,7 +18,6 @@ module.exports = {
 								.find({ _id: { $in: ids } })
 								.toArray()
 						: []
-				
 
 				return serversData
 			} catch (error) {
@@ -28,7 +27,7 @@ module.exports = {
 		friends: async ({ friends }) => {
 			try {
 				const db = await mydb()
-				const ids = friends ? friends.map(id => ObjectID(id)) : []
+				const ids = friends ? friends.map((id) => ObjectID(id)) : []
 				const friendsData =
 					ids.length > 0
 						? await db
@@ -36,7 +35,6 @@ module.exports = {
 								.find({ _id: { $in: ids } })
 								.toArray()
 						: []
-				
 
 				return friendsData
 			} catch (error) {
@@ -46,7 +44,9 @@ module.exports = {
 		friendRequests: async ({ friendRequests }) => {
 			try {
 				const db = await mydb()
-				const ids = friendRequests ? friendRequests.map(id => ObjectID(id)) : []
+				const ids = friendRequests
+					? friendRequests.map((id) => ObjectID(id))
+					: []
 				const usersData =
 					ids.length > 0
 						? await db
@@ -54,13 +54,12 @@ module.exports = {
 								.find({ _id: { $in: ids } })
 								.toArray()
 						: []
-				
 
 				return usersData
 			} catch (error) {
 				errorHandler(error)
 			}
-		}
+		},
 	},
 	Server: {
 		users: async ({ users }) => {
@@ -74,7 +73,6 @@ module.exports = {
 								.find({ _id: { $in: ids } })
 								.toArray()
 						: []
-				
 
 				return usersData
 			} catch (error) {
@@ -92,7 +90,6 @@ module.exports = {
 								.find({ _id: { $in: ids } })
 								.toArray()
 						: []
-				
 
 				return chatsData
 			} catch (error) {
@@ -110,12 +107,42 @@ module.exports = {
 								.find({ _id: { $in: ids } })
 								.toArray()
 						: []
-				
 
 				return channelsData
 			} catch (error) {
 				errorHandler(error)
 			}
+		},
+	},
+	Chat: {
+		messages: async ({ messages }) => {
+			try {
+				const db = await mydb()
+				const ids = messages ? messages.map(id => ObjectID(id)) : []
+				const messagesData =
+					ids.length > 0
+						? await db
+								.collection('messages')
+								.find({ _id: { $in: ids } })
+								.toArray()
+						: []
+
+				return messagesData
+			} catch (error) {
+				errorHandler(error)
+			}
 		}
+	},
+	MessageHeader: {
+		author: async ({ author }) => {
+			try {
+				const db = await mydb()
+				const userData = await db.collection('users').findOne({ _id: ObjectID(author) })
+
+				return userData
+			} catch (error) {
+				errorHandler(error)
+			}
+		},
 	}
 }

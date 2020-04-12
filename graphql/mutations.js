@@ -138,42 +138,39 @@ module.exports = {
 			errorHandler(error)
 		}
 	},
-	messageChat: async (
-		root,
-		{ id, messageInput },
-		{ headers: { authorization } }
-	) => {
+	messageChat: async (root, { id, messageInput }, { headers: { authorization } } ) => {
 		try {
-			const chat = await jwt.verify(authorization, config.authJwtSecret, async (err) => {
+			const chat = await jwt.verify(authorization, config.authJwtSecret, async err => {
 				if (err) throw new Error('User must be authorized')
-
+				
 				const db = await mydb()
+				/*
+				First of all we check if:
+					The chat exists
+						AND
+					The author is inside the server that owns that chat
+				*/
 				const server = await db.collection('servers').findOne({
 					$and: [
 						{ chats: { $eq: ObjectID(id) } },
-						{
-							users: {
-								$eq: ObjectID(messageInput.headers.author),
-							},
-						},
+						{ users: { $eq: ObjectID(messageInput.headers.author) } }
 					],
 				})
 				if (!server) throw new Error('Chat not found')
 
-				const chat = await db
-					.collection('chats')
-					.findOne({ _id: ObjectID(id) })
+				const message = await db.collection('messages').insertOne(messageInput)
+				messageInput._id = message.insertedId
 				await db
 					.collection('chats')
 					.updateOne(
 						{ _id: ObjectID(id) },
-						{ $push: { messages: messageInput } }
+						{ $push: { messages: messageInput._id } }
 					)
-					
-				return chat
+
+				return message
 			})
 
-			return chat
+			return messageInput
 		} catch (error) {
 			errorHandler(error)
 		}
