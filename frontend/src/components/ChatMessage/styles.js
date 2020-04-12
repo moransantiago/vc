@@ -38,6 +38,9 @@ export const Img = styled.img`
 	max-height: 40px;
 	margin-left: 15px;
 	margin-right: 15px;
+	-webkit-box-shadow: -6px 12px 6px -10px rgba(0,0,0,0.75);
+	-moz-box-shadow: -6px 12px 6px -10px rgba(0,0,0,0.75);
+	box-shadow: -6px 12px 6px -10px rgba(0,0,0,0.75);
 `
 
 export const Span = styled.span`
@@ -47,12 +50,12 @@ export const Span = styled.span`
 		!isMine
 			? css`
 					 {
-						border-radius: 0 4px 4px 4px;
+						border-radius: 0 12px 12px 12px;
 					}
 			  `
 			: css`
 					 {
-						border-radius: 4px 0 4px 4px;
+						border-radius: 12px 0 12px 12px;
 					}
 			  `};
 	display: flex;
@@ -89,6 +92,12 @@ export const Span = styled.span`
 `
 
 export const Title = styled.h1`
-	color: inherit;
+	color: #c86740;
+	cursor: pointer;
 	font-weight: bolder;
+`
+
+export const ParagraphBody = styled.p`
+	font-size: 15px;
+	font-weight: lighter;
 `

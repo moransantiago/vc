@@ -20,6 +20,7 @@ const morgan = require('morgan')
 // my stuff
 const { config } = require('./config')
 const { bindSignalingEvents } = require('./sockets/signaling') // Function to set the events on the future sockets
+const { bindServerEvents } = require('./sockets/servers') // Function to set the events on the future sockets
 const resolvers = require('./graphql/resolvers')
 
 const port = process.env.port || 3333
@@ -39,6 +40,7 @@ app.use(helmet())
 // app.use(express.static(join(__dirname, 'frontend/build')))
 
 bindSignalingEvents(io.of('/ws/signaling')) // Create an endpoint where the clients can be connected to perform signaling
+bindServerEvents(io.of('/ws/servers')) // Create an endpoint where the clients can be connected to suscribe to server events
 
 app.use(
 	'/api',

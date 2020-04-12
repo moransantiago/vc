@@ -14,6 +14,14 @@ const getMe = gql`
 				chats {
 					_id
 					name
+					messages {
+						headers {
+							author {
+								username
+							}
+						}
+						body
+					}
 				}
 				channels {
 					_id

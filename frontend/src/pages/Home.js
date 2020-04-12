@@ -5,8 +5,10 @@ import { Loader } from '../components/Loader'
 
 import { GetMe } from '../containers/GetMe'
 
+import { useServerEventSocket } from '../hooks/useServerEventSocket'
+
 const HomePage = ({ serverId, chatId, navigate }) => {
-	const {userData, setUserData} = useServerEvents()
+	const {userData, setUserData} = useServerEventSocket()
 
 	return (
 		// When the Query is COMPLETED (apollo client event), set our state data

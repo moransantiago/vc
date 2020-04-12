@@ -8,7 +8,7 @@ export const ChatMessage = ({ isMine = false, author = 'author', body = 'Lorem i
             <Img src='https://citas.in/media/authors/diego-maradona.detail.jpg' />
             <Span isMine={isMine}>
                 {!isMine && <Title>{author}</Title>}
-                <p>{body}</p>
+                <ParagraphBody>{body}</ParagraphBody>
             </Span>
         </DivMessage>
     </DivContainer>
