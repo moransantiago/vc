@@ -7,9 +7,12 @@ export const useServerEventSocket = () => {
 	if (userData && userData.servers) {
 		const wsClient = ws.connect(`${process.env.REACT_APP_API}/ws/servers`)
 		const servers = userData.servers.map(({ _id, channels }) => {
+			const chatIds = chats.map(({ _id }) => _id)
 			const channelIds = channels.map(({ _id }) => _id)
-			return { _id, channels: channelIds }
+
+			return { _id, chats: chatIds, channels: channelIds }
 		})
+		
 		wsClient.on('connect', () => {
 			wsClient.emit('setup', servers)
 			setTimeout(() => {
