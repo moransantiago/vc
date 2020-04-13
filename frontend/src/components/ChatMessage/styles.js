@@ -3,15 +3,12 @@ import styled, { css } from 'styled-components'
 export const DivContainer = styled.div`
 	min-width: 100%;
 	height: auto;
-	display: flex;
 	padding: 1% 0;
-	${({ isMine }) =>
-		isMine &&
-		css`
-			 {
-				flex-direction: row-reverse;
-			}
-		`}
+	display: flex;
+	flex-direction: ${({ isMine }) => (isMine ? 'row-reverse' : 'row')};
+	&:first-child {
+		margin-top: auto;
+	}
 `
 
 export const DivMessage = styled.div`
@@ -19,13 +16,7 @@ export const DivMessage = styled.div`
 	width: auto;
 	height: auto;
 	display: flex;
-	${({ isMine }) =>
-		isMine &&
-		css`
-			 {
-				flex-direction: row-reverse;
-			}
-		`}
+	flex-direction: ${({ isMine }) => (isMine ? 'row-reverse' : 'row')};
 `
 
 export const Img = styled.img`
@@ -38,26 +29,15 @@ export const Img = styled.img`
 	max-height: 40px;
 	margin-left: 15px;
 	margin-right: 15px;
-	-webkit-box-shadow: -6px 12px 6px -10px rgba(0,0,0,0.75);
-	-moz-box-shadow: -6px 12px 6px -10px rgba(0,0,0,0.75);
-	box-shadow: -6px 12px 6px -10px rgba(0,0,0,0.75);
+	-webkit-box-shadow: -6px 12px 6px -10px rgba(0, 0, 0, 0.75);
+	-moz-box-shadow: -6px 12px 6px -10px rgba(0, 0, 0, 0.75);
+	box-shadow: -6px 12px 6px -10px rgba(0, 0, 0, 0.75);
 `
 
 export const Span = styled.span`
 	position: relative;
 	background-color: #ededed;
-	${({ isMine }) =>
-		!isMine
-			? css`
-					 {
-						border-radius: 0 12px 12px 12px;
-					}
-			  `
-			: css`
-					 {
-						border-radius: 12px 0 12px 12px;
-					}
-			  `};
+	border-radius: ${({ isMine }) => isMine ? '12px 0 12px 12px' : '0 12px 12px 12px'};
 	display: flex;
 	flex-direction: column;
 	color: #464646;
@@ -66,28 +46,25 @@ export const Span = styled.span`
 		content: '';
 		background-color: #282828;
 		position: absolute;
+		top: 0px;
+		border-bottom: 10px solid transparent;
+		width: 0;
+		height: 0;
+		box-shadow: ${({ isMine }) => isMine ? '-2px 0 0 0 #ededed;' : '2px 0 0 0 #ededed'};
 		${({ isMine }) =>
 			!isMine
 				? css`
 						 {
-							top: 0px;
-							left: -10px;
 							border-right: 10px solid #ededed;
-							border-bottom: 10px solid transparent;
-							box-shadow: 2px 0 0 0 #ededed;
+							left: -10px;
 						}
 				  `
 				: css`
 						 {
-							top: 0px;
-							right: -10px;
 							border-left: 10px solid #ededed;
-							border-bottom: 10px solid transparent;
-							box-shadow: -2px 0 0 0 #ededed;
+							right: -10px;
 						}
 				  `};
-		width: 0;
-		height: 0;
 	}
 `
 

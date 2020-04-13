@@ -19,8 +19,8 @@ const morgan = require('morgan')
 
 // my stuff
 const { config } = require('./config')
-const { bindSignalingEvents } = require('../utils/sockets/signaling') // Function to set the events on the future sockets
-const { bindServerEvents } = require('../utils/sockets/servers') // Function to set the events on the future sockets
+const { bindSignalingEvents } = require('./utils/sockets/signaling') // Function to set the events on the future sockets
+const { bindServerEvents } = require('./utils/sockets/servers') // Function to set the events on the future sockets
 const resolvers = require('./graphql/resolvers')
 
 const port = process.env.port || 3333

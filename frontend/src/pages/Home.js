@@ -8,7 +8,7 @@ import { GetMe } from '../containers/GetMe'
 import { useServerEventSocket } from '../hooks/useServerEventSocket'
 
 const HomePage = ({ serverId, chatId, navigate }) => {
-	const {userData, setUserData} = useServerEventSocket()
+	const { userData, setUserData, sendMessage } = useServerEventSocket()
 
 	return (
 		// When the Query is COMPLETED (apollo client event), set our state data
@@ -18,18 +18,23 @@ const HomePage = ({ serverId, chatId, navigate }) => {
 				if (error) return 'Internal server error'
 
 				const server = serverId
-					? userData.servers.filter(server => server._id === serverId)[0]
+					? userData.servers.filter(
+							(server) => server._id === serverId
+					  )[0]
 					: userData.servers[0]._id
-				const chat = chatId && server
-					? server.chats.filter(chat => chat._id === chatId)[0]
-					: userData.servers[0].chats[0]._id
+				const chat =
+					chatId && server
+						? server.chats.filter((chat) => chat._id === chatId)[0]
+						: userData.servers[0].chats[0]._id
 				if (!serverId || !chatId) navigate(`/${server}/${chat}`)
-				
-				const addNewFriend = user => {
+
+				const addNewFriend = (user) => {
 					const { friends } = userData
 					const { friendRequests } = userData
 					friends.push(user)
-					const users = friendRequests.filter(({ _id }) => _id === user._id)
+					const users = friendRequests.filter(
+						({ _id }) => _id === user._id
+					)
 					const requestIndex = friendRequests.indexOf(users[0])
 					if (requestIndex > -1) {
 						friendRequests.splice(requestIndex, 1)
@@ -48,6 +53,7 @@ const HomePage = ({ serverId, chatId, navigate }) => {
 						userData={userData}
 						server={server}
 						chat={chat}
+						sendMessage={sendMessage}
 						addNewFriend={addNewFriend}
 					/>
 				)

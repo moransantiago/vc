@@ -5,9 +5,9 @@ import { ServersBar } from '../ServersBar'
 
 import { Div } from './styles'
 
-export const ServersAndChatColumn = ({ servers, chat, currentServer, onClick }) => (
+export const ServersAndChatColumn = ({ servers, sendMessage, chat, currentServer, onClick }) => (
     <Div className='column is-paddingless is-8'>
         <ServersBar servers={servers} currentServer={currentServer} />
-        <Chat chat={chat} onClick={onClick} />
+        <Chat sendMessage={sendMessage} chat={chat} onClick={onClick} />
     </Div>
 )

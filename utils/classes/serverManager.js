@@ -5,7 +5,7 @@ class serverManager {
 		this.channels = []
 	}
 
-	logIntoServers(servers, socket) {
+	registerServers(servers, socket) {
 		servers.forEach(({ _id, chats, channels }) => {
 			socket.join(_id)
 			this.addServer(_id, chats, channels)
@@ -65,9 +65,9 @@ class serverManager {
 
 	getServerIds() { return this.servers.map(({ _id }) => _id) }
 
-	getUsersOnChannels() {
-		const
-	}
+	// getUsersOnChannels() {
+	// 	const
+	// }
 }
 
 module.exports = new serverManager()

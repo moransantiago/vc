@@ -3,35 +3,51 @@ import ws from 'socket.io-client'
 
 export const useServerEventSocket = () => {
 	const [userData, setUserData] = useState(undefined)
+	const [socket, setSocket] = useState(undefined)
 
-	if (userData && userData.servers) {
-		const wsClient = ws.connect(`${process.env.REACT_APP_API}/ws/servers`)
-		const servers = userData.servers.map(({ _id, channels }) => {
-			const chatIds = chats.map(({ _id }) => _id)
-			const channelIds = channels.map(({ _id }) => _id)
+	if (userData && userData.servers && !socket) {
+		const wsClient = ws(`${process.env.REACT_APP_API}/ws/servers`)
+		const servers = userData.servers.map((server) => {
+			const chats = server.chats.map(({ _id }) => _id)
+			const channels = server.channels.map(({ _id }) => _id)
 
-			return { _id, chats: chatIds, channels: channelIds }
+			return { _id: server._id, chats, channels }
 		})
-		
+
 		wsClient.on('connect', () => {
 			wsClient.emit('setup', servers)
-			setTimeout(() => {
-				wsClient.emit('message', { room: userData.servers[0]._id, data: 'watafa' })
-				// wsClient.emit('join_channel', { userId: userData.friends[0]._id, channel: userData.servers[0].channels[0]._id })
-			}, 1000)
 			// setTimeout(() => {
-				// wsClient.emit('leave_channel', { userId: userData.friends[0]._id, channel: userData.servers[0].channels[0]._id })
+			// wsClient.emit('join_channel', { userId: userData.friends[0]._id, channel: userData.servers[0].channels[0]._id })
+			// }, 1000)
+			// setTimeout(() => {
+			// wsClient.emit('leave_channel', { userId: userData.friends[0]._id, channel: userData.servers[0].channels[0]._id })
 			// }, 4000)
-			
-			wsClient.on('message', ({ room, data }) => {
-				// const serverIds = userData.servers.map(({ _id }) => _id)
-				const { servers } = userData
-				const { chats } = servers.map(({ _id }) => _id).includes(room)
-				const chat = chats.map(({ _id }) => _id).includes(room)
-				// setUserData({ data })
+
+			wsClient.on('message', ({ server, chat, data }) => {
+				const [messagedServer] = userData.servers.filter(currentServer => currentServer._id === server)
+				const [messagedChat] = messagedServer.chats.filter(currentChat => currentChat._id === chat)
+				messagedChat.messages.push(data)
+				setUserData({ ...userData })
 			})
+		})
+		setSocket(wsClient)
+	}
+
+	const sendMessage = (chatId, spoiler, body) => {
+		socket.emit('message', {
+			chat: chatId,
+			data: {
+				headers: {
+					author: {
+						_id: userData._id,
+						username: userData.username,
+					},
+					spoiler,
+				},
+				body,
+			},
 		})
 	}
 
-	return { userData, setUserData }
+	return { userData, setUserData, sendMessage }
 }

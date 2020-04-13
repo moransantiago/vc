@@ -2,9 +2,9 @@ const serverManager = require('../classes/serverManager')
 
 module.exports = {
 	bindServerEvents: io => {
-		io.on('connect', socket => {
+		io.on('connect', socket => {			
 			socket.on('setup', servers => {
-				serverManager.logIntoServers(servers, socket)
+				serverManager.registerServers(servers, socket)
 				// socket.emit('connected_users', serverList)
 			})
 
@@ -19,8 +19,8 @@ module.exports = {
 			})
 
 			socket.on('message', ({ chat, data }) => {
-               	const server = serverManager.getServerBasedOnChat(chat)
-				socket.broadcast.to(server).emit('message', { room, data }) // Broadcast the info inside a room that a peer has left it
+				const server = serverManager.getServerBasedOnChat(chat)
+				socket.broadcast.to(server).emit('message', { server, chat, data }) // Broadcast the info inside a room that a peer has left it
 			})
 		})
 	}

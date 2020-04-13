@@ -8,7 +8,7 @@ import { ConferenceModal } from '../ConferenceModal'
 
 import { DivContainer, DivColumns } from './styles'
 
-export const HomeLayout = ({ addNewFriend, userData, server, chat }) => {
+export const HomeLayout = ({ addNewFriend, sendMessage, userData, server, chat }) => {
 	const [isModalOpened, toggleModal] = useState(false)
 	
 	return (
@@ -21,6 +21,7 @@ export const HomeLayout = ({ addNewFriend, userData, server, chat }) => {
 					chat={chat}
 					currentServer={server._id}
 					onClick={() => toggleModal(true)}
+					sendMessage={sendMessage}
 				/>
 				<FriendsColumn
 					friends={userData.friends}
