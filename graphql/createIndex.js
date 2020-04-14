@@ -1,10 +1,10 @@
-const mydb = require('./db')
+const client = require('./mongo')
 
 const errorHandler = require('./errorHandler')
 
 const createIndex = async () => {
     try {
-        const db = await mydb()
+        const db = await client.connect()
         await db.collection('servers').createIndex({"$**": "text"})
 
     } catch (error) {

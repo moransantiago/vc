@@ -116,7 +116,6 @@ export const Input = styled.input`
 export const SendButonn = styled.button`
 	background-color: #5e5e5e;
 	border: 0;
-	border-left: 1px solid #282828;
 	border-radius: 0 4px 4px 0;
 	height: 50%;
 	width: 50px;
@@ -126,6 +125,9 @@ export const SendButonn = styled.button`
 	display: flex;
 	justify-content: center;
 	align-items: center;
+	&:hover {
+		background-color: #535353;
+	}
 `
 
 export const DivInput = styled.div`
@@ -135,6 +137,7 @@ export const DivInput = styled.div`
 	border-top: 1px solid #3c3c3c;
 	flex-grow: 1;
 	overflow: hidden;
+	padding: 0 2%;
 `
 
 export const Hero = styled.div`

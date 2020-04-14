@@ -27,7 +27,7 @@ export const NavHeader = styled.span`
 	align-items: center;
 	cursor: pointer;
 	height: 100%;
-	padding: 0 10px;
+	padding: 0 18px;
 	border-top: 1px solid transparent;
 	border-right: 1px solid #3c3c3c;
 	border-bottom: 1px solid transparent;
@@ -74,7 +74,7 @@ export const NavBody = styled.div`
 
 export const NavItem = styled.span`
 	border-radius: 3px;
-	padding: 5px;
+	padding: 8px;
 	font-size: 14px;
 	cursor: pointer;
 	color: #ededed;

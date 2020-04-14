@@ -2,7 +2,12 @@ const serverManager = require('../classes/serverManager')
 
 module.exports = {
 	bindServerEvents: io => {
-		io.on('connect', socket => {			
+		io.on('connect', socket => {
+			io.clients((error, clients) => {
+				if (error) throw error
+				console.log(clients) // => [PZDoMHjiu8PYfRiKAAAF, Anw2LatarvGVVXEIAAAD]
+			})
+						
 			socket.on('setup', servers => {
 				serverManager.registerServers(servers, socket)
 				// socket.emit('connected_users', serverList)

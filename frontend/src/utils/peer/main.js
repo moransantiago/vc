@@ -111,6 +111,7 @@ export const peerSetUp = async username => {
 		newVideoElement.style.flexGrow = 1
 		newVideoElement.style.flexShrink = 1
 		newVideoElement.style.flexBasis = '50%'
+		newVideoElement.volume = 0.3
 		newVideoElement.muted = isMine // => If the video is remote, we do not mute it
 		newVideoElement.playsInline = true
 		newVideoElement.autoPlay = true
