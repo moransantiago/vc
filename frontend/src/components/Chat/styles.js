@@ -63,7 +63,8 @@ export const DivTitle = styled.div`
 export const DivBodyChat = styled.div`
 	overflow-y: auto;
 	word-wrap: break-word;
-	flex-grow: 15;
+	flex-grow: 18;
+	flex-shrink: 18;
 	color: #b7b7b7;
 	display: flex;
 	flex-direction: column;
@@ -136,7 +137,9 @@ export const DivInput = styled.div`
 	-moz-box-shadow: 0px -6px 12px -9px rgba(0, 0, 0, 0.75);
 	box-shadow: 0px -6px 12px -9px rgba(0, 0, 0, 0.75);
 	border-top: 1px solid #3c3c3c;
-	flex-grow: 1;
+	flex-grow: 0;
+	flex-shrink: 0;
+	flex-basis: 80px;
 	overflow: hidden;
 	padding: 0 2%;
 `

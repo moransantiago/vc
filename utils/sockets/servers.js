@@ -5,7 +5,7 @@ module.exports = {
 		io.on('connect', socket => {
 			io.clients((error, clients) => {
 				if (error) throw error
-				console.log(clients) // => [PZDoMHjiu8PYfRiKAAAF, Anw2LatarvGVVXEIAAAD]
+				console.log('Message socket clients:', clients.length, clients)
 			})
 						
 			socket.on('setup', servers => {

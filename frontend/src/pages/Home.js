@@ -32,7 +32,9 @@ const HomePage = ({ serverId, chatId, navigate }) => {
 					const { friends } = userData
 					const { friendRequests } = userData
 					friends.push(user)
-					const users = friendRequests.filter(({ _id }) => _id === user._id)
+					const users = friendRequests.filter(
+						({ _id }) => _id === user._id
+					)
 					const requestIndex = friendRequests.indexOf(users[0])
 					if (requestIndex > -1) {
 						friendRequests.splice(requestIndex, 1)

@@ -11,6 +11,47 @@ export const DivContainer = styled.div`
 	}
 `
 
+export const SpanHour = styled.span`
+	opacity: 0.7;
+	font-size: 14px;
+	margin-left: 18px;
+`
+
+export const DivRow = styled.div`
+	display: flex;
+	align-items: flex-end;
+	flex-direction: row;
+	position: relative;
+	background-color: #ededed;
+	border-radius: ${({ isMine }) => isMine ? '12px 0 12px 12px' : '0 12px 12px 12px'};
+	color: #464646;
+	padding: 10px;
+	&:after {
+		content: '';
+		position: absolute;
+		top: 0px;
+		border-bottom: 10px solid transparent;
+		width: 0;
+		height: 0;
+		box-shadow: ${({ isMine }) =>
+			isMine ? '-2px 0 0 0 #ededed;' : '2px 0 0 0 #ededed'};
+		${({ isMine }) =>
+			!isMine
+				? css`
+						 {
+							border-right: 10px solid #ededed;
+							left: -10px;
+						}
+				  `
+				: css`
+						 {
+							border-left: 10px solid #ededed;
+							right: -10px;
+						}
+				  `};
+	}
+`
+
 export const DivMessage = styled.div`
 	max-width: 65%;
 	width: auto;
@@ -34,47 +75,19 @@ export const Img = styled.img`
 	box-shadow: -6px 12px 6px -10px rgba(0, 0, 0, 0.75);
 `
 
-export const Span = styled.span`
-	position: relative;
-	background-color: #ededed;
-	border-radius: ${({ isMine }) => isMine ? '12px 0 12px 12px' : '0 12px 12px 12px'};
+export const SpanBody = styled.span`
 	display: flex;
 	flex-direction: column;
-	color: #464646;
-	padding: 12px;
-	&:after {
-		content: '';
-		background-color: #282828;
-		position: absolute;
-		top: 0px;
-		border-bottom: 10px solid transparent;
-		width: 0;
-		height: 0;
-		box-shadow: ${({ isMine }) => isMine ? '-2px 0 0 0 #ededed;' : '2px 0 0 0 #ededed'};
-		${({ isMine }) =>
-			!isMine
-				? css`
-						 {
-							border-right: 10px solid #ededed;
-							left: -10px;
-						}
-				  `
-				: css`
-						 {
-							border-left: 10px solid #ededed;
-							right: -10px;
-						}
-				  `};
-	}
 `
 
 export const Title = styled.h1`
 	color: #c86740;
 	cursor: pointer;
 	font-weight: bolder;
+	font-size: 17px;
 `
 
 export const ParagraphBody = styled.p`
-	font-size: 15px;
+	font-size: 16px;
 	font-weight: lighter;
 `
