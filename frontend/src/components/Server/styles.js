@@ -31,7 +31,7 @@ export const Link = styled(LinkRouter)`
 			  `
 			: css`
 					 {
-						&::after {
+						&:after {
 							content: '';
 							position: absolute;
 							top: -7px;

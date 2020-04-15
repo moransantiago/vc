@@ -13,7 +13,7 @@ export const Image = styled.img`
 export const Nav = styled.div`
 	display: flex;
 	flex-direction: row;
-	justify-content: space-between;
+	justify-content: flex-start;
 	align-items: center;
 	min-height: 50px;
 	height: 50px;
@@ -25,22 +25,26 @@ export const Nav = styled.div`
 export const NavHeader = styled.span`
 	display: flex;
 	align-items: center;
-	padding: 4px;
 	cursor: pointer;
+	height: 100%;
+	padding: 0 18px;
+	border-top: 1px solid transparent;
+	border-right: 1px solid #3c3c3c;
+	border-bottom: 1px solid transparent;
+	border-left: 1px solid transparent;
 	&:hover {
-		background-color: #ededed;
-		background-color: #202020;
-		border-radius: 3px;
+		background-color: #1e1e1e;
 	}
 `
 
 export const Paragraph = styled.p`
 	color: #ededed;
 	margin-left: 15px;
+	font-size: 17px;
 	font-weight: bold;
 `
 
-export const Link = styled(LinkRouter)`
+export const LogOut = styled(LinkRouter)`
 	font-family: BalooPaaji;
 	font-size: 16px;
 	border-radius: 3px;
@@ -53,8 +57,28 @@ export const Link = styled(LinkRouter)`
 	font-weight: bold;
 	text-align: center;
 	padding: 5px;
+	margin-left: auto;
 	&:hover {
 		background-color: #9b5134;
 		color: #aeaeae;
+	}
+`
+
+export const NavBody = styled.div`
+	display: flex;
+	justify-content: flex-start;
+	align-items: center;
+	height: 100%;
+	padding: 1%;
+`
+
+export const NavItem = styled.span`
+	border-radius: 3px;
+	padding: 8px;
+	font-size: 14px;
+	cursor: pointer;
+	color: #ededed;
+	&:hover {
+		background-color: #2d2d2d;
 	}
 `

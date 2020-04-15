@@ -20,6 +20,18 @@ type Server {
 type Chat {
 	_id: ID!
 	name: String!
+	messages: [Message]
+}
+
+type Message {
+	_id: ID!
+	headers: MessageHeader!
+    body: String!
+}
+
+type MessageHeader {
+	author: User!
+    spoiler: Boolean!
 }
 
 type Channel {
@@ -29,7 +41,7 @@ type Channel {
 
 # INPUTS
 
-# => USERS
+# USERS
 
 input UserInput {
 	username: String!
@@ -48,7 +60,7 @@ input UserCredentials {
 	password: String!
 }
 
-# => SERVERS
+# SERVERS
 
 input ServerInput {
 	admin: ID!
@@ -66,7 +78,7 @@ input ServerEditInput {
 	channels: [ID]
 }
 
-# => CHATS
+# CHATS
 
 input ChatInput {
 	name: String!
@@ -77,7 +89,7 @@ input ChatEditInput {
 	name: String
 }
 
-# => CHANNELS
+# CHANNELS
 
 input ChannelInput {
 	name: String!
@@ -86,6 +98,18 @@ input ChannelInput {
 
 input ChannelEditInput {
 	name: String
+}
+
+# Message
+
+input MessageInput {
+	headers: MessageHeaderInput!
+    body: String!
+}
+
+input MessageHeaderInput {
+	author: ID!
+    spoiler: Boolean!
 }
 
 # QUERIES
@@ -128,6 +152,8 @@ type Mutation {
 	editChat(id: ID!, input: ChatEditInput): Chat
 	"Deletes a chat"
 	deleteChat(id: ID!): ID
+	"Appends a message to a chat"
+	messageChat(id: ID!, messageInput: MessageInput): Message
 	"Creates a channel"
 	createChannel(input: ChannelInput!): Channel
 	"Edits a channel"
@@ -137,9 +163,9 @@ type Mutation {
 	"Adds a user to a server"
 	addUserToServer(userId: ID!, serverId: ID!): Server
 	"Adds a user id to the friend requests array OR adds a user id to the friend array (if the friend req was already sent)"
-	addFriend(userId: ID!): [User] # => Returns both users
+	addFriend(userId: ID!): [User] # Returns both users
 	"Removes a friend request from the friend requests array OR removes a user id from the friend array (if the userId was already a friend)"
-	removeFriend(userId: ID!): [User] # => Returns both users
+	removeFriend(userId: ID!): [User] # Returns both users
 	"Returns a token to perform auth"
 	logIn(input: UserCredentials!): String
 	"Creates a personal user and returns a token to perform auth"

@@ -16,9 +16,7 @@ export const Signup = () => {
 					const input = { username, email, password }
 					const variables = { input }
 					signUp({ variables })
-						.then(({ data: { signUp } }) => {
-							activateAuth(signUp)
-						})
+						.then(activateAuth)
 						.catch(err => err)
 				}
 				const errorMsg = error && error.graphQLErrors && error.graphQLErrors[0].message

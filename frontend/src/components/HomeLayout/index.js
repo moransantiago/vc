@@ -8,25 +8,9 @@ import { ConferenceModal } from '../ConferenceModal'
 
 import { DivContainer, DivColumns } from './styles'
 
-export const HomeComponent = ({ data, server, chat }) => {
-	const [userData, setUserData] = useState(data)
+export const HomeLayout = ({ addNewFriend, sendMessage, userData, server, chat }) => {
 	const [isModalOpened, toggleModal] = useState(false)
-
-	const addNewFriend = user => {
-		const { friends } = userData
-		const { friendRequests } = userData
-		friends.push(user)
-		const requestIndex = friendRequests.indexOf(user)
-		requestIndex && friendRequests.shift(requestIndex, 1)
-		setUserData({ ...userData })
-	}
-	// const removeFriend = user => {
-	//     const { friends } = userData
-	//     const friendIndex = friends.indexOf(user)
-	//     friendIndex && friends.shift(friendIndex, 1)
-	//     setUserData({ ...userData })
-	// }
-
+	
 	return (
 		<DivContainer>
 			<NavBar username={userData.username} />
@@ -37,6 +21,7 @@ export const HomeComponent = ({ data, server, chat }) => {
 					chat={chat}
 					currentServer={server._id}
 					onClick={() => toggleModal(true)}
+					sendMessage={sendMessage}
 				/>
 				<FriendsColumn
 					friends={userData.friends}

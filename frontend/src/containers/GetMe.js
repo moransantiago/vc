@@ -14,6 +14,14 @@ const getMe = gql`
 				chats {
 					_id
 					name
+					messages {
+						headers {
+							author {
+								username
+							}
+						}
+						body
+					}
 				}
 				channels {
 					_id
@@ -32,8 +40,8 @@ const getMe = gql`
 	}
 `
 
-export const GetMe = ({ children }) => (
-	<Query query={getMe} fetchPolicy='network-only'>
+export const GetMe = ({ children, onCompleted }) => (
+	<Query query={getMe} onCompleted={onCompleted}>
 		{children}
 	</Query>
 )

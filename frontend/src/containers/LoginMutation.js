@@ -10,7 +10,45 @@ const Login = gql`
 `
 
 export const LoginMutation = ({ children }) => (
-	<Mutation mutation={Login}>
-        {children}
-    </Mutation>
+	<Mutation
+		mutation={Login}
+		awaitRefetchQueries={true}
+		refetchQueries={({ data: { logIn } }) => {
+			window.sessionStorage.setItem('token', logIn)
+			return [
+				{
+					query: gql`
+						query getMe {
+							getMe {
+								_id
+								username
+								servers {
+									_id
+									name
+									chats {
+										_id
+										name
+									}
+									channels {
+										_id
+										name
+									}
+								}
+								friends {
+									_id
+									username
+								}
+								friendRequests {
+									_id
+									username
+								}
+							}
+						}
+					`,
+				},
+			]
+		}}
+	>
+		{children}
+	</Mutation>
 )
