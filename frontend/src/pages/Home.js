@@ -8,11 +8,15 @@ import { GetMe } from '../containers/GetMe'
 import { useServerEventSocket } from '../hooks/useServerEventSocket'
 
 const HomePage = ({ serverId, chatId, navigate }) => {
-	const { userData, setUserData, sendMessage } = useServerEventSocket()
+	const { userData, setUserData, setSocket, sendMessage } = useServerEventSocket()
 
 	return (
 		// When the Query is COMPLETED (apollo client event), set our state data
-		<GetMe onCompleted={async ({ getMe }) => await setUserData(getMe)}>
+		<GetMe
+			onCompleted={async ({ getMe }) => {
+				await setUserData(getMe)
+				setSocket(undefined)
+			}}>
 			{({ loading, error }) => {
 				if (loading || !userData) return <Loader message='Loading...' />
 				if (error) return 'Internal server error'

@@ -3,7 +3,7 @@ module.exports = {
         io.on('connect', socket => {
 			io.clients((error, clients) => {
 				if (error) throw error
-				console.log(clients) // => [PZDoMHjiu8PYfRiKAAAF, Anw2LatarvGVVXEIAAAD]
+				console.log('Signaling clients:', clients.length, clients)
 			})
 
 			socket.on('signal', offerOrAnswer => { // When the server recieves a signal, it broadcasts it to every client on this namespace but the sender

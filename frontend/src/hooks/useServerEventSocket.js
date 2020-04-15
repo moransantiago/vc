@@ -3,19 +3,21 @@ import ws from 'socket.io-client'
 
 export const useServerEventSocket = () => {
 	const [userData, setUserData] = useState(undefined)
-	const [socket, setSocket] = useState(undefined)
+	const [socket, setSocket] = useState(true)
 
 	useEffect(() => {
-		if (userData && userData.servers && !socket) {
+		if (!socket) {
 			const wsClient = ws(`${process.env.REACT_APP_API}/ws/servers`)
-			const servers = userData.servers.map((server) => {
+			const servers = userData.servers.map(server => {
 				const chats = server.chats.map(({ _id }) => _id)
 				const channels = server.channels.map(({ _id }) => _id)
 	
 				return { _id: server._id, chats, channels }
 			})
 	
-			wsClient.on('connect', () => {
+			wsClient.on('connect', async () => {
+				await setSocket(wsClient)
+
 				wsClient.emit('setup', servers)
 				// setTimeout(() => {
 				// wsClient.emit('join_channel', { userId: userData.friends[0]._id, channel: userData.servers[0].channels[0]._id })
@@ -28,25 +30,25 @@ export const useServerEventSocket = () => {
 					const [messagedServer] = userData.servers.filter(currentServer => currentServer._id === server)
 					const [messagedChat] = messagedServer.chats.filter(currentChat => currentChat._id === chat)
 					messagedChat.messages.push(data)
-					setUserData({ ...userData })
+					setUserData(userData => ({ ...userData }))
 				})
 			})
-			setSocket(wsClient)
 		}
 
-		return () => {
-			if (socket) {
+		return async () => {
+			if (socket && socket.disconnect) {
 				socket.disconnect()
-				setSocket(undefined)
+				await setSocket(undefined)
 			}
-		}
-	}, [userData, socket])
+		}	
+	}, [socket])
 
 	const sendMessage = (chatId, spoiler, body) => {
 		const [messagedServer] = userData.servers.filter(currentServer => {
 			return currentServer.chats.filter(({ _id }) => chatId === _id).length > 0
 		})
 		const [messagedChat] = messagedServer.chats.filter(chat => chat._id === chatId)
+		const now = new Date()
 		messagedChat.messages.push({
 			headers: {
 				author: {
@@ -54,7 +56,8 @@ export const useServerEventSocket = () => {
 					username: userData.username
 				}, 
 				spoiler,
-				isMine: true
+				isMine: true,
+				time: `${now.getHours()}:${now.getMinutes()}`
 			},
 			body
 		})
@@ -67,7 +70,8 @@ export const useServerEventSocket = () => {
 						username: userData.username,
 					},
 					spoiler,
-					isMine: false
+					isMine: false,
+					time: `${now.getHours()}:${now.getMinutes()}`
 				},
 				body,
 			},
@@ -75,5 +79,5 @@ export const useServerEventSocket = () => {
 		setUserData({ ...userData })
 	}
 
-	return { userData, setUserData, sendMessage }
+	return { userData, setUserData, setSocket, sendMessage }
 }

@@ -10,10 +10,12 @@ class serverManager {
 			socket.join(_id)
 			this.addServer(_id, chats, channels)
 		})
+		const usersInChannels = this.getUsersInChannels(servers)
+		return usersInChannels
 	}
 
 	addServer(_id, chats, channels) {
-		const serverIdList = this.getServerIds()
+		const serverIdList = this.getServerIds(this.servers)
 		if (!serverIdList.includes(_id)) {
 			const chatsArray = chats.map(chats => ({ _id: chats }))
 			const channelsArrayWithUsers = channels.map(channel => ({
@@ -54,7 +56,8 @@ class serverManager {
 			for (let j = 0 ; j < this.servers[i].channels.length ; j++) {
 				for (let k = 0 ; k < this.servers[i].channels[j].users.length ; k++) {
 					if (this.servers[i].channels[j].users[k] == userId && this.servers[i].channels[j]._id == channel) {
-						this.servers[i].channels[j].users.splice(k, 1)
+						this.servers[i].				console.log('Signaling clients:', clients.length, clients)
+						channels[j].users.splice(k, 1)
 					}
 				}
 			}
@@ -63,11 +66,13 @@ class serverManager {
 	
 	getServers() { return this.servers }
 
-	getServerIds() { return this.servers.map(({ _id }) => _id) }
+	getServerIds(servers) { return servers.map(({ _id }) => _id) }
 
-	// getUsersOnChannels() {
-	// 	const
-	// }
+	getUsersInChannels(servers) {
+		const userServerIds = this.getServerIds(servers)
+		const eachServerWithUsers = this.servers.filter(server => userServerIds.includes(server._id)) // If current iteration server id is in the users server list, returns
+		// console.log(eachServerWithUsers)
+	}
 }
 
 module.exports = new serverManager()
