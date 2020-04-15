@@ -125,6 +125,7 @@ export const SendButonn = styled.button`
 	display: flex;
 	justify-content: center;
 	align-items: center;
+	cursor: pointer;
 	&:hover {
 		background-color: #535353;
 	}

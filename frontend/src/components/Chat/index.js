@@ -62,9 +62,8 @@ export const Chat = ({ sendMessage, chat, onClick }) => {
 					{chat.messages && chat.messages.length > 0 ? (
 						chat.messages.map((message, index) => (
 							<ChatMessage
-								author={message.headers.author}
-								key={index}
-								body={message.body}
+							key={index}
+							message={message}
 							/>
 						))
 					) : (

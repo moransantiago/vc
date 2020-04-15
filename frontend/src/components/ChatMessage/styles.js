@@ -3,7 +3,7 @@ import styled, { css } from 'styled-components'
 export const DivContainer = styled.div`
 	min-width: 100%;
 	height: auto;
-	padding: 1% 0;
+	padding: 5px 0;
 	display: flex;
 	flex-direction: ${({ isMine }) => (isMine ? 'row-reverse' : 'row')};
 	&:first-child {

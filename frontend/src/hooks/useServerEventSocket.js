@@ -32,12 +32,12 @@ export const useServerEventSocket = () => {
 				})
 			})
 			setSocket(wsClient)
-		} else {
-			return () => {
-				if (socket) {
-					socket.disconnect()
-					setSocket(undefined)
-				}
+		}
+
+		return () => {
+			if (socket) {
+				socket.disconnect()
+				setSocket(undefined)
 			}
 		}
 	}, [userData, socket])
@@ -53,7 +53,8 @@ export const useServerEventSocket = () => {
 					_id: userData._id,
 					username: userData.username
 				}, 
-				spoiler
+				spoiler,
+				isMine: true
 			},
 			body
 		})
@@ -66,6 +67,7 @@ export const useServerEventSocket = () => {
 						username: userData.username,
 					},
 					spoiler,
+					isMine: false
 				},
 				body,
 			},
