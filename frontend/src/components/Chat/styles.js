@@ -4,6 +4,7 @@ import { buttonsHover } from '../Styles/animations'
 
 export const DivContainer = styled.div`
 	margin: 0;
+	height: calc(100vh - 60px - 50px);
 `
 
 export const DivConferenceHeader = styled.div`
@@ -21,7 +22,7 @@ export const DivColumn = styled.div`
 	display: flex;
 	flex-direction: column;
 	background-color: #282828;
-	height: calc(100vh - 60px - 50px);
+	height: inherit;
 `
 
 export const DivVideos = styled.div`

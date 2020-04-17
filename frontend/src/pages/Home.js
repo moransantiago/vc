@@ -26,7 +26,7 @@ const HomePage = ({ serverId, chatId, navigate }) => {
 					chatId && server
 						? server.chats.filter((chat) => chat._id === chatId)[0]
 						: userData.servers[0].chats[0]._id
-				if (!serverId || !chatId) navigate(`/${server}/${chat}`)
+				if (!serverId || !chatId) navigate(`/channels/${server}/${chat}`)
 
 				const addNewFriend = (user) => {
 					const { friends } = userData

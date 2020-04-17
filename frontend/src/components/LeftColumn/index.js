@@ -44,7 +44,7 @@ export const LeftColumn = ({ server, username }) => {
 				<Div>
 					<Subtitle>Chats (text)</Subtitle>
 					{server.chats.map((chat, index) => (
-						<Link to={`/${server._id}/${chat._id}`} key={index}>
+						<Link to={`/channels/${server._id}/${chat._id}`} key={index}>
 							<Card img={false} title={chat.name} />
 						</Link>
 					))}

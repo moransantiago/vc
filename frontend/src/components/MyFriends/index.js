@@ -2,9 +2,9 @@ import React from 'react'
 
 import { Card } from '../Card'
 
-import { DivScrollable, Title, Subtitle, Buttons, Button, DivFriends } from './styles'
+import { Link } from '@reach/router'
 
-import { MdMessage } from 'react-icons/md'
+import { DivScrollable, Title, Subtitle, DivFriends } from './styles'
 
 export const MyFriends = ({ friends }) => (
     <>
@@ -13,13 +13,9 @@ export const MyFriends = ({ friends }) => (
 			<DivFriends>
 				<Subtitle>Online</Subtitle>
 				{friends.map((friend, index) => (
-					<Card key={index} title={friend.username}>
-						<Buttons>
-							<Button>
-								<MdMessage color='#b7b7b7' size='15px' />
-							</Button>
-						</Buttons>
-					</Card>
+					<Link to={`/user/${friend.username}`}>
+						<Card key={index} title={friend.username} />
+					</Link>
 				))}
 				<Subtitle>Offline</Subtitle>
 				{[
@@ -34,13 +30,7 @@ export const MyFriends = ({ friends }) => (
 						key={index}
 						title={friend}
 						disabled={true}
-					>
-						<Buttons>
-							<Button>
-								<MdMessage size='15px' />
-							</Button>
-						</Buttons>
-					</Card>
+					/>
 				))}
 			</DivFriends>
 		</DivScrollable>

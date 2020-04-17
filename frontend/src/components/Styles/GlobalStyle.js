@@ -9,6 +9,7 @@ export const GlobalStyle = createGlobalStyle`
         width: 100%;
         margin: 0;
         scroll-behavior: smooth;
+        background-color: #373737;
   	}
 
   	h1, h2, h3, h4, h5, h6 {

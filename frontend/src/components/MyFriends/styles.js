@@ -1,28 +1,5 @@
 import styled from 'styled-components' 
 
-import { buttonsHover } from '../Styles/animations'
-
-export const Buttons = styled.div`
-	display: flex;
-	align-items: center;
-	justify-content: center;
-`
-
-export const Button = styled.button`
-	display: flex;
-	align-items: center;
-	justify-content: center;
-	border: 0;
-	height: 30px;
-	width: 30px;
-	padding: 1px;
-	border-radius: 3px;
-	background-color: inherit;
-	&:hover {
-		${props => !props.disabled && buttonsHover({ time: '0.2s' })};
-	}
-`
-
 export const Subtitle = styled.h2`
 	font-size: 15px !important;
 	margin: 9px 0 8px 4px;

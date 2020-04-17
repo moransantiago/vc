@@ -1,7 +1,7 @@
 import React from 'react'
 
-import { UserBadge } from '../components/UserBadge/index'
+import { UserPageComponent } from '../components/UserPageComponent'
 
-export const User = ({ id }) => (
-    <UserBadge />
+export const User = ({ username }) => (
+    <UserPageComponent />
 )
