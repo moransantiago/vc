@@ -1,13 +1,10 @@
-import React, { useState, useRef, useEffect } from 'react'
+import React, { useRef, useEffect } from 'react'
 
 import 'bulma/css/bulma.css'
 
 import {
-	DivContainer,
 	DivColumn,
-	DivColumnVideos,
 	DivTitle,
-	DivVideos,
 	DivBodyChat,
 	Title,
 	DivInput,
@@ -16,8 +13,7 @@ import {
 	Button,
 	Form,
 	Hero,
-	DivNoMessages,
-	DivConferenceHeader,
+	DivNoMessages
 } from './styles'
 
 import { ChatMessage } from '../ChatMessage/index'
@@ -26,10 +22,8 @@ import { useInputValue } from '../../hooks/useInputValue'
 
 import { MdSend } from 'react-icons/md'
 import { IoIosArrowBack, IoIosArrowForward } from 'react-icons/io'
-import { FiMaximize2 } from 'react-icons/fi'
 
-export const Chat = ({ sendMessage, chat, onClick, isPersonal = false }) => {
-	const [colapsed, setColapsed] = useState(true)
+export const Chat = ({ sendMessage, chat, colapsed, setColapsed, isPersonal = false }) => {
 	const message = useInputValue({ initialValue: '' })
 	const bodyChat = useRef()
 
@@ -49,7 +43,7 @@ export const Chat = ({ sendMessage, chat, onClick, isPersonal = false }) => {
 	const ArrowIcon = colapsed ? IoIosArrowBack : IoIosArrowForward
 
 	return (
-		<DivContainer className='columns'>
+		<>
 			<DivColumn className={`column ${colapsed ? 'is-11' : 'is-8'} ${isPersonal && 'is-12'}`}>
 				<DivTitle>
 					<Title>{chat ? `${chat.name}'s chat` : `Chat`}</Title>
@@ -85,19 +79,6 @@ export const Chat = ({ sendMessage, chat, onClick, isPersonal = false }) => {
 					</Form>
 				</DivInput>
 			</DivColumn>
-			{!isPersonal && (
-				<DivColumnVideos
-					colapsed={colapsed}
-					className={`column ${colapsed ? 'is-1' : 'is-4'}`}
-				>
-					<DivConferenceHeader colapsed={colapsed}>
-						<Button onClick={onClick}>
-							<FiMaximize2 size='16px' color='#ededed' />
-						</Button>
-					</DivConferenceHeader>
-					<DivVideos id='videos'></DivVideos>
-				</DivColumnVideos>
-			)}
-		</DivContainer>
+		</>
 	)
 }

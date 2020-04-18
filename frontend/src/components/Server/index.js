@@ -8,7 +8,7 @@ export const Server = ({
 	currentserver = false,
 	img = 'https://upload.wikimedia.org/wikipedia/commons/8/8f/Indio_Solari_2_color.jpg'
 }) => (
-	<Link currentserver={currentserver} to={`/${_id}/${firstChannelOnTheArray._id}`}>
+	<Link currentserver={currentserver} to={`/channels/${_id}/${firstChannelOnTheArray._id}`}>
 		<Img src={img} />
 	</Link>
 )

@@ -12,6 +12,7 @@ export const Div = styled.div`
 	justify-content: center;
 	align-items: center;
 	position: relative;
+	border-bottom: 1px solid #3c3c3c;
 `
 
 export const Button = styled.button`

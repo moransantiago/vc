@@ -16,7 +16,7 @@ export const DivColumn = styled.div`
 
 export const SpanServerTitle = styled.span`
 	padding: 10px;
-	height: 61px;
+	height: 60px;
 	background-color: #3c3c3c;
 	border-bottom: 1px solid #4d4d4d;
 `

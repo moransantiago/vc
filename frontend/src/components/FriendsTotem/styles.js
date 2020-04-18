@@ -6,6 +6,8 @@ export const Div = styled.div`
     height: 100%;
     overflow-y: auto;
     overflow-x: hidden;
-    flex: 0 1 50px;
-    background-color: #2d2d2d;
+    flex: 0 0 100px;
+    background-color: #282828;
+    margin-right: 25px;
+    border-radius: 6px;
 `

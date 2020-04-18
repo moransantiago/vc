@@ -8,6 +8,8 @@ export const Image = styled.img`
 	object-fit: cover;
 	height: 35px;
 	width: 35px;
+	min-width: 35px;
+	min-height: 35px;
 `
 
 export const Nav = styled.div`
@@ -33,7 +35,7 @@ export const NavHeader = styled.span`
 	border-bottom: 1px solid transparent;
 	border-left: 1px solid transparent;
 	&:hover {
-		background-color: #1e1e1e;
+		background-color: #2d2d2d;
 	}
 `
 

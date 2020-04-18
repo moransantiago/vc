@@ -1,7 +1,5 @@
 import React from 'react'
 
-import { UserPageComponent } from '../components/UserPageComponent'
+import { UserPageLayout } from '../components/UserPageLayout'
 
-export const User = ({ username }) => (
-    <UserPageComponent />
-)
+export const User = ({ username }) => <UserPageLayout />

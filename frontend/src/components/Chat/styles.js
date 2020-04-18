@@ -2,17 +2,6 @@ import styled from 'styled-components'
 
 import { buttonsHover } from '../Styles/animations'
 
-export const DivContainer = styled.div`
-	margin: 0;
-	height: calc(100vh - 60px - 50px);
-`
-
-export const DivConferenceHeader = styled.div`
-	margin: 0 0 20px 0;
-	display: flex;
-	justify-content: ${({ colapsed }) => (colapsed ? 'center' : 'flex-end')};
-`
-
 export const Video = styled.video`
 	flex: 1 1 50%;
 `
@@ -23,27 +12,7 @@ export const DivColumn = styled.div`
 	flex-direction: column;
 	background-color: #282828;
 	height: inherit;
-`
-
-export const DivVideos = styled.div`
-	display: flex;
-	flex: 1;
-	flex-wrap: wrap;
-`
-
-export const DivColumnVideos = styled.div`
-	padding: 2%;
-	width: ${({ colapsed }) =>
-		!colapsed
-			? '33.3333333333333333333333333333333% !important'
-			: '8.33333333333333333333333333333333% !important'};
-	display: flex;
-	flex-wrap: wrap;
-	flex-direction: column;
-	background-color: #282828;
-	height: calc(100vh - 60px - 50px);
-	border-top: 1px solid #3c3c3c;
-	border-left: 1px solid #3c3c3c;
+	border-radius: inherit;
 `
 
 export const DivTitle = styled.div`
@@ -54,11 +23,12 @@ export const DivTitle = styled.div`
 	background-color: #282828;
 	color: #ededed;
 	border-bottom: 1px solid #3c3c3c;
-	border-top: 1px solid #3c3c3c;
 	flex-grow: 0;
 	-webkit-box-shadow: 0px 6px 12px -9px rgba(0, 0, 0, 0.75);
 	-moz-box-shadow: 0px 6px 12px -9px rgba(0, 0, 0, 0.75);
 	box-shadow: 0px 6px 12px -9px rgba(0, 0, 0, 0.75);
+	border-top-left-radius: inherit;
+	border-top-right-radius: inherit;
 `
 
 export const DivBodyChat = styled.div`
@@ -143,6 +113,8 @@ export const DivInput = styled.div`
 	flex-basis: 80px;
 	overflow: hidden;
 	padding: 0 2%;
+	border-bottom-left-radius: inherit;
+	border-bottom-right-radius: inherit;
 `
 
 export const Hero = styled.div`

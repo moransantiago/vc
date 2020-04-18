@@ -13,7 +13,7 @@ export const HomeLayout = ({ addNewFriend, sendMessage, userData, server, chat }
 	
 	return (
 		<DivContainer>
-			<NavBar username={userData.username} />
+			<NavBar />
 			<DivColumns>
 				<LeftColumn server={server} username={userData.username} />
 				<ServersAndChatColumn
