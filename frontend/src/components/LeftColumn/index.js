@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useContext } from 'react'
 
 import {
 	DivContainer,
@@ -20,8 +20,11 @@ import { GetUserServers } from '../../containers/GetUserServers'
 
 import { useRTCSocket } from '../../hooks/useRTCSocket'
 
+import { Context } from '../../Context'
+
 export const LeftColumn = ({ serverId, chatId }) => {
 	const [socket, obtainSocket] = useRTCSocket()
+	const { serversSocket } = useContext(Context)
 
 	return (
 		<GetUserServers>
@@ -43,6 +46,17 @@ export const LeftColumn = ({ serverId, chatId }) => {
 							room: channelId,
 						})
 					}
+				}
+
+				if (!loading && serversSocket) {
+					const serversToSuscribe = data.getMe.servers.map(server => {
+						const chats = server.chats.map(({ _id }) => _id)
+						const channels = server.channels.map(({ _id }) => _id)
+			
+						return { _id: server._id, chats, channels }
+					})
+				
+					serversSocket.emit('setup', serversToSuscribe)
 				}
 
 				if (data) {

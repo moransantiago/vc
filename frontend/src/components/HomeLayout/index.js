@@ -6,24 +6,23 @@ import { ServersAndChatColumn } from '../ServersAndChatColumn'
 import { FriendsColumn } from '../FriendsColumn'
 import { ConferenceModal } from '../ConferenceModal'
 
+import { useServerEventSocket } from '../../hooks/useServerEventSocket'
+
 import { DivContainer, DivColumns } from './styles'
 
 export const HomeLayout = ({ serverId, chatId }) => {
+	useServerEventSocket()
 	const [isModalOpened, toggleModal] = useState(false)
-	
+
 	return (
 		<DivContainer>
-			<NavBar />
+			<NavBar/>
 			<DivColumns>
-				<LeftColumn serverId={serverId} chatId={chatId} />
-				<ServersAndChatColumn
-					serverId={serverId}
-					chatId={chatId}
-					onClick={() => toggleModal(true)}
-				/>
+				<LeftColumn serverId={serverId} chatId={chatId}/>
+				<ServersAndChatColumn serverId={serverId} chatId={chatId} onClick={() => toggleModal(true)}/>
 				<FriendsColumn/>
 			</DivColumns>
-			{isModalOpened && <ConferenceModal id='videosModal' onClick={() => toggleModal(false)} />}
+			{isModalOpened && <ConferenceModal id='videosModal' onClick={() => toggleModal(false)}/>}
 		</DivContainer>
 	)
 }

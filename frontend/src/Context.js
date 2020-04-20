@@ -4,9 +4,12 @@ export const Context = createContext()
 
 const Provider = ({ children }) => {
   const [isAuth, setIsAuth] = useState(() => window.sessionStorage.getItem('token'))
+  const [serversSocket, setServersSocket] = useState()
 
   const value = {
     isAuth,
+    serversSocket,
+    setServersSocket,
     activateAuth: () => setIsAuth(true),
     removeAuth: () => {
       setIsAuth(false)

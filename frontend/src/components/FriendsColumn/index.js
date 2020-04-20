@@ -42,9 +42,9 @@ export const FriendsColumn = () => {
 
 	return (
 		<GetUserFriends
-			onCompleted={async ({ getMe }) => {
-				await setFriends(getMe.friends)
-				await setFriendRequests(getMe.friendRequests)
+			onCompleted={({ getMe }) => {
+				setFriends(getMe.friends)
+				setFriendRequests(getMe.friendRequests)
 			}}
 		>
 			{({ error }) => {

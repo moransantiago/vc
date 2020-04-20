@@ -90,6 +90,7 @@ export const Chat = ({
 						disabled
 						type='text'
 						placeholder='Your message'
+						{...message}
 					/>
 					<SendButonn disabled>
 						<MdSend color='#ededed' size='20px' />
