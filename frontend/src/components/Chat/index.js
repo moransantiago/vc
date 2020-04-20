@@ -39,11 +39,11 @@ export const Chat = ({
 		bodyChat.current.scrollTo(0, bodyChat.current.scrollHeight)
 	}, [])
 
-	const handleSubmit = async e => {
+	const handleSubmit = e => {
 		e.preventDefault()
 		if (message.value !== '') {
-			await sendMessage(chat._id, false, message.value)
-			bodyChat.current.scrollTo(0, bodyChat.current.scrollHeight)
+			sendMessage(chat._id, false, message.value)
+				.then(() => bodyChat.current.scrollTo(0, bodyChat.current.scrollHeight))
 		}
 		message.setValue('')
 	}

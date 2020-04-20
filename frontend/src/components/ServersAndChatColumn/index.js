@@ -19,17 +19,24 @@ export const ServersAndChatColumn = ({ serverId, chatId, onClick }) => {
 
 	useEffect(() => {
 		if (serversSocket) {
-			serversSocket.on('message', ({ server, chat, data }) => {
-				setServers(prevServers => {
-					const [messagedServer] = prevServers.filter(currentServer => currentServer._id === server)
+			serversSocket.on('message', async ({ server, chat, data }) => {
+				await setServers(prevServers => {
+					const nextState = [...prevServers]
+					const [messagedServer] = nextState.filter(currentServer => currentServer._id === server)
 					const [messagedChat] = messagedServer.chats.filter(currentChat => currentChat._id === chat)
-					prevServers[prevServers.indexOf(messagedServer)]
+					nextState[nextState.indexOf(messagedServer)]
 						.chats[messagedServer.chats.indexOf(messagedChat)]
 						.messages.push(data)
-	
-					return prevServers
+					
+					return nextState
 				})
 			})
+		}
+
+		return () => {
+			if (serversSocket) {
+				serversSocket.off('message')
+			}
 		}
 	}, [serversSocket])
 
@@ -39,16 +46,16 @@ export const ServersAndChatColumn = ({ serverId, chatId, onClick }) => {
 				({ error, data }) => {
 					if (error) return 'Internal server error'
 
-					if (data) {
+					if (servers) {
 						const server = serverId
-							? data.getMe.servers.filter(server => server._id === serverId)[0]
-							: data.getMe.servers[0]._id
+							? servers.filter(server => server._id === serverId)[0]
+							: servers[0]._id
 						var chat = chatId && server
 							? server.chats.filter(chat => chat._id === chatId)[0]
-							: data.getMe.servers[0].chats[0]._id
+							: servers[0].chats[0]._id
 					}
 
-					const sendMessage = (chatId, spoiler, body) => {
+					const sendMessage = async (chatId, spoiler, body) => {
 						const now = new Date()
 						const hours = ('0' + now.getHours()).slice(-2)
 						const minutes = ('0' + now.getMinutes()).slice(-2)
@@ -67,7 +74,7 @@ export const ServersAndChatColumn = ({ serverId, chatId, onClick }) => {
 								body,
 							},
 						})
-						setServers(prevServers => {
+						await setServers(prevServers => {
 							const [messagedServer] = servers.filter(currentServer => {
 								return currentServer.chats.filter(({ _id }) => chatId === _id).length > 0
 							})
