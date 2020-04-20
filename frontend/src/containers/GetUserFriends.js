@@ -6,6 +6,7 @@ import { gql } from 'apollo-boost'
 const getFriends = gql`
 	query getMe {
 		getMe {
+			_id
 			friends {
 				_id
 				username

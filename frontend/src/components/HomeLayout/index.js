@@ -8,7 +8,7 @@ import { ConferenceModal } from '../ConferenceModal'
 
 import { DivContainer, DivColumns } from './styles'
 
-export const HomeLayout = ({ addNewFriend, sendMessage, serverId, chatId }) => {
+export const HomeLayout = ({ serverId, chatId }) => {
 	const [isModalOpened, toggleModal] = useState(false)
 	
 	return (
@@ -20,18 +20,10 @@ export const HomeLayout = ({ addNewFriend, sendMessage, serverId, chatId }) => {
 					serverId={serverId}
 					chatId={chatId}
 					onClick={() => toggleModal(true)}
-					sendMessage={sendMessage}
 				/>
-				<FriendsColumn
-					addNewFriend={addNewFriend}
-				/>
+				<FriendsColumn/>
 			</DivColumns>
-			{isModalOpened && (
-				<ConferenceModal
-					id='videosModal'
-					onClick={() => toggleModal(false)}
-				/>
-			)}
+			{isModalOpened && <ConferenceModal id='videosModal' onClick={() => toggleModal(false)} />}
 		</DivContainer>
 	)
 }

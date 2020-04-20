@@ -28,7 +28,7 @@ export const LeftColumn = ({ serverId, chatId }) => {
 			{({ loading, error, data }) => {
 				if (error) return 'Internal server error'
 
-				const handleConnection = async (channelId) => {
+				const handleConnection = async channelId => {
 					if (!socket) {
 						const webSocket = await obtainSocket(data.getMe._id)
 						webSocket.emit('left', { id: data.getMe._id })
@@ -47,9 +47,7 @@ export const LeftColumn = ({ serverId, chatId }) => {
 
 				if (data) {
 					var server = serverId
-						? data.getMe.servers.filter(
-								(server) => server._id === serverId
-						  )[0]
+						? data.getMe.servers.filter(server => server._id === serverId)[0]
 						: data.getMe.servers[0]._id
 	
 					const chat =
@@ -59,10 +57,12 @@ export const LeftColumn = ({ serverId, chatId }) => {
 	
 					if (!serverId || !chatId) {
 						navigate(`/channels/${server}/${chat}`)
+					} else if (chatId && !server) {
+						navigate('/')
 					}
 				}
 
-				return loading || !server.chats ? (
+				return loading || !server || !server.chats ? (
 					<DivContainer className='column is-2'>
 						<SpanServerTitle>
 							<ContentLoader
@@ -75,11 +75,11 @@ export const LeftColumn = ({ serverId, chatId }) => {
 							>
 								<rect
 									x='0'
-									y='0'
+									y='5'
 									rx='5'
 									ry='5'
 									width='100%'
-									height='100%'
+									height='30'
 								/>
 							</ContentLoader>
 						</SpanServerTitle>
@@ -100,31 +100,31 @@ export const LeftColumn = ({ serverId, chatId }) => {
 										rx='5'
 										ry='5'
 										width='100%'
-										height='25'
+										height='15'
 									/>
 									<rect
 										x='0'
-										y='50'
+										y='45'
 										rx='5'
 										ry='5'
 										width='100%'
-										height='25'
+										height='15'
 									/>
 									<rect
 										x='0'
-										y='90'
+										y='80'
 										rx='5'
 										ry='5'
 										width='100%'
-										height='25'
+										height='15'
 									/>
 									<rect
 										x='0'
-										y='130'
+										y='115'
 										rx='5'
 										ry='5'
 										width='100%'
-										height='25'
+										height='15'
 									/>
 								</ContentLoader>
 							</Div>
@@ -144,31 +144,31 @@ export const LeftColumn = ({ serverId, chatId }) => {
 										rx='5'
 										ry='5'
 										width='100%'
-										height='25'
+										height='15'
 									/>
 									<rect
 										x='0'
-										y='50'
+										y='45'
 										rx='5'
 										ry='5'
 										width='100%'
-										height='25'
+										height='15'
 									/>
 									<rect
 										x='0'
-										y='90'
+										y='80'
 										rx='5'
 										ry='5'
 										width='100%'
-										height='25'
+										height='15'
 									/>
 									<rect
 										x='0'
-										y='130'
+										y='115'
 										rx='5'
 										ry='5'
 										width='100%'
-										height='25'
+										height='15'
 									/>
 								</ContentLoader>
 							</div>

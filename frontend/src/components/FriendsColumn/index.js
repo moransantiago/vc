@@ -12,7 +12,7 @@ import { useInputValue } from '../../hooks/useInputValue'
 
 import { GetUserFriends } from '../../containers/GetUserFriends'
 
-export const FriendsColumn = ({ addNewFriend }) => {
+export const FriendsColumn = () => {
 	const [friends, setFriends] = useState()
 	const [friendRequests, setFriendRequests] = useState()
 	const friendSearchInput = useInputValue({
@@ -21,15 +21,37 @@ export const FriendsColumn = ({ addNewFriend }) => {
 	})
 	const friendsIdList = friends && friends.map(friend => friend._id)
 
+	const addNewFriend = user => {
+		const friendsCopied = [...friends]
+		const friendsReqCopied = [...friendRequests]
+		friendsCopied.push(user)
+		const [request] = friendsReqCopied.filter(({ _id }) => _id === user._id)
+		const requestIndex = friendsReqCopied.indexOf(request)
+		if (requestIndex > -1) {
+			friendsReqCopied.splice(requestIndex, 1)
+		}
+		setFriends({ ...friendsCopied })
+		setFriendRequests({ ...friendsReqCopied })
+	}
+		// const removeFriend = user => {
+		//     const { friends } = userData
+		//     const friendIndex = friends.indexOf(user)
+		//     friendIndex && friends.shift(friendIndex, 1)
+		//     setUserData({ ...userData })
+		// }
+
 	return (
 		<GetUserFriends
 			onCompleted={async ({ getMe }) => {
-				setFriends(getMe.friends)
-				setFriendRequests(getMe.friendRequests)
+				await setFriends(getMe.friends)
+				await setFriendRequests(getMe.friendRequests)
 			}}
 		>
 			{({ error }) => {
-				if (error) return 'Internal server error'
+				if (error) {
+					console.log(error.message)
+					return 'Internal server error'
+				}
 
 				return (
 					<DivColumn className='column is-2'>

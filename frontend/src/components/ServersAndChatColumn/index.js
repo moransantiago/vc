@@ -6,23 +6,20 @@ import { VideosColumn } from '../VideosColumn'
 
 import { GetUserMessages } from '../../containers/GetUserMessages'
 
+import { useServerEventSocket } from '../../hooks/useServerEventSocket'
+
 import { DivContainer, DivColumns } from './styles'
 
 import 'bulma/css/bulma.css'
 
-export const ServersAndChatColumn = ({
-	sendMessage,
-	serverId,
-	chatId,
-	onClick,
-}) => {
-	const [servers, setServers] = useState()
+export const ServersAndChatColumn = ({ serverId, chatId, onClick }) => {
+	const { servers, setServers, sendMessage } = useServerEventSocket()
 	const [colapsed, setColapsed] = useState(true)
 
 	return (
 		<GetUserMessages onCompleted={async ({ getMe }) => await setServers(getMe.servers)}>
 			{
-				({ loading, error, data }) => {
+				({ error, data }) => {
 					if (error) return 'Internal server error'
 
 					if (data) {

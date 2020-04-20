@@ -39,7 +39,7 @@ export const Chat = ({
 		bodyChat.current.scrollTo(0, bodyChat.current.scrollHeight)
 	}, [])
 
-	const handleSubmit = async (e) => {
+	const handleSubmit = async e => {
 		e.preventDefault()
 		if (message.value !== '') {
 			await sendMessage(chat._id, false, message.value)
@@ -59,8 +59,8 @@ export const Chat = ({
 			<DivTitle>
 				<ContentLoader
 					speed={1}
-					width='100%'
-					height='100%'
+					width='50%'
+					height='30'
 					viewBox='0 0 100% 100'
 					backgroundColor='#757575'
 					foregroundColor='#545454'
@@ -82,29 +82,20 @@ export const Chat = ({
 					</Button>
 				)}
 			</DivTitle>
-			{/* <DivBodyChat ref={bodyChat}>
-				{chat.messages && chat.messages.length > 0 ? (
-					chat.messages.map((message, index) => (
-						<ChatMessage key={index} message={message} />
-					))
-				) : (
-					<Hero>
-						<DivNoMessages>No messages yet :(</DivNoMessages>
-					</Hero>
-				)}
+			<DivBodyChat ref={bodyChat}>
 			</DivBodyChat>
 			<DivInput>
-				<Form onSubmit={handleSubmit}>
+				<Form>
 					<Input
+						disabled
 						type='text'
-						placeholder={`Your message on ${chat.name}`}
-						{...message}
+						placeholder='Your message'
 					/>
-					<SendButonn>
+					<SendButonn disabled>
 						<MdSend color='#ededed' size='20px' />
 					</SendButonn>
 				</Form>
-			</DivInput> */}
+			</DivInput>
 		</DivColumn>
 	) : (
 		<DivColumn

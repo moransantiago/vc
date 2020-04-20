@@ -23,7 +23,7 @@ import ws from 'socket.io-client'
 */
 
 export const useServerEventSocket = () => {
-	const [userData, setUserData] = useState(undefined)
+	const [servers, setServers] = useState(undefined)
 	const [socket, setSocket] = useState(undefined)
 	const [socketEvents, setSocketEvents] = useState(false)
 
@@ -39,26 +39,26 @@ export const useServerEventSocket = () => {
 		// setTimeout(() => {
 		// wsClient.emit('leave_channel', { userId: userData.friends[0]._id, channel: userData.servers[0].channels[0]._id })
 		// }, 4000)
-		if (userData && socket && !socketEvents) {
-			const servers = userData.servers.map(server => {
+		if (servers && socket && !socketEvents) {
+			const serversToJoin = servers.map(server => {
 				const chats = server.chats.map(({ _id }) => _id)
 				const channels = server.channels.map(({ _id }) => _id)
 	
-				return { _id: server._id, chats, channels }
+				return { _id: serversToJoin._id, chats, channels }
 			})
 	
-			socket.emit('setup', servers)
+			socket.emit('setup', serversToJoin)
 			
 			socket.on('message', ({ server, chat, data }) => {
-				const [messagedServer] = userData.servers.filter(currentServer => currentServer._id === server)
+				const [messagedServer] = servers.filter(currentServer => currentServer._id === server)
 				const [messagedChat] = messagedServer.chats.filter(currentChat => currentChat._id === chat)
 				messagedChat.messages.push(data)
-				setUserData({ ...userData })
+				setServers({ ...userData })
 				console.log('data')
 			})
 			setSocketEvents(true)
 		}
-	}, [userData, socket, socketEvents])
+	}, [servers, socket, socketEvents])
 
 	useEffect(() => {
 		return async () => {
@@ -70,7 +70,7 @@ export const useServerEventSocket = () => {
 	}, [socket])
 
 	const sendMessage = (chatId, spoiler, body) => {
-		const [messagedServer] = userData.servers.filter(currentServer => {
+		const [messagedServer] = servers.filter(currentServer => {
 			return currentServer.chats.filter(({ _id }) => chatId === _id).length > 0
 		})
 		const [messagedChat] = messagedServer.chats.filter(chat => chat._id === chatId)
@@ -104,8 +104,8 @@ export const useServerEventSocket = () => {
 				body,
 			},
 		})
-		setUserData({ ...userData })
+		setServers({ ...userData })
 	}
 
-	return { userData, setUserData, sendMessage }
+	return { servers, setServers, sendMessage }
 }

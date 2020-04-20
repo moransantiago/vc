@@ -10,7 +10,7 @@ const PASSWORD = encodeURIComponent(config.dbPassword)
 
 const DB_NAME = config.dbName
 
-const MONGO_URI = `mongodb+srv://${USERNAME}:${PASSWORD}@${config.dbHost}?retryWrites=true&w=majority`;
+const MONGO_URI = `mongodb://${USERNAME}:${PASSWORD}@${config.dbHost}:${config.dbPort}/?authSource=admin`
 
 class MongoLib {
     constructor() {

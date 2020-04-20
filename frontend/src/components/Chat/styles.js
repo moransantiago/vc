@@ -83,6 +83,12 @@ export const Input = styled.input`
 	font-size: 16px;
 	padding: 15px;
 	font-family: BalooPaaji;
+	&[disabled] {
+		opacity: 0.3;
+	}
+	&:hover {
+		background-color: #575757;
+	}
 `
 
 export const SendButonn = styled.button`
@@ -98,8 +104,11 @@ export const SendButonn = styled.button`
 	justify-content: center;
 	align-items: center;
 	cursor: pointer;
+	&[disabled] {
+		opacity: 0.3;
+	}
 	&:hover {
-		background-color: #535353;
+		background-color: #575757;
 	}
 `
 
