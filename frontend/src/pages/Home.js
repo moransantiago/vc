@@ -1,9 +1,9 @@
 import React from 'react'
 
-import { HomeLayout } from '../components/HomeLayout'
+import { HomePageLayout } from '../components/HomePageLayout'
 
 const HomePage = ({ serverId, chatId }) => (
-	<HomeLayout serverId={serverId} chatId={chatId} />
+	<HomePageLayout serverId={serverId} chatId={chatId} />
 )
 
 // TRUE = NOT RERENDER

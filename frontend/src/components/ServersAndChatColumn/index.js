@@ -19,14 +19,14 @@ export const ServersAndChatColumn = ({ serverId, chatId, onClick }) => {
 
 	useEffect(() => {
 		if (serversSocket) {
-			serversSocket.on('message', async ({ server, chat, data }) => {
+			serversSocket.on('message', async ({ server, chat, message }) => {
 				await setServers(prevServers => {
 					const nextState = [...prevServers]
 					const [messagedServer] = nextState.filter(currentServer => currentServer._id === server)
 					const [messagedChat] = messagedServer.chats.filter(currentChat => currentChat._id === chat)
 					nextState[nextState.indexOf(messagedServer)]
 						.chats[messagedServer.chats.indexOf(messagedChat)]
-						.messages.push(data)
+						.messages.push(message)
 					
 					return nextState
 				})
@@ -61,7 +61,7 @@ export const ServersAndChatColumn = ({ serverId, chatId, onClick }) => {
 						const minutes = ('0' + now.getMinutes()).slice(-2)
 						serversSocket.emit('message', {
 							chat: chatId,
-							data: {
+							message: {
 								headers: {
 									author: {
 										_id: data.getMe._id,

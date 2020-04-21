@@ -45,7 +45,7 @@ export const FriendsSectionFooter = ({
 			<div className='dropdown is-up is-hoverable'>
 				<FaUserFriends
 					color='#b7b7b7'
-					size='30px'
+					size='26px'
 					className='dropdown-trigger'
 				>
 					<button
@@ -132,12 +132,12 @@ export const FriendsSectionFooter = ({
 					</DivDropdownContainer>
 				</DivDropdown>
 				{friendRequests.length > 0 && (
-					<Tag className='tag'>{friendRequests.length}</Tag>
+					<Tag>{friendRequests.length}</Tag>
 				)}
 			</div>
 			<MdSettings
 				color='#b7b7b7'
-				size='30px'
+				size='26px'
 				onClick={() => {
 					alert('Settings!')
 				}}

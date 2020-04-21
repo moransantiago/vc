@@ -18,6 +18,11 @@ export const zoomServer = ({ time = '0.8s', type = 'ease' } = {}) =>
 export const selectServer = ({ time = '0.2s', type = 'ease' } = {}) =>
 	css`
 		animation: ${time} ${currentServerKeyFrames} ${type} forwards;
+    `
+    
+export const newMessage = ({ time = '0.2s', type = 'ease' } = {}) =>
+	css`
+		animation: ${time} ${unreadMessageKeyFrames} ${type} forwards;
 	`
 
 const buttonsHoverKeyFrames = keyframes`
@@ -61,5 +66,14 @@ const currentServerKeyFrames = keyframes`
     to {
         width: 70%;
         left: 15%;
+    }
+`
+
+const unreadMessageKeyFrames = keyframes`
+    from {
+        right: -38px;
+    }
+    to {
+        right: 10px;
     }
 `

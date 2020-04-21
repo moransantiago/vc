@@ -24,8 +24,8 @@ const getUserServers = gql`
 	}
 `
 
-export const GetUserServers = ({ children }) => (
-	<Query query={getUserServers}>
+export const GetUserServers = ({ children, onCompleted }) => (
+	<Query query={getUserServers} onCompleted={onCompleted} >
 		{children}
 	</Query>
 )

@@ -71,12 +71,19 @@ export const DivButtons = styled.div`
 export const Tag = styled.span`
 	position: absolute;
 	top: -8px;
-	left: 20px;
-	border-radius: 50% !important;
-	padding: 0 7px !important;
-	border: 2px solid #dbdbdb;
-	color: #ffffff !important;
-	background-color: #cc6b44 !important;
+	left: 17px;
+	border-radius: 50%;
+	color: #ffffff;
+	background-color: #c86740;
+	min-width: 20px;
+	min-height: 20px;
+	height: 20px;
+	width: 20px;
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	font-size: 12px;
+	box-shadow: 0px 0px 0px 3px #3c3c3c;
 `
 
 export const Input = styled.input`
@@ -89,4 +96,5 @@ export const Input = styled.input`
 	width: 100%;
 	padding: 5px 10px;
 	font-family: BalooPaaji;
+	margin-bottom: 5px;
 `

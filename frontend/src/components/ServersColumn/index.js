@@ -1,4 +1,4 @@
-import React, { useContext } from 'react'
+import React, { useState, useContext, useEffect } from 'react'
 
 import {
 	DivContainer,
@@ -9,6 +9,7 @@ import {
 	Subtitle,
 	Button,
 	Link,
+	MessageAlert
 } from './styles'
 
 import ContentLoader, { rect } from 'react-content-loader'
@@ -22,12 +23,34 @@ import { useRTCSocket } from '../../hooks/useRTCSocket'
 
 import { Context } from '../../Context'
 
-export const LeftColumn = ({ serverId, chatId }) => {
+export const ServersColumn = ({ serverId, chatId }) => {
+	const [servers, setServers] = useState(undefined)
 	const [socket, obtainSocket] = useRTCSocket()
 	const { serversSocket } = useContext(Context)
 
+	useEffect(() => {
+		if (serversSocket) {	
+			serversSocket.on('message', async ({ server, chat, message }) => {
+				await setServers(prevServers => {
+					const nextState = [...prevServers]
+					const [messagedServer] = nextState.filter(currentServer => currentServer._id === server)
+					const [messagedChat] = messagedServer.chats.filter(currentChat => currentChat._id === chat)
+					messagedChat.unreadMessages ? messagedChat.unreadMessages++ : messagedChat.unreadMessages = 1
+					
+					return nextState
+				})
+			})
+		}
+
+		return () => {
+			if (serversSocket) {
+				serversSocket.off('message')
+			}
+		}
+	}, [serversSocket])
+
 	return (
-		<GetUserServers>
+		<GetUserServers onCompleted={({ getMe }) => setServers(getMe.servers)} >
 			{({ loading, error, data }) => {
 				if (error) return 'Internal server error'
 
@@ -48,8 +71,23 @@ export const LeftColumn = ({ serverId, chatId }) => {
 					}
 				}
 
-				if (!loading && serversSocket) {
-					const serversToSuscribe = data.getMe.servers.map(server => {
+				if (servers && serversSocket) {
+					var server = serverId
+						? servers.filter(server => server._id === serverId)[0]
+						: servers[0]._id
+	
+					const chat =
+						chatId && server
+							? server.chats.filter((chat) => chat._id === chatId)[0]
+							: servers[0].chats[0]._id
+	
+					if (!serverId || !chatId) {
+						navigate(`/channels/${server}/${chat}`)
+					} else if (chatId && !server) {
+						navigate('/')
+					}
+
+					const serversToSuscribe = servers.map(server => {
 						const chats = server.chats.map(({ _id }) => _id)
 						const channels = server.channels.map(({ _id }) => _id)
 			
@@ -57,23 +95,6 @@ export const LeftColumn = ({ serverId, chatId }) => {
 					})
 				
 					serversSocket.emit('setup', serversToSuscribe)
-				}
-
-				if (data) {
-					var server = serverId
-						? data.getMe.servers.filter(server => server._id === serverId)[0]
-						: data.getMe.servers[0]._id
-	
-					const chat =
-						chatId && server
-							? server.chats.filter((chat) => chat._id === chatId)[0]
-							: data.getMe.servers[0].chats[0]._id
-	
-					if (!serverId || !chatId) {
-						navigate(`/channels/${server}/${chat}`)
-					} else if (chatId && !server) {
-						navigate('/')
-					}
 				}
 
 				return loading || !server || !server.chats ? (
@@ -200,8 +221,25 @@ export const LeftColumn = ({ serverId, chatId }) => {
 									<Link
 										to={`/channels/${server._id}/${chat._id}`}
 										key={index}
+										onClick={() => {
+											setServers(prevServers => {
+												const nextState = [...prevServers]
+												const [messagedServer] = servers.filter(currentServer => {
+													return currentServer.chats.filter(({ _id }) => chat._id === _id).length > 0
+												})
+												const [messagedChat] = messagedServer.chats.filter(({ _id }) => chat._id === _id )
+												messagedChat.unreadMessages = null
+												
+												return nextState
+											})
+										}}
 									>
-										<Card img={false} title={chat.name} />
+										<Card img={false} title={chat.name} >
+											{chat.unreadMessages &&
+											<MessageAlert>
+												{chat.unreadMessages}
+											</MessageAlert>}
+										</Card>
 									</Link>
 								))}
 							</Div>

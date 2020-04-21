@@ -23,9 +23,9 @@ module.exports = {
 				socket.broadcast.to(room).emit('users_in_room', {}) // Broadcast the info inside a room that a peer has left it
 			})
 
-			socket.on('message', ({ chat, data }) => {
+			socket.on('message', ({ chat, message }) => {
 				const server = serverManager.getServerBasedOnChat(chat)
-				socket.broadcast.to(server).emit('message', { server, chat, data }) // Broadcast the info inside a room that a peer has left it
+				socket.broadcast.to(server).emit('message', { server, chat, message }) // Broadcast the info inside a room that a peer has left it
 			})
 		})
 	}
