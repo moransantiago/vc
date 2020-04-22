@@ -18,11 +18,21 @@ export const zoomServer = ({ time = '0.8s', type = 'ease' } = {}) =>
 export const selectServer = ({ time = '0.2s', type = 'ease' } = {}) =>
 	css`
 		animation: ${time} ${currentServerKeyFrames} ${type} forwards;
-    `
-    
+	`
+
 export const newMessage = ({ time = '0.2s', type = 'ease' } = {}) =>
 	css`
 		animation: ${time} ${unreadMessageKeyFrames} ${type} forwards;
+	`
+
+export const zoomDisconnectButton = ({ time = '0.2s', type = 'ease' } = {}) =>
+	css`
+		animation: ${time} ${zoomDisconnectButtonKeyFrames} ${type} forwards;
+	`
+
+export const fadeInDisconnectButton = ({ time = '0.2s', type = 'ease' } = {}) =>
+	css`
+		animation: ${time} ${fadeInDisconnectButtonKeyFrames} ${type} forwards;
 	`
 
 const buttonsHoverKeyFrames = keyframes`
@@ -75,5 +85,28 @@ const unreadMessageKeyFrames = keyframes`
     }
     to {
         right: 10px;
+    }
+`
+
+const zoomDisconnectButtonKeyFrames = keyframes`
+    from {
+        background-color: inherit;
+		box-shadow: 0;
+        color: #ededed
+    }
+    to {
+        background-color: #5e5e5e;
+		box-shadow: 2px 2px 1px 1px #0000;
+        transform: scale(1.1);
+        color: #ededed
+    }
+`
+
+const fadeInDisconnectButtonKeyFrames = keyframes`
+    from {
+        opacity: 0;
+    }
+    to {
+        opacity: 1;
     }
 `

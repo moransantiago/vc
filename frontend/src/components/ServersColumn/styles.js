@@ -2,7 +2,7 @@ import styled from 'styled-components'
 
 import { Link as LinkRouter } from '@reach/router'
 
-import { newMessage } from '../Styles/animations'
+import { newMessage, zoomDisconnectButton, fadeInDisconnectButton } from '../Styles/animations'
 
 export const DivContainer = styled.div`
 	display: flex;
@@ -14,6 +14,22 @@ export const DivContainer = styled.div`
 export const DivColumn = styled.div`
 	padding: 15px;
 	overflow-y: auto;
+`
+
+export const DisconnectButton = styled.button`
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	padding: 4px;
+	color: #b7b7b7;
+	border: 0;
+	cursor: default;
+	border-radius: 3px;
+	background-color: inherit;
+	${fadeInDisconnectButton()}
+	&:hover {
+		${zoomDisconnectButton()}
+	}
 `
 
 export const MessageAlert = styled.div`

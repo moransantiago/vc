@@ -10,7 +10,8 @@ import {
 	Button,
 	Link,
 	MessageAlert,
-	SubtitleContainer
+	SubtitleContainer,
+	DisconnectButton
 } from './styles'
 
 import ContentLoader, { rect } from 'react-content-loader'
@@ -25,15 +26,17 @@ import { useRTCSocket } from '../../hooks/useRTCSocket'
 import { Context } from '../../Context'
 
 import { IoMdChatbubbles, IoMdVideocam } from 'react-icons/io'
+import { MdCallEnd } from 'react-icons/md'
 
 export const ServersColumn = ({ serverId, chatId }) => {
+	const [connectedChannel, setConnectedChannel] = useState(null)
 	const [servers, setServers] = useState(undefined)
 	const [socket, obtainSocket] = useRTCSocket()
 	const { serversSocket } = useContext(Context)
 
 	useEffect(() => {
 		if (serversSocket) {	
-			serversSocket.on('message', async ({ server, chat, message }) => {
+			serversSocket.on('message', async ({ server, chat }) => {
 				await setServers(prevServers => {
 					const nextState = [...prevServers]
 					const [messagedServer] = nextState.filter(currentServer => currentServer._id === server)
@@ -72,7 +75,13 @@ export const ServersColumn = ({ serverId, chatId }) => {
 							room: channelId,
 						})
 					}
+					setConnectedChannel(channelId)
 				}
+				
+				const handleDisconnection = () => {
+					socket.emit('left', { id: data.getMe._id })
+					setConnectedChannel(null)
+				}				
 
 				if (servers && serversSocket) {
 					var server = serverId
@@ -272,7 +281,12 @@ export const ServersColumn = ({ serverId, chatId }) => {
 										<Card
 											img={false}
 											title={channel.name}
-										/>
+										>
+											{connectedChannel === channel._id &&
+												<DisconnectButton onClick={handleDisconnection}>
+													<MdCallEnd size='18' color='inherit' />
+												</DisconnectButton>}
+										</Card>
 									</Button>
 								))}
 							</div>
