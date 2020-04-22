@@ -30,7 +30,7 @@ export const NavBar = () => {
 						<ContentLoader
 							style={{
 								borderTop: '1px solid transparent',
-								borderRight: '1px solid #3c3c3c',
+								borderRight: '2px solid #3c3c3c',
 								borderBottom: '1px solid transparent',
 								borderLeft: '1px solid transparent'
 							}}

@@ -12,7 +12,7 @@ export const DivContainer = styled.div`
 	align-items: center;
 	cursor: pointer;
 	&:hover {
-		background-color: #333;
+		background-color: #313131;
 	}
 	&[disabled] {
 		opacity: 0.5;

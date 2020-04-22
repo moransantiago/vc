@@ -9,7 +9,8 @@ import {
 	Subtitle,
 	Button,
 	Link,
-	MessageAlert
+	MessageAlert,
+	SubtitleContainer
 } from './styles'
 
 import ContentLoader, { rect } from 'react-content-loader'
@@ -22,6 +23,8 @@ import { GetUserServers } from '../../containers/GetUserServers'
 import { useRTCSocket } from '../../hooks/useRTCSocket'
 
 import { Context } from '../../Context'
+
+import { IoMdChatbubbles, IoMdVideocam } from 'react-icons/io'
 
 export const ServersColumn = ({ serverId, chatId }) => {
 	const [servers, setServers] = useState(undefined)
@@ -120,7 +123,10 @@ export const ServersColumn = ({ serverId, chatId }) => {
 						</SpanServerTitle>
 						<DivColumn>
 							<Div>
-								<Subtitle>Chats (text)</Subtitle>
+								<SubtitleContainer>
+									<Subtitle>Chats</Subtitle>
+									<IoMdChatbubbles size='20' color='#b7b7b7' />
+								</SubtitleContainer>
 								<ContentLoader
 									speed={1}
 									width='100%'
@@ -164,7 +170,10 @@ export const ServersColumn = ({ serverId, chatId }) => {
 								</ContentLoader>
 							</Div>
 							<div>
-								<Subtitle>Channels (voice)</Subtitle>
+								<SubtitleContainer>
+									<Subtitle>Channels</Subtitle>
+									<IoMdVideocam size='20' color='#b7b7b7' />
+								</SubtitleContainer>
 								<ContentLoader
 									speed={1}
 									width='100%'
@@ -216,7 +225,12 @@ export const ServersColumn = ({ serverId, chatId }) => {
 						</SpanServerTitle>
 						<DivColumn>
 							<Div>
-								<Subtitle>Chats (text)</Subtitle>
+								<SubtitleContainer>
+									<Subtitle>
+										Chats
+									</Subtitle>
+									<IoMdChatbubbles size='20' color='#b7b7b7' />
+								</SubtitleContainer>
 								{server.chats.map((chat, index) => (
 									<Link
 										to={`/channels/${server._id}/${chat._id}`}
@@ -244,7 +258,10 @@ export const ServersColumn = ({ serverId, chatId }) => {
 								))}
 							</Div>
 							<div>
-								<Subtitle>Channels (voice)</Subtitle>
+								<SubtitleContainer>
+									<Subtitle>Channels</Subtitle>
+									<IoMdVideocam size='20' color='#b7b7b7' />
+								</SubtitleContainer>
 								{server.channels.map((channel, index) => (
 									<Button
 										key={index}

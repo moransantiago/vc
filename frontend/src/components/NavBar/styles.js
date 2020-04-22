@@ -31,7 +31,7 @@ export const NavHeader = styled.span`
 	height: 100%;
 	padding: 0 18px;
 	border-top: 1px solid transparent;
-	border-right: 1px solid #3c3c3c;
+	border-right: 2px solid #3c3c3c;
 	border-bottom: 1px solid transparent;
 	border-left: 1px solid transparent;
 	&:hover {

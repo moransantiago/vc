@@ -47,14 +47,21 @@ export const Title = styled.h1`
 	color: #ededed;
 `
 
-export const Subtitle = styled.h1`
-	font-size: 18px;
-	color: #ededed;
+export const SubtitleContainer = styled.div`
+	display: flex;
+	justify-content: space-between;
+	align-items: center;
 	background-color: #313131;
 	border-radius: 4px;
 	padding: 3px 8px;
 	box-shadow: 1px 1px 2px 0px #151515;
 	margin-bottom: 10px;
+`
+
+export const Subtitle = styled.h1`
+	font-size: 18px;
+	color: #ededed;	
+	flex: 1;
 `
 
 export const Div = styled.div`

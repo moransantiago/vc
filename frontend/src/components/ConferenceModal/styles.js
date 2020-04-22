@@ -22,7 +22,7 @@ export const DivStreams = styled.div`
 	background-color: #242424;
 	text-align: center;
 	border-radius: 4px;
-	border: 1px solid #3c3c3c;
+	border: 2px solid #3c3c3c;
 `
 
 export const DivClose = styled.div`

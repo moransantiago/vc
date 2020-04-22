@@ -22,7 +22,7 @@ export const DivTitle = styled.div`
 	padding: 12px 12px 12px 38px;
 	background-color: #282828;
 	color: #ededed;
-	border-bottom: 1px solid #3c3c3c;
+	border-bottom: 2px solid #3c3c3c;
 	flex-grow: 0;
 	-webkit-box-shadow: 0px 6px 12px -9px rgba(0, 0, 0, 0.75);
 	-moz-box-shadow: 0px 6px 12px -9px rgba(0, 0, 0, 0.75);
@@ -116,7 +116,7 @@ export const DivInput = styled.div`
 	-webkit-box-shadow: 0px -6px 12px -9px rgba(0, 0, 0, 0.75);
 	-moz-box-shadow: 0px -6px 12px -9px rgba(0, 0, 0, 0.75);
 	box-shadow: 0px -6px 12px -9px rgba(0, 0, 0, 0.75);
-	border-top: 1px solid #3c3c3c;
+	border-top: 2px solid #3c3c3c;
 	flex-grow: 0;
 	flex-shrink: 0;
 	flex-basis: 80px;

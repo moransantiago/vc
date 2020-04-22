@@ -40,5 +40,5 @@ export const DivColumnVideos = styled.div`
 	flex-direction: column;
 	background-color: #282828;
 	height: calc(100vh - 60px - 50px);
-	border-left: 1px solid #3c3c3c;
+	border-left: 2px solid #3c3c3c;
 `
