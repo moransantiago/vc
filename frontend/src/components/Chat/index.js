@@ -33,6 +33,7 @@ export const Chat = ({
 	isPersonal = false,
 }) => {
 	const message = useInputValue({ initialValue: '' })
+	const input = useRef()
 	const bodyChat = useRef()
 
 	useEffect(() => {
@@ -121,13 +122,18 @@ export const Chat = ({
 					))
 				) : (
 					<Hero>
-						<DivNoMessages>No messages yet :(</DivNoMessages>
+						<DivNoMessages onClick={() => input.current.focus()}>
+							Nothing yet...
+							<br />
+							Click to start messaging!
+						</DivNoMessages>
 					</Hero>
 				)}
 			</DivBodyChat>
 			<DivInput>
 				<Form onSubmit={handleSubmit}>
 					<Input
+						ref={input}
 						type='text'
 						placeholder={`Your message on ${chat.name}`}
 						{...message}

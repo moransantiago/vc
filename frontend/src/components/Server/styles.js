@@ -6,7 +6,6 @@ import { selectServer } from '../Styles/animations'
 
 export const Img = styled.img`
 	border-radius: 20%;
-	border: 1px solid #3c3b3b;
 	overflow: hidden;
 	object-fit: cover;
 	width: 42px;
@@ -39,7 +38,7 @@ export const Link = styled(LinkRouter)`
 							height: 3px;
 							background: #ededed;
 							border-radius: 0px 0px 7px 7px;
-							${selectServer({ time: '0.2s' })};
+							${selectServer({ time: '0.3s' })};
 						}
 						transform: scale(1.1);
 					}

@@ -27,8 +27,8 @@ export const DisconnectButton = styled.button`
 	border-radius: 3px;
 	box-shadow: 0;
 	background-color: inherit;
-	transition: 0.4s;
-	${fadeInDisconnectButton({ time: '0.4s' })}
+	transition: 0.2s;
+	${fadeInDisconnectButton({ time: '0.3s' })}
 	&:hover {
         background-color: #eb3434;
  		box-shadow: 1px 1px 6px -4px #000;
@@ -58,6 +58,7 @@ export const SpanServerTitle = styled.span`
 	padding: 10px;
 	height: 60px;
 	background-color: #3c3c3c;
+	user-select: none;
 	border-bottom: 2px solid #4d4d4d;
 `
 
@@ -82,6 +83,7 @@ export const Subtitle = styled.h1`
 	font-size: 18px;
 	color: #ededed;	
 	flex: 1;
+	user-select: none;
 `
 
 export const Div = styled.div`

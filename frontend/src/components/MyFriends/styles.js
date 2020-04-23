@@ -4,6 +4,7 @@ export const Subtitle = styled.h2`
 	font-size: 15px !important;
 	margin: 9px 0 8px 4px;
 	color: #ededed;
+	user-select: none;
 `
 
 export const Title = styled.h1`
@@ -12,6 +13,7 @@ export const Title = styled.h1`
 	font-weight: bold;
 	margin: 0 0 4px 0;
 	color: #ededed;
+	user-select: none;
 `
 
 export const DivFriends = styled.div`

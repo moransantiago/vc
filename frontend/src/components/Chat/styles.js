@@ -23,6 +23,7 @@ export const DivTitle = styled.div`
 	color: #ededed;
 	border-bottom: 2px solid #3c3c3c;
 	flex-grow: 0;
+	user-select: none;
 	-webkit-box-shadow: 0px 6px 12px -9px rgba(0, 0, 0, 0.75);
 	-moz-box-shadow: 0px 6px 12px -9px rgba(0, 0, 0, 0.75);
 	box-shadow: 0px 6px 12px -9px rgba(0, 0, 0, 0.75);
@@ -133,9 +134,19 @@ export const Hero = styled.div`
 
 export const DivNoMessages = styled.div`
 	color: #ededed;
-	background-color: #b7b7b7;
+	background-color: rgba(200, 103, 64, 0.4);
 	font-size: 25px;
 	font-weight: bolder;
 	padding: 3%;
-	border-radius: 6px;
+	user-select: none;
+	transition: 0.5s;
+	border: 1px solid transparent;
+	cursor: crosshair;
+	&:hover {
+		background-color: rgba(200, 103, 64, 0.5);
+		border: 1px solid rgb(200, 103, 64);
+		box-shadow: 0px 4px 28px -16px #a2a2a2;
+		transform: scale(1.01);
+		border-radius: 5px;
+	}
 `
