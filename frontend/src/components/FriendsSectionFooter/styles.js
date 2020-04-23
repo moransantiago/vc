@@ -1,7 +1,5 @@
 import styled from 'styled-components'
 
-import { buttonsHover } from '../Styles/animations'
-
 export const Buttons = styled.div`
 	display: flex;
 	align-items: center;
@@ -12,14 +10,16 @@ export const Button = styled.button`
 	display: flex;
 	align-items: center;
 	justify-content: center;
-	border: 0;
+	border: 1px solid transparent;
 	height: 30px;
 	width: 30px;
 	padding: 1px;
 	border-radius: 3px;
 	background-color: inherit;
+	transition: 0.2s;
 	&:hover {
-		${(props) => !props.disabled && buttonsHover({ time: '0.2s' })};
+		background-color: #3b3b3b;
+		border: 1px solid #9b5134;
 	}
 `
 
@@ -28,10 +28,11 @@ export const CancelButton = styled.button`
 	padding: 5px;
 	right: 4px;
 	top: 10%;
-	height: 80%;
+	display: flex;
 	border: 0;
 	background-color: inherit;
 	border-radius: 3px;
+	transition: 0.1s;
 	&:hover {
 		background-color: #535353;
 	}
@@ -97,4 +98,7 @@ export const Input = styled.input`
 	padding: 5px 10px;
 	font-family: BalooPaaji;
 	margin-bottom: 5px;
+	&:hover {
+		background-color: #575757;
+	}
 `

@@ -1,19 +1,18 @@
 import styled from 'styled-components'
 
-import { buttonsHover } from '../Styles/animations'
-
 export const Button = styled.button`
 	display: flex;
 	align-items: center;
 	justify-content: center;
-	border: 0;
-	height: 30px;
-	width: 30px;
-	padding: 1px;
-	border-radius: 3px;
+	border: 1px solid transparent;
+	height: 42px;
+	width: 42px;
+	padding: 0;
+	border-radius: 50%;
 	background-color: inherit;
+	transition: 0.2s;
 	&:hover {
-		${(props) => !props.disabled && buttonsHover({ time: '0.2s' })};
+		background-color: rgba(200, 103, 64, 0.2);
 	}
 `
 
@@ -41,4 +40,5 @@ export const DivColumnVideos = styled.div`
 	background-color: #282828;
 	height: calc(100vh - 60px - 50px);
 	border-left: 2px solid #3c3c3c;
+	transition: 0.2s;
 `

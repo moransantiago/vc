@@ -1,7 +1,5 @@
 import styled from 'styled-components'
 
-import { buttonsHover } from '../Styles/animations'
-
 export const Title = styled.h1`
     font-family: BalooPaaji;
     font-size: 22px;
@@ -19,13 +17,15 @@ export const Button = styled.button`
     display: flex;
 	align-items: center;
 	justify-content: center;
-	border: 0;
+	border: 1px solid transparent;
 	height: 30px;
 	width: 30px;
 	padding: 1px;
 	border-radius: 3px;
 	background-color: inherit;
+	transition: 0.2s;
 	&:hover {
-		${props => (!props.disabled && buttonsHover({ time: '0.2s' }))};
+		background-color: #3b3b3b;
+		border: 1px solid #9b5134;
 	}
 `

@@ -2,7 +2,7 @@ import styled, { css } from 'styled-components'
 
 import { Link as LinkRouter } from '@reach/router'
 
-import { zoomServer, selectServer } from '../Styles/animations'
+import { selectServer } from '../Styles/animations'
 
 export const Img = styled.img`
 	border-radius: 20%;
@@ -20,12 +20,13 @@ export const Link = styled(LinkRouter)`
 	display: inline-flex;
 	border-radius: 18%;
 	position: relative;
+	transition: 0.2s;
 	${(props) =>
 		!props.currentserver
 			? css`
 					 {
 						&:hover {
-							${zoomServer({ time: '0.1s' })};
+							transform: scale(1.1);
 						}
 					}
 			  `
@@ -34,7 +35,7 @@ export const Link = styled(LinkRouter)`
 						&:after {
 							content: '';
 							position: absolute;
-							top: -7px;
+							top: -6px;
 							height: 3px;
 							background: #ededed;
 							border-radius: 0px 0px 7px 7px;

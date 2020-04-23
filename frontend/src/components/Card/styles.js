@@ -10,7 +10,9 @@ export const DivContainer = styled.div`
 	flex-direction: row;
 	justify-content: space-between;
 	align-items: center;
+	position: relative;
 	cursor: pointer;
+	transition: 0.1s;
 	&:hover {
 		background-color: #313131;
 	}

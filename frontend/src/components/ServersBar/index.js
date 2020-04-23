@@ -14,7 +14,9 @@ export const ServersBar = ({ currentServer = false, servers }) => {
 			{servers.map((server, index) => (
 				<Server {...server} currentserver={currentServer === servers[index]._id ? true : false} key={index} />
 			))}
-			<Button><MdAdd size='28px' color='#ededed' /></Button>
+			<Button>
+				<MdAdd size='28px' color='rgb(200, 103, 64)' />
+			</Button>
 		</Div>
 	) : (
 		<Div className='column is-12'>

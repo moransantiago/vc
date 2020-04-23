@@ -34,6 +34,7 @@ export const NavHeader = styled.span`
 	border-right: 2px solid #3c3c3c;
 	border-bottom: 1px solid transparent;
 	border-left: 1px solid transparent;
+	transition: 0.4s;
 	&:hover {
 		background-color: #2d2d2d;
 	}
@@ -60,6 +61,7 @@ export const LogOut = styled(LinkRouter)`
 	text-align: center;
 	padding: 5px;
 	margin-left: auto;
+	transition: 0.2s;
 	&:hover {
 		background-color: #9b5134;
 		color: #aeaeae;
@@ -80,6 +82,7 @@ export const NavItem = styled.span`
 	font-size: 14px;
 	cursor: pointer;
 	color: #ededed;
+	transition: 0.4s;
 	&:hover {
 		background-color: #2d2d2d;
 	}

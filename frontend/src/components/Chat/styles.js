@@ -1,7 +1,5 @@
 import styled from 'styled-components'
 
-import { buttonsHover } from '../Styles/animations'
-
 export const Video = styled.video`
 	flex: 1 1 50%;
 `
@@ -13,6 +11,7 @@ export const DivColumn = styled.div`
 	background-color: #282828;
 	height: inherit;
 	border-radius: inherit;
+	transition: 0.2s;
 `
 
 export const DivTitle = styled.div`
@@ -60,14 +59,15 @@ export const Button = styled.button`
 	display: flex;
 	align-items: center;
 	justify-content: center;
-	border: 0;
-	height: 30px;
-	width: 30px;
-	padding: 1px;
-	border-radius: 3px;
+	border: 1px solid transparent;
+	height: 42px;
+	width: 42px;
+	padding: 0;
+	border-radius: 50%;
 	background-color: inherit;
+	transition: 0.2s;
 	&:hover {
-		${(props) => !props.disabled && buttonsHover({ time: '0.2s' })};
+		background-color: rgba(200, 103, 64, 0.2);
 	}
 `
 
@@ -84,7 +84,7 @@ export const Input = styled.input`
 	padding: 15px;
 	font-family: BalooPaaji;
 	&[disabled] {
-		opacity: 0.3;
+		opacity: 0.5;
 	}
 	&:hover {
 		background-color: #575757;
@@ -105,7 +105,8 @@ export const SendButonn = styled.button`
 	align-items: center;
 	cursor: pointer;
 	&[disabled] {
-		opacity: 0.3;
+		opacity: 0.5;
+		cursor: not-allowed;
 	}
 	&:hover {
 		background-color: #575757;

@@ -1,18 +1,8 @@
 import { css, keyframes } from 'styled-components'
 
-export const buttonsHover = ({ time = '0.5s', type = 'ease' } = {}) =>
-	css`
-		animation: ${time} ${buttonsHoverKeyFrames} ${type} forwards; /* => forwards makes the animation stay as it finishes */
-	`
-
 export const inputFocus = ({ time = '0.2s', type = 'ease' } = {}) =>
 	css`
 		animation: ${time} ${inputKeyFrames} ${type} forwards;
-	`
-
-export const zoomServer = ({ time = '0.8s', type = 'ease' } = {}) =>
-	css`
-		animation: ${time} ${zoomServerKeyFrames} ${type} forwards;
 	`
 
 export const selectServer = ({ time = '0.2s', type = 'ease' } = {}) =>
@@ -35,36 +25,14 @@ export const fadeInDisconnectButton = ({ time = '0.2s', type = 'ease' } = {}) =>
 		animation: ${time} ${fadeInDisconnectButtonKeyFrames} ${type} forwards;
 	`
 
-const buttonsHoverKeyFrames = keyframes`
-    from {
-        background-color: inherit;
-		border: 1px solid inherit;
-    }
-
-    to {
-		background-color: #3b3b3b;
-		border: 1px solid #9b5134;
-    }
-`
-
 const inputKeyFrames = keyframes`
     from {
         filter: blur(0.2px);
         border: 1px solid #ededed;
     }
-
     to {
         filter: blur(0);
         border: 1px solid rgb(140, 136, 168);
-    }
-`
-
-const zoomServerKeyFrames = keyframes`
-    from {
-        transform: scale(1);
-    }
-    to {
-        transform: scale(1.1);
     }
 `
 
@@ -91,13 +59,12 @@ const unreadMessageKeyFrames = keyframes`
 const zoomDisconnectButtonKeyFrames = keyframes`
     from {
         background-color: inherit;
-		box-shadow: 0;
-        color: #ededed
+		box-shadow: 0 0 0 0 #0000;
+        color: #b7b7b7
     }
     to {
-        background-color: #5e5e5e;
-		box-shadow: 2px 2px 1px 1px #0000;
-        transform: scale(1.1);
+        background-color: #eb3434;
+		box-shadow: 1px 1px 2px 1px #0000;
         color: #ededed
     }
 `

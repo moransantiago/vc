@@ -110,7 +110,7 @@ export const Chat = ({
 					<Button
 						onClick={() => setColapsed(colapsed ? false : true)}
 					>
-						<ArrowIcon size='20px' color='#ededed' />
+						<ArrowIcon size='20' color='rgb(200, 103, 64)' />
 					</Button>
 				)}
 			</DivTitle>
@@ -132,7 +132,7 @@ export const Chat = ({
 						placeholder={`Your message on ${chat.name}`}
 						{...message}
 					/>
-					<SendButonn>
+					<SendButonn disabled={!message.value ? true : false}>
 						<MdSend color='#ededed' size='20px' />
 					</SendButonn>
 				</Form>

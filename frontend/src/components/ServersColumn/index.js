@@ -61,21 +61,23 @@ export const ServersColumn = ({ serverId, chatId }) => {
 				if (error) return 'Internal server error'
 
 				const handleConnection = async channelId => {
-					if (!socket) {
-						const webSocket = await obtainSocket(data.getMe._id)
-						webSocket.emit('left', { id: data.getMe._id })
-						webSocket.emit('join', {
-							id: data.getMe._id,
-							room: channelId,
-						})
-					} else {
-						socket.emit('left', { id: data.getMe._id })
-						socket.emit('join', {
-							id: data.getMe._id,
-							room: channelId,
-						})
+					if (connectedChannel !== channelId) {
+						if (!socket) {
+							const webSocket = await obtainSocket(data.getMe._id)
+							webSocket.emit('left', { id: data.getMe._id })
+							webSocket.emit('join', {
+								id: data.getMe._id,
+								room: channelId,
+							})
+						} else {
+							socket.emit('left', { id: data.getMe._id })
+							socket.emit('join', {
+								id: data.getMe._id,
+								room: channelId,
+							})
+						}
+						setConnectedChannel(channelId)
 					}
-					setConnectedChannel(channelId)
 				}
 				
 				const handleDisconnection = () => {
@@ -284,7 +286,7 @@ export const ServersColumn = ({ serverId, chatId }) => {
 										>
 											{connectedChannel === channel._id &&
 												<DisconnectButton onClick={handleDisconnection}>
-													<MdCallEnd size='18' color='inherit' />
+													<MdCallEnd size='16' color='inherit' />
 												</DisconnectButton>}
 										</Card>
 									</Button>

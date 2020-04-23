@@ -2,7 +2,7 @@ import styled from 'styled-components'
 
 import { Link as LinkRouter } from '@reach/router'
 
-import { newMessage, zoomDisconnectButton, fadeInDisconnectButton } from '../Styles/animations'
+import { newMessage, fadeInDisconnectButton } from '../Styles/animations'
 
 export const DivContainer = styled.div`
 	display: flex;
@@ -20,26 +20,30 @@ export const DisconnectButton = styled.button`
 	display: flex;
 	justify-content: center;
 	align-items: center;
-	padding: 4px;
+	padding: 3px;
 	color: #b7b7b7;
 	border: 0;
 	cursor: default;
 	border-radius: 3px;
+	box-shadow: 0;
 	background-color: inherit;
-	${fadeInDisconnectButton()}
+	transition: 0.4s;
+	${fadeInDisconnectButton({ time: '0.4s' })}
 	&:hover {
-		${zoomDisconnectButton()}
+        background-color: #eb3434;
+ 		box-shadow: 1px 1px 6px -4px #000;
+        color: #ededed;
 	}
 `
 
 export const MessageAlert = styled.div`
 	border-radius: 50%;
-	background-color: #e41500;
+	background-color: #eb3434;
 	min-width: 20px;
 	min-height: 20px;
 	width: 20px;
 	height: 20px;
-	box-shadow: 0px 1px 3px 0px #151515;
+	box-shadow: 0px 1px 3px -1px #151515;
 	color: #fff;
 	justify-content: center;
 	align-items: center;
@@ -54,7 +58,7 @@ export const SpanServerTitle = styled.span`
 	padding: 10px;
 	height: 60px;
 	background-color: #3c3c3c;
-	border-bottom: 1px solid #4d4d4d;
+	border-bottom: 2px solid #4d4d4d;
 `
 
 export const Title = styled.h1`

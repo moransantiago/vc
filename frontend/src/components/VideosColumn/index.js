@@ -16,7 +16,7 @@ export const VideosColumn = ({ onClick, colapsed }) => (
 	>
 		<DivConferenceHeader colapsed={colapsed}>
 			<Button onClick={onClick}>
-				<FiMaximize2 size='16px' color='#ededed' />
+				<FiMaximize2 size='16' color='rgb(200, 103, 64)' />
 			</Button>
 		</DivConferenceHeader>
 		<DivVideos id='videos'></DivVideos>
