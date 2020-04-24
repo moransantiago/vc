@@ -87,12 +87,13 @@ export const Subtitle = styled.h1`
 `
 
 export const Div = styled.div`
-	margin-bottom: 25px;
+	margin-bottom: 50px;
 `
 
-export const Button = styled.button`
-	all: unset;
+export const Button = styled.span`
+	display: flex;
 	width: 100%;
+	margin: 5px 0;
 `
 
 export const Link = styled(LinkRouter)`
@@ -101,6 +102,7 @@ export const Link = styled(LinkRouter)`
 	text-decoration: none;
 	position: relative;
 	display: flex;
+	margin: 5px 0;
 	&[aria-current] {
 		&:before {
 			content: '';

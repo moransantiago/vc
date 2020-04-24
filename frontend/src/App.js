@@ -27,7 +27,7 @@ export const App = () => {
 				{!isAuth && <Redirect noThrow  from='/channels/:serverId/:chatId' to='/login/:serverId/:chatId' />}
 				{isAuth && <Home path='/' />}
 				{isAuth && <Home path='/channels/:serverId/:chatId' />}
-				{isAuth && <User path='/user/:id' />}
+				{isAuth && <User path='/users/:id' />}
 				{isAuth && <Redirect noThrow from='/login' to='/' />}
 				{isAuth && <Redirect noThrow from='/login/:serverId/:chatId' to='/channels/:serverId/:chatId' />}
 				{isAuth && <Redirect noThrow from='/signup' to='/' />}

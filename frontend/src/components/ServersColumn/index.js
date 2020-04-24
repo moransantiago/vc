@@ -141,7 +141,7 @@ export const ServersColumn = ({ serverId, chatId }) => {
 								<ContentLoader
 									speed={1}
 									width='100%'
-									height='156'
+									height='132'
 									viewBox='0 0 100% 100'
 									backgroundColor='#757575'
 									foregroundColor='#545454'
@@ -156,7 +156,7 @@ export const ServersColumn = ({ serverId, chatId }) => {
 									/>
 									<rect
 										x='0'
-										y='45'
+										y='40'
 										rx='5'
 										ry='5'
 										width='100%'
@@ -164,7 +164,7 @@ export const ServersColumn = ({ serverId, chatId }) => {
 									/>
 									<rect
 										x='0'
-										y='80'
+										y='70'
 										rx='5'
 										ry='5'
 										width='100%'
@@ -172,7 +172,7 @@ export const ServersColumn = ({ serverId, chatId }) => {
 									/>
 									<rect
 										x='0'
-										y='115'
+										y='100'
 										rx='5'
 										ry='5'
 										width='100%'
@@ -188,7 +188,7 @@ export const ServersColumn = ({ serverId, chatId }) => {
 								<ContentLoader
 									speed={1}
 									width='100%'
-									height='156'
+									height='132'
 									viewBox='0 0 100% 100'
 									backgroundColor='#757575'
 									foregroundColor='#545454'
@@ -203,7 +203,7 @@ export const ServersColumn = ({ serverId, chatId }) => {
 									/>
 									<rect
 										x='0'
-										y='45'
+										y='40'
 										rx='5'
 										ry='5'
 										width='100%'
@@ -211,7 +211,7 @@ export const ServersColumn = ({ serverId, chatId }) => {
 									/>
 									<rect
 										x='0'
-										y='80'
+										y='70'
 										rx='5'
 										ry='5'
 										width='100%'
@@ -219,7 +219,7 @@ export const ServersColumn = ({ serverId, chatId }) => {
 									/>
 									<rect
 										x='0'
-										y='115'
+										y='100'
 										rx='5'
 										ry='5'
 										width='100%'

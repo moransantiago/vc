@@ -11,7 +11,7 @@ export const ChatMessage = ({ message: { headers: { author, spoiler, isMine, tim
             <DivRow isMine={isMine}>
                 <SpanBody>
                     {!isMine &&
-                        <Link to={`/user/${author._id}`}>
+                        <Link to={`/users/${author.username}`}>
                             <Title>{author.username}</Title>
                         </Link>}
                     <ParagraphBody>{body}</ParagraphBody>

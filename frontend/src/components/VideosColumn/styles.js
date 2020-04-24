@@ -11,6 +11,7 @@ export const Button = styled.button`
 	border-radius: 50%;
 	background-color: inherit;
 	transition: 0.2s;
+	cursor: pointer;
 	&:hover {
 		background-color: rgba(200, 103, 64, 0.2);
 	}
@@ -20,6 +21,7 @@ export const DivConferenceHeader = styled.div`
 	margin: 0 0 20px 0;
 	display: flex;
 	justify-content: ${({ colapsed }) => (colapsed ? 'center' : 'flex-end')};
+	width: 100%;
 `
 
 export const DivVideos = styled.div`
@@ -29,7 +31,10 @@ export const DivVideos = styled.div`
 `
 
 export const DivColumnVideos = styled.div`
-	padding: 2%;
+	padding: ${({ colapsed }) =>
+		!colapsed
+			? '2%'
+			: '2% 0'};
 	width: ${({ colapsed }) =>
 		!colapsed
 			? '33.3333333333333333333333333333333% !important'
@@ -37,6 +42,8 @@ export const DivColumnVideos = styled.div`
 	display: flex;
 	flex-wrap: wrap;
 	flex-direction: column;
+	justify-content: flex-start;
+	align-items: center;
 	background-color: #282828;
 	height: calc(100vh - 60px - 50px);
 	border-left: 2px solid #3c3c3c;

@@ -47,7 +47,7 @@ export const ServersAndChatColumn = ({ serverId, chatId, onClick }) => {
 					if (error) return 'Internal server error'
 
 					if (servers) {
-						const server = serverId
+						var server = serverId
 							? servers.filter(server => server._id === serverId)[0]
 							: servers[0]._id
 						var chat = chatId && server
@@ -103,7 +103,7 @@ export const ServersAndChatColumn = ({ serverId, chatId, onClick }) => {
 							<ServersBar servers={servers} currentServer={serverId} />
 							<DivColumns className='columns'>
 								<Chat sendMessage={sendMessage} chat={chat} colapsed={colapsed} setColapsed={setColapsed} />
-								<VideosColumn onClick={onClick} colapsed={colapsed} />
+								<VideosColumn onClick={onClick} colapsed={colapsed} users={server && server.users}/>
 							</DivColumns>
 						</DivContainer>
 					)

@@ -67,6 +67,7 @@ export const Button = styled.button`
 	border-radius: 50%;
 	background-color: inherit;
 	transition: 0.2s;
+	cursor: pointer;
 	&:hover {
 		background-color: rgba(200, 103, 64, 0.2);
 	}

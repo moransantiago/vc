@@ -4,9 +4,7 @@ import ContentLoader, { rect, circle } from 'react-content-loader'
 
 import { Card } from '../Card'
 
-import { Link } from '@reach/router'
-
-import { DivScrollable, Title, Subtitle, DivFriends } from './styles'
+import { DivScrollable, Title, Subtitle, DivFriends, Link } from './styles'
 
 export const MyFriends = ({ friends }) =>
 	friends ? (
@@ -16,8 +14,8 @@ export const MyFriends = ({ friends }) =>
 				<DivFriends>
 					<Subtitle>Online</Subtitle>
 					{friends.map((friend, index) => (
-						<Link key={index} to={`/user/${friend.username}`}>
-							<Card key={index} title={friend.username} />
+						<Link key={index} to={`/users/${friend.username}`}>
+							<Card title={friend.username} />
 						</Link>
 					))}
 					<Subtitle>Offline</Subtitle>
@@ -29,7 +27,9 @@ export const MyFriends = ({ friends }) =>
 						'Santiago',
 						'Manuel',
 					].map((friend, index) => (
-						<Card key={index} title={friend} disabled={true} />
+						<Link key={index} to={`/users/${friend.username}`}>
+							<Card title={friend} disabled={true} />
+						</Link>
 					))}
 				</DivFriends>
 			</DivScrollable>

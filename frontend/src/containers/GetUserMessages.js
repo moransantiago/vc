@@ -22,6 +22,10 @@ const getUserMessages = gql`
 						body
 					}
 				}
+				users {
+					_id
+					username
+				}
 			}
 		}
 	}
