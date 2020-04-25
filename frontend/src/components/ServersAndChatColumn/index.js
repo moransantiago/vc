@@ -17,6 +17,27 @@ export const ServersAndChatColumn = ({ serverId, chatId, onClick }) => {
 	const [collapsed, setColapsed] = useState(true)
 	const { serversSocket } = useContext(Context)
 
+	// useEffect(() => {
+	// 	if (RTCsocket) {	
+	// 		RTCsocket.on('joiner', username => {
+	// 			setServers(prevState => {
+	// 				const nextState = [...prevState]
+	// 				const [channel] = nextState.channels.filter(({ _id }) => _id === connectedChannel)
+	// 				channel.connectedUsers.push(username)
+
+	// 				return nextState
+	// 			})
+	// 		})
+	// 	}
+
+	// 	return () => {
+	// 		if (RTCsocket) {
+	// 			RTCsocket.off('left')
+	// 			RTCsocket.off('joiner')
+	// 		}
+	// 	}
+	// }, [RTCsocket, connectedChannel])
+
 	useEffect(() => {
 		if (serversSocket) {
 			serversSocket.on('message', async ({ server, chat, message }) => {

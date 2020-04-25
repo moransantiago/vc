@@ -16,7 +16,7 @@ export const VideosColumn = ({ onClick, collapsed, users }) => {
 	return users ? (
 		<DivColumnVideos
 			collapsed={collapsed}
-			className={`column ${collapsed ? 'is-1' : 'is-4'}`}
+			className={`column ${collapsed ? 'is-2' : 'is-4'}`}
 		>
 			<DivConferenceHeader collapsed={collapsed}>
 				<Button onClick={onClick}>
@@ -38,7 +38,7 @@ export const VideosColumn = ({ onClick, collapsed, users }) => {
 	) : (
 		<DivColumnVideos
 			collapsed={collapsed}
-			className={`column ${collapsed ? 'is-1' : 'is-4'}`}
+			className={`column ${collapsed ? 'is-2' : 'is-4'}`}
 		>
 			<DivConferenceHeader collapsed={collapsed}>
 				<Button onClick={onClick}>

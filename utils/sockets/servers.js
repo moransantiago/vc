@@ -9,8 +9,8 @@ module.exports = {
 			})
 						
 			socket.on('setup', servers => {
-				serverManager.registerServers(servers, socket)
-				// socket.emit('connected_users', serverList)
+				const serverList = serverManager.registerServers(servers, socket)
+				socket.emit('connected_users', serverList)
 			})
 
 			socket.on('join_channel', ({ userId, channel }) => {

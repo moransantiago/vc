@@ -27,6 +27,8 @@ export const DivConferenceHeader = styled.div`
 export const DivUsers = styled.div`
 	display: flex;
 	flex-direction: column;
+	width: 100%;
+	align-items: center;
 	overflow-y: auto;
 `
 
@@ -37,11 +39,7 @@ export const DivVideos = styled.div`
 `
 
 export const DivColumnVideos = styled.div`
-	padding: '2%';
-	width: ${({ collapsed }) =>
-		!collapsed
-			? '33.3333333333333333333333333333333% !important'
-			: '8.33333333333333333333333333333333% !important'};
+	padding: 2%;
 	display: flex;
 	flex-direction: column;
 	justify-content: flex-start;

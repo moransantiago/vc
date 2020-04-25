@@ -30,14 +30,15 @@ import { MdCallEnd } from 'react-icons/md'
 
 export const ServersColumn = ({ serverId, chatId }) => {
 	const [connectedChannel, setConnectedChannel] = useState(null)
+	const [setupDone, setSetupDone] = useState(false)
 	const [servers, setServers] = useState(undefined)
-	const [socket, obtainSocket] = useRTCSocket()
+	const [RTCsocket, obtainSocket] = useRTCSocket()
 	const { serversSocket } = useContext(Context)
 
 	useEffect(() => {
 		if (serversSocket) {	
-			serversSocket.on('message', async ({ server, chat }) => {
-				await setServers(prevServers => {
+			serversSocket.on('message', ({ server, chat }) => {
+				setServers(prevServers => {
 					const nextState = [...prevServers]
 					const [messagedServer] = nextState.filter(currentServer => currentServer._id === server)
 					const [messagedChat] = messagedServer.chats.filter(currentChat => currentChat._id === chat)
@@ -45,6 +46,18 @@ export const ServersColumn = ({ serverId, chatId }) => {
 					
 					return nextState
 				})
+			})
+
+			serversSocket.on('connected_users', serverList => {
+				console.log(serverList)
+				// setServers(prevServers => {
+				// 	const nextState = [...prevServers]
+				// 	const [messagedServer] = nextState.filter(currentServer => currentServer._id === server)
+				// 	const [messagedChat] = messagedServer.chats.filter(currentChat => currentChat._id === chat)
+				// 	messagedChat.unreadMessages ? messagedChat.unreadMessages++ : messagedChat.unreadMessages = 1
+					
+				// 	return nextState
+				// })
 			})
 		}
 
@@ -55,14 +68,28 @@ export const ServersColumn = ({ serverId, chatId }) => {
 		}
 	}, [serversSocket])
 
+	useEffect(() => {
+		if (servers && serversSocket && !setupDone) {
+			const serversToSuscribe = servers.map(server => {
+				const chats = server.chats.map(({ _id }) => _id)
+				const channels = server.channels.map(({ _id }) => _id)
+	
+				return { _id: server._id, chats, channels }
+			})
+
+			serversSocket.emit('setup', serversToSuscribe)
+			setSetupDone(true)
+		}
+	}, [servers, serversSocket, setupDone])
+
 	return (
-		<GetUserServers onCompleted={({ getMe }) => setServers(getMe.servers)} >
+		<GetUserServers onCompleted={async ({ getMe }) => await setServers(getMe.servers)}>
 			{({ loading, error, data }) => {
 				if (error) return 'Internal server error'
 
 				const handleConnection = async channelId => {
 					if (connectedChannel !== channelId) {
-						if (!socket) {
+						if (!RTCsocket) {
 							const webSocket = await obtainSocket(data.getMe._id)
 							webSocket.emit('left', { id: data.getMe._id })
 							webSocket.emit('join', {
@@ -70,8 +97,8 @@ export const ServersColumn = ({ serverId, chatId }) => {
 								room: channelId,
 							})
 						} else {
-							socket.emit('left', { id: data.getMe._id })
-							socket.emit('join', {
+							RTCsocket.emit('left', { id: data.getMe._id })
+							RTCsocket.emit('join', {
 								id: data.getMe._id,
 								room: channelId,
 							})
@@ -79,39 +106,23 @@ export const ServersColumn = ({ serverId, chatId }) => {
 						setConnectedChannel(channelId)
 					}
 				}
-				
-				const handleDisconnection = () => {
-					socket.emit('left', { id: data.getMe._id })
-					setConnectedChannel(null)
-				}				
 
-				if (servers && serversSocket) {
-					var server = serverId
-						? servers.filter(server => server._id === serverId)[0]
-						: servers[0]._id
-	
-					const chat =
-						chatId && server
-							? server.chats.filter((chat) => chat._id === chatId)[0]
-							: servers[0].chats[0]._id
-	
+				const handleDisconnection = () => {
+					RTCsocket.emit('left', { id: data.getMe._id })
+					setConnectedChannel(null)
+				}
+
+				if (servers) {
+					var [server] = servers.filter(server => server._id === serverId)
+					
 					if (!serverId || !chatId) {
-						navigate(`/channels/${server}/${chat}`)
+						navigate(`/channels/${servers[0]._id}/${servers[0].chats[0]._id}`)
 					} else if (chatId && !server) {
 						navigate('/')
 					}
-
-					const serversToSuscribe = servers.map(server => {
-						const chats = server.chats.map(({ _id }) => _id)
-						const channels = server.channels.map(({ _id }) => _id)
-			
-						return { _id: server._id, chats, channels }
-					})
-				
-					serversSocket.emit('setup', serversToSuscribe)
 				}
 
-				return loading || !server || !server.chats ? (
+				return loading || !server ? (
 					<DivContainer className='column is-2'>
 						<SpanServerTitle>
 							<ContentLoader

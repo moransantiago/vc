@@ -71,7 +71,10 @@ class serverManager {
 	getUsersInChannels(servers) {
 		const userServerIds = this.getServerIds(servers)
 		const eachServerWithUsers = this.servers.filter(server => userServerIds.includes(server._id)) // If current iteration server id is in the users server list, returns
-		// console.log(eachServerWithUsers)
+		eachServerWithUsers.forEach(server => {
+			delete server.chats			
+		})
+		return eachServerWithUsers
 	}
 }
 

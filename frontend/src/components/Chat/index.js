@@ -25,13 +25,7 @@ import { useInputValue } from '../../hooks/useInputValue'
 import { MdSend } from 'react-icons/md'
 import { IoIosArrowBack, IoIosArrowForward } from 'react-icons/io'
 
-export const Chat = ({
-	sendMessage,
-	chat,
-	collapsed,
-	setColapsed,
-	isPersonal = false,
-}) => {
+export const Chat = ({ sendMessage, chat, collapsed, setColapsed, isPersonal = false }) => {
 	const message = useInputValue({ initialValue: '' })
 	const input = useRef()
 	const bodyChat = useRef()
@@ -53,7 +47,7 @@ export const Chat = ({
 
 	return !chat ? (
 		<DivColumn
-			className={`column ${collapsed ? 'is-11' : 'is-8'} ${
+			className={`column ${collapsed ? 'is-10' : 'is-8'} ${
 				isPersonal && 'is-12'
 			}`}
 		>
@@ -101,7 +95,7 @@ export const Chat = ({
 		</DivColumn>
 	) : (
 		<DivColumn
-			className={`column ${collapsed ? 'is-11' : 'is-8'} ${
+			className={`column ${collapsed ? 'is-10' : 'is-8'} ${
 				isPersonal && 'is-12'
 			}`}
 		>
