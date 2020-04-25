@@ -20,8 +20,14 @@ export const Button = styled.button`
 export const DivConferenceHeader = styled.div`
 	margin: 0 0 20px 0;
 	display: flex;
-	justify-content: ${({ colapsed }) => (colapsed ? 'center' : 'flex-end')};
+	justify-content: ${({ collapsed }) => (collapsed ? 'center' : 'flex-end')};
 	width: 100%;
+`
+
+export const DivUsers = styled.div`
+	display: flex;
+	flex-direction: column;
+	overflow-y: auto;
 `
 
 export const DivVideos = styled.div`
@@ -31,16 +37,12 @@ export const DivVideos = styled.div`
 `
 
 export const DivColumnVideos = styled.div`
-	padding: ${({ colapsed }) =>
-		!colapsed
-			? '2%'
-			: '2% 0'};
-	width: ${({ colapsed }) =>
-		!colapsed
+	padding: '2%';
+	width: ${({ collapsed }) =>
+		!collapsed
 			? '33.3333333333333333333333333333333% !important'
 			: '8.33333333333333333333333333333333% !important'};
 	display: flex;
-	flex-wrap: wrap;
 	flex-direction: column;
 	justify-content: flex-start;
 	align-items: center;

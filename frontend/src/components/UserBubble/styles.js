@@ -7,7 +7,7 @@ export const Link = styled(LinkRouter)`
     padding: 4px;
     border-radius: 50%;
     border: 2px solid #3c3c3c;
-    margin-bottom: 6px;
+    margin: 0 4px 4px 6px;
 `
 
 export const Img = styled.img`
@@ -17,8 +17,4 @@ export const Img = styled.img`
 	object-fit: cover;
 	height: ${({ height }) => height};
 	width: ${({ width }) => width};
-	min-height: ${({ height }) => height};
-	min-width: ${({ width }) => width};
-	max-height: ${({ height }) => height};
-	max-width: ${({ width }) => width};
 `

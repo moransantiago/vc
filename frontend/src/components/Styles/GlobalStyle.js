@@ -10,7 +10,31 @@ export const GlobalStyle = createGlobalStyle`
         margin: 0;
         scroll-behavior: smooth;
         background-color: #3c3c3c;
-  	}
+    }
+    
+    video {
+        outline: 0;
+    }
+
+    video::-moz-focus-inner {
+        border: 0;
+    }
+    
+    a {
+        outline: 0;
+    }
+
+    a::-moz-focus-inner {
+        border: 0;
+    }
+    
+    button {
+        outline: 0;
+    }
+    
+    button::-moz-focus-inner {
+        border: 0;
+    }
 
   	h1, h2, h3, h4, h5, h6 {
 		overflow: hidden;

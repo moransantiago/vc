@@ -73,7 +73,7 @@ export const NavBody = styled.div`
 	justify-content: flex-start;
 	align-items: center;
 	height: 100%;
-	padding: 1%;
+	padding: 10px;
 `
 
 export const NavItem = styled.span`

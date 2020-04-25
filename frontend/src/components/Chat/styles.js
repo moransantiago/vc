@@ -79,6 +79,7 @@ export const Input = styled.input`
 	border-radius: 4px 0 0 4px;
 	min-height: 40px;
 	height: 50%;
+	min-width: 290px;
 	width: 90%;
 	color: #ededed;
 	font-weight: bolder;
@@ -124,7 +125,7 @@ export const DivInput = styled.div`
 	flex-shrink: 0;
 	flex-basis: 80px;
 	overflow: hidden;
-	padding: 0 2%;
+	padding: 0 35px;
 	border-bottom-left-radius: inherit;
 	border-bottom-right-radius: inherit;
 `
@@ -145,8 +146,8 @@ export const DivNoMessages = styled.div`
 	cursor: crosshair;
 	&:hover {
 		background-color: rgba(200, 103, 64, 0.5);
-		border: 1px solid rgb(200, 103, 64);
-		box-shadow: 0px 4px 28px -16px #a2a2a2;
+		border: 1px solid rgba(200, 103, 64, 0.5);
+		box-shadow: 0px 6px 28px -18px #000;
 		transform: scale(1.01);
 		border-radius: 5px;
 	}

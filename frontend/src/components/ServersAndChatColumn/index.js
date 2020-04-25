@@ -14,7 +14,7 @@ import 'bulma/css/bulma.css'
 
 export const ServersAndChatColumn = ({ serverId, chatId, onClick }) => {
 	const [servers, setServers] = useState(undefined)
-	const [colapsed, setColapsed] = useState(true)
+	const [collapsed, setColapsed] = useState(true)
 	const { serversSocket } = useContext(Context)
 
 	useEffect(() => {
@@ -102,8 +102,8 @@ export const ServersAndChatColumn = ({ serverId, chatId, onClick }) => {
 						<DivContainer className='column is-8'>
 							<ServersBar servers={servers} currentServer={serverId} />
 							<DivColumns className='columns'>
-								<Chat sendMessage={sendMessage} chat={chat} colapsed={colapsed} setColapsed={setColapsed} />
-								<VideosColumn onClick={onClick} colapsed={colapsed} users={server && server.users}/>
+								<Chat sendMessage={sendMessage} chat={chat} collapsed={collapsed} setColapsed={setColapsed} />
+								<VideosColumn onClick={onClick} collapsed={collapsed} users={server && server.users}/>
 							</DivColumns>
 						</DivContainer>
 					)

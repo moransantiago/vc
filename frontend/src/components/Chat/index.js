@@ -28,7 +28,7 @@ import { IoIosArrowBack, IoIosArrowForward } from 'react-icons/io'
 export const Chat = ({
 	sendMessage,
 	chat,
-	colapsed,
+	collapsed,
 	setColapsed,
 	isPersonal = false,
 }) => {
@@ -49,11 +49,11 @@ export const Chat = ({
 		message.setValue('')
 	}
 
-	const ArrowIcon = colapsed ? IoIosArrowBack : IoIosArrowForward
+	const ArrowIcon = collapsed ? IoIosArrowBack : IoIosArrowForward
 
 	return !chat ? (
 		<DivColumn
-			className={`column ${colapsed ? 'is-11' : 'is-8'} ${
+			className={`column ${collapsed ? 'is-11' : 'is-8'} ${
 				isPersonal && 'is-12'
 			}`}
 		>
@@ -77,7 +77,7 @@ export const Chat = ({
 				</ContentLoader>
 				{!isPersonal && (
 					<Button
-						onClick={() => setColapsed(colapsed ? false : true)}
+						onClick={() => setColapsed(collapsed ? false : true)}
 					>
 						<ArrowIcon size='20px' color='#ededed' />
 					</Button>
@@ -101,7 +101,7 @@ export const Chat = ({
 		</DivColumn>
 	) : (
 		<DivColumn
-			className={`column ${colapsed ? 'is-11' : 'is-8'} ${
+			className={`column ${collapsed ? 'is-11' : 'is-8'} ${
 				isPersonal && 'is-12'
 			}`}
 		>
@@ -109,7 +109,7 @@ export const Chat = ({
 				<Title>{chat ? `${chat.name}'s chat` : `Chat`}</Title>
 				{!isPersonal && (
 					<Button
-						onClick={() => setColapsed(colapsed ? false : true)}
+						onClick={() => setColapsed(collapsed ? false : true)}
 					>
 						<ArrowIcon size='20' color='rgb(200, 103, 64)' />
 					</Button>
