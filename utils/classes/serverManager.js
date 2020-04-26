@@ -11,6 +11,7 @@ class serverManager {
 			this.addServer(_id, chats, channels)
 		})
 		const usersInChannels = this.getUsersInChannels(servers)
+
 		return usersInChannels
 	}
 
@@ -41,40 +42,63 @@ class serverManager {
 		return server
 	}
 
-	userJoinChannel(userId, channel) {
+	getServerBasedOnChannel(channelId) { 
+		const [server] = this.servers.map(({ _id, channels }) => {
+			const channelIds = channels.map(({ _id }) => _id)
+			if (channelIds.includes(channelId)) {
+				return _id
+			}
+		})
+
+		return server
+	}
+
+	userJoinChannel(userId, channelId) {
 		for (let i = 0 ; i < this.servers.length ; i++) {
 			for (let j = 0 ; j < this.servers[i].channels.length ; j++) {
-				if (this.servers[i].channels[j]._id == channel && !this.servers[i].channels[j].users.includes(userId)) {
+				if (this.servers[i].channels[j]._id == channelId && !this.servers[i].channels[j].users.includes(userId)) {
 					this.servers[i].channels[j].users.push(userId)
 				}
 			}
 		}
+		const server = this.getServerBasedOnChannel(channelId)
+		const usersInChannels = this.getUsersInChannels([{ _id: server }])
+
+		return { server, usersInChannels }
 	}
 
-	userLeaveChannel({ userId, channel }) {
+	userLeaveChannel(userId, channelId) {
+		const server = this.getServerBasedOnChannel(channelId)
+
 		for (let i = 0 ; i < this.servers.length ; i++) {
 			for (let j = 0 ; j < this.servers[i].channels.length ; j++) {
 				for (let k = 0 ; k < this.servers[i].channels[j].users.length ; k++) {
-					if (this.servers[i].channels[j].users[k] == userId && this.servers[i].channels[j]._id == channel) {
-						this.servers[i].				console.log('Signaling clients:', clients.length, clients)
-						channels[j].users.splice(k, 1)
+					if (this.servers[i].channels[j].users[k] == userId && this.servers[i].channels[j]._id == channelId) {
+						this.servers[i].channels[j].users.splice(k, 1)
 					}
 				}
 			}
 		}
+		const usersInChannels = this.getUsersInChannels([{ _id: server }])
+
+		return { server, usersInChannels }
 	}
 	
-	getServers() { return this.servers }
+	getServers() {
+		return this.servers
+	}
 
-	getServerIds(servers) { return servers.map(({ _id }) => _id) }
+	getServerIds(servers) {
+		return servers.map(({ _id }) => _id)
+	}
 
 	getUsersInChannels(servers) {
 		const userServerIds = this.getServerIds(servers)
 		const eachServerWithUsers = this.servers.filter(server => userServerIds.includes(server._id)) // If current iteration server id is in the users server list, returns
-		eachServerWithUsers.forEach(server => {
-			delete server.chats			
-		})
-		return eachServerWithUsers
+		const serversWithUsers = [ ...eachServerWithUsers ]
+		serversWithUsers.forEach(server => delete server.chats)
+
+		return serversWithUsers
 	}
 }
 

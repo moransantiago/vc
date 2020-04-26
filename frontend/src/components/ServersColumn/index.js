@@ -29,7 +29,7 @@ import { IoMdChatbubbles, IoMdVideocam } from 'react-icons/io'
 import { MdCallEnd } from 'react-icons/md'
 
 export const ServersColumn = ({ serverId, chatId }) => {
-	const [connectedChannel, setConnectedChannel] = useState(null)
+	const [connectedChannel, setConnectedChannel] = useState()
 	const [setupDone, setSetupDone] = useState(false)
 	const [servers, setServers] = useState(undefined)
 	const [RTCsocket, obtainSocket] = useRTCSocket()
@@ -49,38 +49,54 @@ export const ServersColumn = ({ serverId, chatId }) => {
 			})
 
 			serversSocket.on('connected_users', serverList => {
-				console.log(serverList)
-				// setServers(prevServers => {
-				// 	const nextState = [...prevServers]
-				// 	const [messagedServer] = nextState.filter(currentServer => currentServer._id === server)
-				// 	const [messagedChat] = messagedServer.chats.filter(currentChat => currentChat._id === chat)
-				// 	messagedChat.unreadMessages ? messagedChat.unreadMessages++ : messagedChat.unreadMessages = 1
-					
-				// 	return nextState
-				// })
+				setServers(prevState => {
+					const nextState = [ ...prevState ]
+					nextState.forEach(server => {
+						const [getServer] = serverList.filter(({ _id }) => _id === server._id)
+						if (getServer) {
+							server.channels.forEach(channel => {
+								const [getChannel] = getServer.channels.filter(({ _id }) => _id === channel._id)
+								channel.connectedUsers = [...getChannel.users]
+							})
+						}
+					})
+
+					return nextState
+				})
 			})
 		}
 
 		return () => {
 			if (serversSocket) {
 				serversSocket.off('message')
+				serversSocket.off('connected_users')
+				serversSocket.disconnect()
 			}
 		}
 	}, [serversSocket])
 
+	
 	useEffect(() => {
 		if (servers && serversSocket && !setupDone) {
 			const serversToSuscribe = servers.map(server => {
 				const chats = server.chats.map(({ _id }) => _id)
 				const channels = server.channels.map(({ _id }) => _id)
-	
+				
 				return { _id: server._id, chats, channels }
 			})
-
+			
 			serversSocket.emit('setup', serversToSuscribe)
 			setSetupDone(true)
 		}
 	}, [servers, serversSocket, setupDone])
+	
+	useEffect(() => {
+		return () => {
+			if (RTCsocket) {
+				RTCsocket.disconnect()
+			}
+		}
+	}, [RTCsocket])
 
 	return (
 		<GetUserServers onCompleted={async ({ getMe }) => await setServers(getMe.servers)}>
@@ -103,13 +119,18 @@ export const ServersColumn = ({ serverId, chatId }) => {
 								room: channelId,
 							})
 						}
+						serversSocket.emit('join_channel', { userId: data.getMe._id, channel: channelId })
+						handleDisconnection()
 						setConnectedChannel(channelId)
 					}
 				}
 
 				const handleDisconnection = () => {
-					RTCsocket.emit('left', { id: data.getMe._id })
-					setConnectedChannel(null)
+					if (connectedChannel) {
+						RTCsocket.emit('left', { id: data.getMe._id })
+						serversSocket.emit('leave_channel', { userId: data.getMe._id, channel: connectedChannel })
+						setConnectedChannel(null)
+					}
 				}
 
 				if (servers) {
@@ -285,22 +306,24 @@ export const ServersColumn = ({ serverId, chatId }) => {
 									<IoMdVideocam size='20' color='#b7b7b7' />
 								</SubtitleContainer>
 								{server.channels.map((channel, index) => (
-									<Button
-										key={index}
-										onClick={() =>
-											handleConnection(channel._id)
-										}
-									>
-										<Card
-											img={false}
-											title={channel.name}
+									<div key={index}>
+										<Button
+											onClick={() => handleConnection(channel._id)}
 										>
-											{connectedChannel === channel._id &&
-												<DisconnectButton onClick={handleDisconnection}>
-													<MdCallEnd size='16' color='inherit' />
-												</DisconnectButton>}
-										</Card>
-									</Button>
+											<Card
+												img={false}
+												title={channel.name}
+											>
+												{connectedChannel === channel._id &&
+													<DisconnectButton onClick={handleDisconnection}>
+														<MdCallEnd size='16' color='inherit' />
+													</DisconnectButton>}
+											</Card>
+										</Button>
+										<div>
+											{channel.connectedUsers && channel.connectedUsers.map((user, index) => <p key={index} style={{color: '#ededed'}}>{user}</p>)}
+										</div>
+									</div>
 								))}
 							</div>
 						</DivColumn>

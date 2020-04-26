@@ -14,13 +14,13 @@ module.exports = {
 			})
 
 			socket.on('join_channel', ({ userId, channel }) => {
-				serverManager.userJoinChannel(userId, channel)
-				socket.broadcast.to(room).emit('users_in_room', {}) // Broadcast the info inside a room that a peer has left it
+				const { server, usersInChannels } = serverManager.userJoinChannel(userId, channel)
+				io.to(server).emit('connected_users', usersInChannels) // Broadcast the info inside a room that a peer has left it
             })
             
 			socket.on('leave_channel', ({ userId, channel }) => {
-				serverManager.userLeaveChannel(userId, channel)
-				socket.broadcast.to(room).emit('users_in_room', {}) // Broadcast the info inside a room that a peer has left it
+				const { server, usersInChannels } = serverManager.userLeaveChannel(userId, channel)
+				io.to(server).emit('connected_users', usersInChannels) // Broadcast the info inside a room that a peer has left it
 			})
 
 			socket.on('message', ({ chat, message }) => {
