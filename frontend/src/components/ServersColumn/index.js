@@ -56,11 +56,16 @@ export const ServersColumn = ({ serverId, chatId }) => {
 						if (getServer) {
 							server.channels.forEach(channel => {
 								const [getChannel] = getServer.channels.filter(({ _id }) => _id === channel._id)
-								channel.connectedUsers = [...getChannel.users]
+								const users = getChannel.users.map(id => {
+									const [userInServer] = server.users.filter(user => user._id === id)
+
+									return userInServer
+								})
+								channel.connectedUsers = [...users]
 							})
 						}
 					})
-
+					console.log(nextState)
 					return nextState
 				})
 			})
@@ -321,7 +326,7 @@ export const ServersColumn = ({ serverId, chatId }) => {
 											</Card>
 										</Button>
 										<div>
-											{channel.connectedUsers && channel.connectedUsers.map((user, index) => <p key={index} style={{color: '#ededed'}}>{user}</p>)}
+											{channel.connectedUsers && channel.connectedUsers.map((user, index) => <p key={index} style={{color: '#ededed'}}>{user.username}</p>)}
 										</div>
 									</div>
 								))}

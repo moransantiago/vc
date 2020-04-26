@@ -19,6 +19,10 @@ const getUserServers = gql`
 					_id
 					name
 				}
+				users {
+					_id
+					username
+				}
 			}
 		}
 	}
