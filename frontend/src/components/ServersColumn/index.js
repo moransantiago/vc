@@ -11,7 +11,8 @@ import {
 	Link,
 	MessageAlert,
 	SubtitleContainer,
-	DisconnectButton
+	DisconnectButton,
+	DivUsersConnected
 } from './styles'
 
 import ContentLoader, { rect } from 'react-content-loader'
@@ -325,9 +326,15 @@ export const ServersColumn = ({ serverId, chatId }) => {
 													</DisconnectButton>}
 											</Card>
 										</Button>
-										<div>
-											{channel.connectedUsers && channel.connectedUsers.map((user, index) => <p key={index} style={{color: '#ededed'}}>{user.username}</p>)}
-										</div>
+										{channel.connectedUsers && channel.connectedUsers.length > 0 &&
+											<DivUsersConnected>
+												{channel.connectedUsers.map((user, index) => (
+													<Link key={index} to={`/users/${user.username}`}>
+														<Card imgSize='22px' hoverColor='#6a6a6a' title={user.username}/>
+													</Link>
+												))}
+											</DivUsersConnected>
+										}
 									</div>
 								))}
 							</div>

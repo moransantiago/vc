@@ -7,11 +7,13 @@ export const Card = ({
     children,
     title,
     img = true,
+    imgSize = '30px',
+    hoverColor = '#313131',
     userImage = 'https://citas.in/media/authors/diego-maradona.detail.jpg'
 }) => (
-    <DivContainer disabled={disabled}>
+    <DivContainer hover={hoverColor} disabled={disabled}>
         <Header>
-            {img && <Image src={userImage} />}
+            {img && <Image src={userImage} size={imgSize} />}
             <Title>{title}</Title>
         </Header>
         {children}

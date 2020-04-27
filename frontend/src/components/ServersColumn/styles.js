@@ -30,9 +30,9 @@ export const DisconnectButton = styled.button`
 	transition: 0.2s;
 	${fadeInDisconnectButton({ time: '0.3s' })}
 	&:hover {
-        background-color: #eb3434;
- 		box-shadow: 1px 1px 6px -4px #000;
-        color: #ededed;
+		background-color: #eb3434;
+		box-shadow: 1px 1px 6px -4px #000;
+		color: #ededed;
 	}
 `
 
@@ -81,9 +81,33 @@ export const SubtitleContainer = styled.div`
 
 export const Subtitle = styled.h1`
 	font-size: 18px;
-	color: #ededed;	
+	color: #ededed;
 	flex: 1;
 	user-select: none;
+`
+
+export const DivUsersConnected = styled.div`
+    background-color: #808080;
+    color: #ededed;
+    padding: 5px;
+    border-radius: 0 5px 5px 5px;
+    position: relative;
+    margin: 10px 0 10px 25px;
+    /* box-shadow: 1px 1px 15px -4px #000; */
+	&:before {
+		content: '';
+    	position: absolute;
+    	top: -14px;
+    	left: 0;
+    	border-bottom: 8px solid #808080;
+    	width: 0;
+    	height: 0;
+    	border-top: 8px solid transparent;
+    	border-right: 8px solid transparent;
+	}
+	div {
+		height: 30px;
+	}
 `
 
 export const Div = styled.div`
@@ -108,8 +132,8 @@ export const Link = styled(LinkRouter)`
 			content: '';
 			position: absolute;
 			width: 8px;
-			height: 20%;
-			top: 40%;
+			height: 8px;
+			top: 35%;
 			left: -18px;
 			border-radius: 50%;
 			background: #ffffff;

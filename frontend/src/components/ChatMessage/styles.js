@@ -33,8 +33,7 @@ export const DivRow = styled.div`
 		border-bottom: 10px solid transparent;
 		width: 0;
 		height: 0;
-		box-shadow: ${({ isMine }) =>
-			isMine ? '-2px 0 0 0 #ededed;' : '2px 0 0 0 #ededed'};
+		box-shadow: ${({ isMine }) => isMine ? '-2px 0 0 0 #ededed;' : '2px 0 0 0 #ededed'};
 		${({ isMine }) =>
 			!isMine
 				? css`

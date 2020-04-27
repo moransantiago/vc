@@ -13,7 +13,7 @@ export const DivContainer = styled.div`
 	cursor: pointer;
 	transition: 0.1s;
 	&:hover {
-		background-color: #313131;
+		background-color: ${({ hover }) => hover};
 	}
 	&[disabled] {
 		opacity: 0.5;
@@ -26,10 +26,10 @@ export const Image = styled.img`
 	height: auto;
 	overflow: hidden;
 	object-fit: cover;
-	height: 30px;
-	width: 30px;
-	min-width: 30px;
-	min-height: 30px;
+	height: ${({ size }) => size};
+	width: ${({ size }) => size};
+	min-width: ${({ size }) => size};
+	min-height: ${({ size }) => size};
 `
 
 export const Header = styled.div`
