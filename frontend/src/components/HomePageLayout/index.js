@@ -19,7 +19,7 @@ export const HomePageLayout = ({ serverId, chatId }) => {
 			<NavBar/>
 			<DivColumns>
 				<ServersColumn serverId={serverId} chatId={chatId}/>
-				<ServersAndChatColumn serverId={serverId} chatId={chatId} onClick={() => toggleModal(true)}/>
+				<ServersAndChatColumn serverId={serverId} chatId={chatId} isModalOpened={isModalOpened} onClick={() => toggleModal(true)}/>
 				<FriendsColumn/>
 			</DivColumns>
 			{isModalOpened && <ConferenceModal id='videosModal' onClick={() => toggleModal(false)}/>}

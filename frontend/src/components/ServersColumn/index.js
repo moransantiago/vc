@@ -22,6 +22,7 @@ import { Card } from '../Card/index'
 
 import { GetUserServers } from '../../containers/GetUserServers'
 
+import { useLocalStorage } from '../../hooks/useLocalStorage'
 import { useRTCSocket } from '../../hooks/useRTCSocket'
 
 import { Context } from '../../Context'
@@ -30,8 +31,10 @@ import { IoMdChatbubbles, IoMdVideocam } from 'react-icons/io'
 import { MdCallEnd } from 'react-icons/md'
 
 export const ServersColumn = ({ serverId, chatId }) => {
-	const [connectedChannel, setConnectedChannel] = useState()
+	// const [connectedChannel, setConnectedChannel] = useLocalStorage('connected-channel', null)
+	const [connectedChannel, setConnectedChannel] = useState(null)
 	const [setupDone, setSetupDone] = useState(false)
+	const [userId, setUserId] = useState(undefined)
 	const [servers, setServers] = useState(undefined)
 	const [RTCsocket, obtainSocket] = useRTCSocket()
 	const { serversSocket } = useContext(Context)
@@ -66,7 +69,7 @@ export const ServersColumn = ({ serverId, chatId }) => {
 							})
 						}
 					})
-					console.log(nextState)
+
 					return nextState
 				})
 			})
@@ -80,7 +83,6 @@ export const ServersColumn = ({ serverId, chatId }) => {
 			}
 		}
 	}, [serversSocket])
-
 	
 	useEffect(() => {
 		if (servers && serversSocket && !setupDone) {
@@ -96,16 +98,33 @@ export const ServersColumn = ({ serverId, chatId }) => {
 		}
 	}, [servers, serversSocket, setupDone])
 	
-	useEffect(() => {
-		return () => {
-			if (RTCsocket) {
-				RTCsocket.disconnect()
-			}
-		}
-	}, [RTCsocket])
+	// useEffect(() => {
+	// 	 if (connectedChannel && !RTCsocket && userId && obtainSocket) {
+	// 	 	obtainSocket(userId)
+	// 	 		.then(webSocket => {
+	// 	 			console.log(webSocket)
+	// 	 			webSocket.emit('join', {
+	// 	 				id: userId,
+	// 	 				room: connectedChannel,
+	// 	 			})
+	// 	 		})
+	// 	  }
+	
+	// 	 return () => {
+	// 	 	if (RTCsocket) {
+	// 	 		console.log(RTCsocket)
+	// 	 		RTCsocket.disconnect()
+	// 	 	}
+	// 	 }
+	// }, [RTCsocket])
 
 	return (
-		<GetUserServers onCompleted={async ({ getMe }) => await setServers(getMe.servers)}>
+		<GetUserServers 
+			onCompleted={async ({ getMe }) => {
+				await setServers(getMe.servers)
+				await setUserId(getMe._id)
+			}}
+		>
 			{({ loading, error, data }) => {
 				if (error) return 'Internal server error'
 

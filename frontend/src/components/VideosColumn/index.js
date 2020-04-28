@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useEffect } from 'react'
 
 import {
 	DivColumnVideos,
@@ -12,7 +12,20 @@ import { UserBubble } from '../UserBubble/'
 
 import { FiMaximize2 } from 'react-icons/fi'
 
-export const VideosColumn = ({ onClick, collapsed, users }) => {
+import { useNewVideoElement } from '../../hooks/useNewVideoElement'
+
+export const VideosColumn = ({ onClick, collapsed, isModalOpened, users }) => {
+	const [ref, addVideoElement] = useNewVideoElement()
+	const { current } = ref
+
+	useEffect(() => {
+		if (current) {
+			const videoPortal = document.getElementById('videosPortal')
+			const videos = videoPortal.childNodes
+			videos.forEach(video => addVideoElement(video))
+		}
+	}, [current])
+
 	return users ? (
 		<DivColumnVideos
 			collapsed={collapsed}
@@ -33,7 +46,7 @@ export const VideosColumn = ({ onClick, collapsed, users }) => {
 					/>
 				))}
 			</DivUsers>
-			<DivVideos style={collapsed ? { display: 'none' } : null} id='videos'></DivVideos>
+			<DivVideos ref={ref} style={collapsed ? { display: 'none' } : null} id='videos' />
 		</DivColumnVideos>
 	) : (
 		<DivColumnVideos
@@ -45,7 +58,7 @@ export const VideosColumn = ({ onClick, collapsed, users }) => {
 					<FiMaximize2 size='16' color='rgb(200, 103, 64)' />
 				</Button>
 			</DivConferenceHeader>
-			<DivVideos></DivVideos>
+			<DivVideos />
 		</DivColumnVideos>
 	)
 }

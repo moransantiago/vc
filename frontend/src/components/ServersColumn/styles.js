@@ -89,7 +89,7 @@ export const Subtitle = styled.h1`
 export const DivUsersConnected = styled.div`
     background-color: #808080;
     color: #ededed;
-    padding: 5px;
+    padding: 3px 5px;
     border-radius: 0 5px 5px 5px;
     position: relative;
     margin: 10px 0 10px 25px;

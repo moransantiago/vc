@@ -12,7 +12,7 @@ import { DivContainer, DivColumns } from './styles'
 
 import 'bulma/css/bulma.css'
 
-export const ServersAndChatColumn = ({ serverId, chatId, onClick }) => {
+export const ServersAndChatColumn = ({ serverId, chatId, isModalOpened, onClick }) => {
 	const [servers, setServers] = useState(undefined)
 	const [collapsed, setColapsed] = useState(true)
 	const { serversSocket } = useContext(Context)
@@ -124,7 +124,7 @@ export const ServersAndChatColumn = ({ serverId, chatId, onClick }) => {
 							<ServersBar servers={servers} currentServer={serverId} />
 							<DivColumns className='columns'>
 								<Chat sendMessage={sendMessage} chat={chat} collapsed={collapsed} setColapsed={setColapsed} />
-								<VideosColumn onClick={onClick} collapsed={collapsed} users={server && server.users}/>
+								<VideosColumn onClick={onClick} collapsed={collapsed} users={server && server.users} isModalOpened={isModalOpened}/>
 							</DivColumns>
 						</DivContainer>
 					)
