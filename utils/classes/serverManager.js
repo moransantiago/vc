@@ -1,8 +1,6 @@
 class serverManager {
 	constructor() {
 		this.servers = []
-		this.chats = []
-		this.channels = []
 	}
 
 	registerServers(servers, socket) {
@@ -18,7 +16,7 @@ class serverManager {
 	addServer(_id, chats, channels) {
 		const serverIdList = this.getServerIds(this.servers)
 		if (!serverIdList.includes(_id)) {
-			const chatsArray = chats.map(chats => ({ _id: chats }))
+			const chatsArray = chats.map(chat => ({ _id: chat }))
 			const channelsArrayWithUsers = channels.map(channel => ({
 				_id: channel,
 				users: [],
@@ -31,7 +29,7 @@ class serverManager {
 		}
 	}
 
-	getServerBasedOnChat(chatId) { 
+	getServerBasedOnChat(chatId) {
 		const [server] = this.servers.map(({ _id, chats }) => {
 			const chatIds = chats.map(({ _id }) => _id)
 			if (chatIds.includes(chatId)) {
@@ -95,8 +93,7 @@ class serverManager {
 	getUsersInChannels(servers) {
 		const userServerIds = this.getServerIds(servers)
 		const eachServerWithUsers = this.servers.filter(server => userServerIds.includes(server._id)) // If current iteration server id is in the users server list, returns
-		const serversWithUsers = [ ...eachServerWithUsers ]
-		serversWithUsers.forEach(server => delete server.chats)
+		const serversWithUsers = eachServerWithUsers.map(server => ({ _id: server._id, channels: server.channels }))
 
 		return serversWithUsers
 	}

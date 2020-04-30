@@ -31,12 +31,11 @@ import { IoMdChatbubbles, IoMdVideocam } from 'react-icons/io'
 import { MdCallEnd } from 'react-icons/md'
 
 export const ServersColumn = ({ serverId, chatId }) => {
-	// const [connectedChannel, setConnectedChannel] = useLocalStorage('connected-channel', null)
-	const [connectedChannel, setConnectedChannel] = useState(null)
+	const [connectedChannel, setConnectedChannel] = useLocalStorage('connected-channel', null)
 	const [setupDone, setSetupDone] = useState(false)
 	const [userId, setUserId] = useState(undefined)
 	const [servers, setServers] = useState(undefined)
-	const [RTCsocket, obtainSocket] = useRTCSocket()
+	const { join, leave } = useRTCSocket()
 	const { serversSocket } = useContext(Context)
 
 	useEffect(() => {
@@ -89,7 +88,7 @@ export const ServersColumn = ({ serverId, chatId }) => {
 			const serversToSuscribe = servers.map(server => {
 				const chats = server.chats.map(({ _id }) => _id)
 				const channels = server.channels.map(({ _id }) => _id)
-				
+
 				return { _id: server._id, chats, channels }
 			})
 			
@@ -97,29 +96,19 @@ export const ServersColumn = ({ serverId, chatId }) => {
 			setSetupDone(true)
 		}
 	}, [servers, serversSocket, setupDone])
-	
-	// useEffect(() => {
-	// 	 if (connectedChannel && !RTCsocket && userId && obtainSocket) {
-	// 	 	obtainSocket(userId)
-	// 	 		.then(webSocket => {
-	// 	 			console.log(webSocket)
-	// 	 			webSocket.emit('join', {
-	// 	 				id: userId,
-	// 	 				room: connectedChannel,
-	// 	 			})
-	// 	 		})
-	// 	  }
-	
-	// 	 return () => {
-	// 	 	if (RTCsocket) {
-	// 	 		console.log(RTCsocket)
-	// 	 		RTCsocket.disconnect()
-	// 	 	}
-	// 	 }
-	// }, [RTCsocket])
+
+	// The following effect connects the user to a channel whenever:
+	//  1. The connectedChannel(useLocalStorage) mutates: When we change it in handleConnection
+	//	 or
+	//	2. The page gets refreshed and there is a connectedChannel(useLocalStorage) stored
+	useEffect(() => {
+		if (connectedChannel && userId) {
+			join(userId, connectedChannel)
+		}
+	}, [connectedChannel, userId, join])
 
 	return (
-		<GetUserServers 
+		<GetUserServers
 			onCompleted={async ({ getMe }) => {
 				await setServers(getMe.servers)
 				await setUserId(getMe._id)
@@ -130,29 +119,15 @@ export const ServersColumn = ({ serverId, chatId }) => {
 
 				const handleConnection = async channelId => {
 					if (connectedChannel !== channelId) {
-						if (!RTCsocket) {
-							const webSocket = await obtainSocket(data.getMe._id)
-							webSocket.emit('left', { id: data.getMe._id })
-							webSocket.emit('join', {
-								id: data.getMe._id,
-								room: channelId,
-							})
-						} else {
-							RTCsocket.emit('left', { id: data.getMe._id })
-							RTCsocket.emit('join', {
-								id: data.getMe._id,
-								room: channelId,
-							})
-						}
+						await handleDisconnection()
 						serversSocket.emit('join_channel', { userId: data.getMe._id, channel: channelId })
-						handleDisconnection()
 						setConnectedChannel(channelId)
 					}
 				}
 
-				const handleDisconnection = () => {
+				const handleDisconnection = async () => {
 					if (connectedChannel) {
-						RTCsocket.emit('left', { id: data.getMe._id })
+						await leave(data.getMe._id)
 						serversSocket.emit('leave_channel', { userId: data.getMe._id, channel: connectedChannel })
 						setConnectedChannel(null)
 					}
@@ -168,11 +143,12 @@ export const ServersColumn = ({ serverId, chatId }) => {
 					}
 				}
 
+
 				return loading || !server ? (
 					<DivContainer className='column is-2'>
 						<SpanServerTitle>
 							<ContentLoader
-								speed={1}
+								speed='1'
 								width='100%'
 								height='100%'
 								viewBox='0 0 100% 100'
@@ -243,7 +219,7 @@ export const ServersColumn = ({ serverId, chatId }) => {
 									<IoMdVideocam size='20' color='#b7b7b7' />
 								</SubtitleContainer>
 								<ContentLoader
-									speed={1}
+									speed='1'
 									width='100%'
 									height='132'
 									viewBox='0 0 100% 100'
