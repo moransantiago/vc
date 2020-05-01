@@ -1,60 +1,55 @@
-import { useState, useCallback } from 'react'
+import { useRef, useCallback } from 'react'
 
 import { peerSetUp } from '../scripts/peer/main'
 
 export const useRTCSocket = () => {
-	const [socket, setSocket] = useState(null)
+	const socket = useRef(null)
 
-	const join = useCallback(async (username, channelId) => {
-		if (!socket) {
+	const join = useCallback(async (token, channelId) => {
+		if (socket.current !== null) {
+			socket.current.emit('join', {
+				auth: token,
+				room: channelId,
+			})
+		} else {
 			try {
-				const webSocket = await peerSetUp(username)
-				webSocket.emit('join', {
-					id: username,
+				socket.current = await peerSetUp(token)
+				socket.current.emit('join', {
+					auth: token,
 					room: channelId,
 				})
 
-				await setSocket(webSocket)
 			} catch (err) {
 				console.log(err)
-			}
-		} else {
-			socket.emit('join', {
-				id: username,
-				room: channelId,
-			})
+			}	
 		}
-	}, [socket])
+	}, [])
 
-	const leave = useCallback(async username => {
-		if (!socket) {
+	const leave = useCallback(async token => {
+		if (socket.current !== null) {
+			socket.current.emit('left', { auth: token })
+		} else {
 			try {
-				const webSocket = await peerSetUp(username)
-				webSocket.emit('left', { id: username })
-
-				await setSocket(webSocket)
+				socket.current = await peerSetUp(token)
+				socket.current.emit('left', { auth: token })
 			} catch (err) {
 				console.log(err)
 			}
-		} else {
-			socket.emit('left', { id: username })
 		}
-	}, [socket])
+	}, [])
 
-	const attachEvent = useCallback(async (eventName, cb) => {
-		if (!socket) {
+	const attachEvent = useCallback(async (token, eventName, cb) => {
+		if (socket.current !== null) {
+			socket.current.on(eventName, cb)
+		} else {
 			try {
-				const webSocket = await peerSetUp(username)
-				webSocket.on(eventName, cb)
-
-				await setSocket(webSocket)
+				socket.current = await peerSetUp(token)
+				socket.current.on(eventName, cb)
 			} catch (err) {
 				console.log(err)
 			}
-		} else {
-			socket.on(eventName, cb)
 		}
-	}, [socket])
+	}, [])
 
 	return { join, leave, attachEvent }
 }

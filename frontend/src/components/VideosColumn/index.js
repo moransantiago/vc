@@ -36,7 +36,7 @@ export const VideosColumn = ({ onClick, collapsed, isModalOpened, users }) => {
 					<FiMaximize2 size='16' color='rgb(200, 103, 64)' />
 				</Button>
 			</DivConferenceHeader>
-			<DivUsers>
+			<DivUsers style={!collapsed ? { display: 'none' } : null}>
 				{collapsed && users.map((user, index) => (
 					<UserBubble
 						key={index}

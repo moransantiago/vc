@@ -33,8 +33,8 @@ import { MdCallEnd } from 'react-icons/md'
 export const ServersColumn = ({ serverId, chatId }) => {
 	const [connectedChannel, setConnectedChannel] = useLocalStorage('connected-channel', null)
 	const [setupDone, setSetupDone] = useState(false)
-	const [userId, setUserId] = useState(undefined)
 	const [servers, setServers] = useState(undefined)
+    const { isAuth } = useContext(Context)
 	const { join, leave } = useRTCSocket()
 	const { serversSocket } = useContext(Context)
 
@@ -97,23 +97,21 @@ export const ServersColumn = ({ serverId, chatId }) => {
 		}
 	}, [servers, serversSocket, setupDone])
 
+	useEffect(() => {
+		window.onload = () => {
+			if (connectedChannel && isAuth) {
+				join(isAuth, connectedChannel)
+			}
+		}
+	}, [connectedChannel, isAuth, join])
+
 	// The following effect connects the user to a channel whenever:
 	//  1. The connectedChannel(useLocalStorage) mutates: When we change it in handleConnection
 	//	 or
 	//	2. The page gets refreshed and there is a connectedChannel(useLocalStorage) stored
-	useEffect(() => {
-		if (connectedChannel && userId) {
-			join(userId, connectedChannel)
-		}
-	}, [connectedChannel, userId, join])
 
 	return (
-		<GetUserServers
-			onCompleted={async ({ getMe }) => {
-				await setServers(getMe.servers)
-				await setUserId(getMe._id)
-			}}
-		>
+		<GetUserServers onCompleted={async ({ getMe }) => await setServers(getMe.servers)}>
 			{({ loading, error, data }) => {
 				if (error) return 'Internal server error'
 
@@ -127,7 +125,7 @@ export const ServersColumn = ({ serverId, chatId }) => {
 
 				const handleDisconnection = async () => {
 					if (connectedChannel) {
-						await leave(data.getMe._id)
+						await leave(isAuth)
 						serversSocket.emit('leave_channel', { userId: data.getMe._id, channel: connectedChannel })
 						setConnectedChannel(null)
 					}
@@ -142,8 +140,7 @@ export const ServersColumn = ({ serverId, chatId }) => {
 						navigate('/')
 					}
 				}
-
-
+				
 				return loading || !server ? (
 					<DivContainer className='column is-2'>
 						<SpanServerTitle>

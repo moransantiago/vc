@@ -24,37 +24,50 @@ export const peerSetUp = async username => {
 
 			socket.on('joiner', id => {
 				console.log('A new user has joined this room')
-				const newPeer = createPeer(true, stream)
-				setPeerEvents(newPeer, socket, id)
-				peers.push({ id, peer: newPeer })
+				setUpNewJoiner(stream, id, socket)
 			})
 
 			socket.on('left', id => {
 				console.log('A user has left the channel')
-				const peerIds = peers.map(({ id }) => id)
-				const peerIndex = peerIds.indexOf(id)	// Get the position of the left peer inside the connected peers
-				if (peerIndex > -1) { // If finds the peer
-					peers[peerIndex].peer.destroy()
-					peers.splice(peerIndex, 1) // Removes it
-				}
-				removeVideoElement(id)
+				removePeer(id)
 			})
 
 			socket.on('you left room', () => {
-				peers.forEach(singlePeer => {
-					removeVideoElement(singlePeer.id)
-					singlePeer.peer.destroy()
-				})
-				peers.splice(0, peers.length)	// Reset the peers array cause I left room
+				removeAllPeers()
 			})
 		})
 
-		/*
-            The returned function is the socket.emit
-            function in order to call the join event this way:
-            => socket.emit('join', { id: username, room: channel })
-        */
 		return socket
+	}
+
+	const setUpNewJoiner = (stream, id, socket) => {
+		// If the user is already on the room and wants to reconnect,
+		// we remove the peer and then create it again
+		const [peerAlreadyExists] = peers.filter(peer => peer.id === id)
+		if (peerAlreadyExists) {
+			removePeer(id)
+		}
+		const newPeer = createPeer(true, stream)
+		setPeerEvents(newPeer, socket, id)
+		peers.push({ id, peer: newPeer })
+	}
+
+	const removePeer = id => {
+		const peerIds = peers.map(({ id }) => id)
+		const peerIndex = peerIds.indexOf(id)	// Get the position of the left peer inside the connected peers
+		if (peerIndex > -1) { // If finds the peer
+			peers[peerIndex].peer.destroy()
+			peers.splice(peerIndex, 1) // Removes it
+		}
+		removeVideoElement(id)
+	}
+
+	const removeAllPeers = id => {
+		peers.forEach(singlePeer => {
+			removeVideoElement(singlePeer.id)
+			singlePeer.peer.destroy()
+		})
+		peers.splice(0, peers.length)	// Reset the peers array cause I left room
 	}
 
 	const setPeerEvents = (peer, socket, id) => {

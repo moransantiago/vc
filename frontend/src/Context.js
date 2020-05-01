@@ -10,7 +10,7 @@ const Provider = ({ children }) => {
     isAuth,
     serversSocket,
     setServersSocket,
-    activateAuth: () => setIsAuth(true),
+    activateAuth: token => setIsAuth(token),
     removeAuth: () => {
       setIsAuth(false)
       window.sessionStorage.removeItem('token')
