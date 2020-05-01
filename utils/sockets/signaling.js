@@ -16,15 +16,16 @@ module.exports = {
 			})
 
 			socket.on('join', ({ auth, room }) => { // When the server recieves a join, it checks if there are empty and then joins the socket room
-				console.log('object')
 				try {
 					jwt.verify(auth, config.authJwtSecret, async (err, tokenPayload) => {
 						if (err) {
 							throw new Error(err)
 						}
+
 						socket.join(room, () => {
 							console.log(`User ${tokenPayload.id} joined channel ${room}`)
 							socket.broadcast.to(room).emit('joiner', tokenPayload.id) // Broadcast to everyone in the room that a new user has joined
+							socket.emit('id', tokenPayload.id)
 						})
 					})
 				} catch (err) {

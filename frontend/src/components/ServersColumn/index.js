@@ -105,19 +105,17 @@ export const ServersColumn = ({ serverId, chatId }) => {
 		}
 	}, [connectedChannel, isAuth, join])
 
-	// The following effect connects the user to a channel whenever:
-	//  1. The connectedChannel(useLocalStorage) mutates: When we change it in handleConnection
-	//	 or
-	//	2. The page gets refreshed and there is a connectedChannel(useLocalStorage) stored
-
 	return (
-		<GetUserServers onCompleted={async ({ getMe }) => await setServers(getMe.servers)}>
+		<GetUserServers onCompleted={async ({ getMe }) => {
+			console.log(getMe.servers)
+			await setServers(getMe.servers)}}>
 			{({ loading, error, data }) => {
 				if (error) return 'Internal server error'
 
 				const handleConnection = async channelId => {
 					if (connectedChannel !== channelId) {
 						await handleDisconnection()
+						join(isAuth, channelId)
 						serversSocket.emit('join_channel', { userId: data.getMe._id, channel: channelId })
 						setConnectedChannel(channelId)
 					}
@@ -320,11 +318,13 @@ export const ServersColumn = ({ serverId, chatId }) => {
 										</Button>
 										{channel.connectedUsers && channel.connectedUsers.length > 0 &&
 											<DivUsersConnected>
-												{channel.connectedUsers.map((user, index) => (
-													<Link key={index} to={`/users/${user.username}`}>
+												{channel.connectedUsers.map((user, index) => {
+													console.log(user)
+
+													return <Link key={index} to={`/users/${user.username}`}>
 														<Card imgSize='22px' hoverColor='#6a6a6a' title={user.username}/>
 													</Link>
-												))}
+												})}
 											</DivUsersConnected>
 										}
 									</div>

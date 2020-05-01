@@ -69,9 +69,9 @@ module.exports = {
 				const usersData =
 					ids.length > 0
 						? await db
-								.collection('users')
-								.find({ _id: { $in: ids } })
-								.toArray()
+							.collection('users')
+							.find({ _id: { $in: ids } })
+							.toArray()
 						: []
 
 				return usersData

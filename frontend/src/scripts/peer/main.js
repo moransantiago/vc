@@ -22,6 +22,10 @@ export const peerSetUp = async username => {
 				}
 			})
 
+			socket.on('id', id => {
+				username = id
+			})
+
 			socket.on('joiner', id => {
 				console.log('A new user has joined this room')
 				setUpNewJoiner(stream, id, socket)
@@ -78,6 +82,11 @@ export const peerSetUp = async username => {
 
 		peer.on('connect', () => {
 			console.log('A peer has just connected')
+		})
+
+		peer.on('close', () => {
+			removePeer(id)
+			removeVideoElement(id)
 		})
 
 		peer.on('error', err => {
