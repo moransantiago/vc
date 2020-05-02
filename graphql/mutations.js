@@ -3,7 +3,7 @@
 const bcrypt = require('bcrypt')
 const jwt = require('jsonwebtoken')
 
-const client = require('./mongo')
+const mydb = require('./db')
 const { ObjectID } = require('mongodb')
 
 const { config } = require('../config')
@@ -12,7 +12,7 @@ const errorHandler = require('./errorHandler')
 module.exports = {
 	createUser: async (root, { input }) => {
 		try {
-			const db = await client.connect()
+			const db = await mydb()
 			input.password = await bcrypt.hash(input.password, 10)
 			const user = await db.collection('users').insertOne(input)
 			input._id = user.insertedId
@@ -24,7 +24,7 @@ module.exports = {
 	},
 	editUser: async (root, { id, input }) => {
 		try {
-			const db = await client.connect()
+			const db = await mydb()
 			input.password = await bcrypt.hash(input.password, 10)
 			await db
 				.collection('users')
@@ -40,7 +40,7 @@ module.exports = {
 	},
 	deleteUser: async (root, { id }) => {
 		try {
-			const db = await client.connect()
+			const db = await mydb()
 			await db.collection('users').deleteOne({ _id: ObjectID(id) })
 
 			return id
@@ -50,7 +50,7 @@ module.exports = {
 	},
 	createServer: async (root, { input }) => {
 		try {
-			const db = await client.connect()
+			const db = await mydb()
 			const server = await db.collection('servers').insertOne(input)
 			input._id = server.insertedId
 
@@ -61,7 +61,7 @@ module.exports = {
 	},
 	editServer: async (root, { id, input }) => {
 		try {
-			const db = await client.connect()
+			const db = await mydb()
 			await db
 				.collection('servers')
 				.updateOne({ _id: ObjectID(id) }, { $set: input })
@@ -76,7 +76,7 @@ module.exports = {
 	},
 	deleteServer: async (root, { id }) => {
 		try {
-			const db = await client.connect()
+			const db = await mydb()
 			await db.collection('servers').deleteOne({ _id: ObjectID(id) })
 
 			return id
@@ -86,7 +86,7 @@ module.exports = {
 	},
 	createChat: async (root, { input }) => {
 		try {
-			const db = await client.connect()
+			const db = await mydb()
 			const server = input.server
 			delete input.server // I delete the serverId property because it's not necessary to save it in the db
 			const chat = await db.collection('chats').insertOne(input)
@@ -106,7 +106,7 @@ module.exports = {
 	},
 	editChat: async (root, { id, input }) => {
 		try {
-			const db = await client.connect()
+			const db = await mydb()
 			await db
 				.collection('chats')
 				.updateOne({ _id: ObjectID(id) }, { $set: input })
@@ -121,7 +121,7 @@ module.exports = {
 	},
 	deleteChat: async (root, { id }) => {
 		try {
-			const db = await client.connect()
+			const db = await mydb()
 			const { server } = await db
 				.collection('chats')
 				.findOne({ _id: ObjectID(id) })
@@ -143,7 +143,7 @@ module.exports = {
 			const chat = await jwt.verify(authorization, config.authJwtSecret, async err => {
 				if (err) throw new Error('User must be authorized')
 				
-				const db = await client.connect()
+				const db = await mydb()
 				/*
 				First of all we check if:
 					The chat exists
@@ -177,7 +177,7 @@ module.exports = {
 	},
 	createChannel: async (root, { input }) => {
 		try {
-			const db = await client.connect()
+			const db = await mydb()
 			const server = input.server
 			delete input.server // => I delete the serverId property because it's not necessary to save it in the db
 			const channel = await db.collection('channels').insertOne(input)
@@ -197,7 +197,7 @@ module.exports = {
 	},
 	editChannel: async (root, { id, input }) => {
 		try {
-			const db = await client.connect()
+			const db = await mydb()
 			await db
 				.collection('channels')
 				.updateOne({ _id: ObjectID(id) }, { $set: input })
@@ -212,7 +212,7 @@ module.exports = {
 	},
 	deleteChannel: async (root, { id }) => {
 		try {
-			const db = await client.connect()
+			const db = await mydb()
 			const { server } = await db
 				.collection('channels')
 				.findOne({ _id: ObjectID(id) })
@@ -231,7 +231,7 @@ module.exports = {
 	},
 	addUserToServer: async (root, { userId, serverId }) => {
 		try {
-			const db = await client.connect()
+			const db = await mydb()
 			await db
 				.collection('servers')
 				.updateOne(
@@ -262,7 +262,7 @@ module.exports = {
 				async (err, { id }) => {
 					if (err) throw new Error('User must be authorized')
 
-					const db = await client.connect()
+					const db = await mydb()
 					const existsFriendReq = await db
 						.collection('users')
 						.findOne({
@@ -331,7 +331,7 @@ module.exports = {
 				async (err, { id }) => {
 					if (err) throw new Error('User must be authorized')
 
-					const db = await client.connect()
+					const db = await mydb()
 					const isAlreadyMyFriend = await db
 						.collection('users')
 						.findOne({
@@ -392,7 +392,7 @@ module.exports = {
 				throw new Error('Fields must be filled in')
 			}
 
-			const db = await client.connect()
+			const db = await mydb()
 			const user = await db.collection('users').findOne({ username })
 
 			if (!user) {
@@ -419,7 +419,7 @@ module.exports = {
 				throw new Error('Fields must be filled in')
 			}
 
-			const db = await client.connect()
+			const db = await mydb()
 			const user = await db.collection('users').findOne({
 				$or: [{ username: input.username }, { email: input.email }],
 			})

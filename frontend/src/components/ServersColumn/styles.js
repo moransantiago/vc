@@ -27,7 +27,7 @@ export const DisconnectButton = styled.button`
 	border-radius: 3px;
 	box-shadow: 0;
 	background-color: inherit;
-	transition: 0.2s;
+	transition: 0.1s;
 	${fadeInDisconnectButton({ time: '0.3s' })}
 	&:hover {
 		background-color: #eb3434;

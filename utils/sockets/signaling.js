@@ -24,8 +24,8 @@ module.exports = {
 
 						socket.join(room, () => {
 							console.log(`User ${tokenPayload.id} joined channel ${room}`)
-							socket.broadcast.to(room).emit('joiner', tokenPayload.id) // Broadcast to everyone in the room that a new user has joined
 							socket.emit('id', tokenPayload.id)
+							socket.broadcast.to(room).emit('joiner', tokenPayload.id) // Broadcast to everyone in the room that a new user has joined
 						})
 					})
 				} catch (err) {

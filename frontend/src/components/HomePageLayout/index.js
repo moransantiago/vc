@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useState, useEffect, useContext } from 'react'
 
 import { NavBar } from '../NavBar'
 import { ServersColumn } from '../ServersColumn'
@@ -9,9 +9,31 @@ import { ConferenceModal } from '../ConferenceModal'
 import { useServerEventSocket } from '../../hooks/useServerEventSocket'
 
 import { DivContainer, DivColumns } from './styles'
+import { Context } from '../../Context'
 
 export const HomePageLayout = ({ serverId, chatId }) => {
+	const { RTC } = useContext(Context)
 	useServerEventSocket()
+	
+	useEffect(() => {
+		return () => {
+			if (RTC) {
+				RTC.disconnect()
+			}
+		}
+	}, [RTC])
+
+	// useEffect(() => {
+	// 	if (!serversSocket) {
+	// 		setServersSocket(serversEventsSocket)
+	// 	}
+
+	// 	return () => {
+	// 		serversEventsSocket.disconnect()
+	// 		setServersSocket(undefined)
+	// 	}
+	// }, [serversSocket, setServersSocket, serversEventsSocket])
+
 	const [isModalOpened, toggleModal] = useState(false)
 
 	return (

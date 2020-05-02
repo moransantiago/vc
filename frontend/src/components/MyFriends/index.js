@@ -41,7 +41,7 @@ export const MyFriends = ({ friends }) =>
 				<DivFriends>
 					<Subtitle>Online</Subtitle>
 					<ContentLoader
-						speed={1}
+						speed='1'
 						width='100%'
 						height='208'
 						viewBox='0 0 100% 100'
@@ -54,7 +54,7 @@ export const MyFriends = ({ friends }) =>
 							y='9'
 							rx='5'
 							ry='5'
-							width='9vw'
+							width='100'
 							height='12'
 						/>
 						<circle cx='26' cy='60' r='15' />
@@ -63,7 +63,7 @@ export const MyFriends = ({ friends }) =>
 							y='53'
 							rx='5'
 							ry='5'
-							width='9vw'
+							width='100'
 							height='12'
 						/>
 						<circle cx='26' cy='104' r='15' />
@@ -72,7 +72,7 @@ export const MyFriends = ({ friends }) =>
 							y='97'
 							rx='5'
 							ry='5'
-							width='9vw'
+							width='100'
 							height='12'
 						/>
 						<circle cx='26' cy='148' r='15' />
@@ -81,7 +81,7 @@ export const MyFriends = ({ friends }) =>
 							y='141'
 							rx='5'
 							ry='5'
-							width='9vw'
+							width='100'
 							height='12'
 						/>
 						<circle cx='26' cy='192' r='15' />
@@ -90,13 +90,13 @@ export const MyFriends = ({ friends }) =>
 							y='185'
 							rx='5'
 							ry='5'
-							width='9vw'
+							width='100'
 							height='12'
 						/>
 					</ContentLoader>
 					<Subtitle>Offline</Subtitle>
 					<ContentLoader
-						speed={1}
+						speed='1'
 						width='100%'
 						height='208'
 						viewBox='0 0 100% 100'
@@ -109,7 +109,7 @@ export const MyFriends = ({ friends }) =>
 							y='9'
 							rx='5'
 							ry='5'
-							width='9vw'
+							width='100'
 							height='12'
 						/>
 						<circle cx='26' cy='60' r='15' />
@@ -118,7 +118,7 @@ export const MyFriends = ({ friends }) =>
 							y='53'
 							rx='5'
 							ry='5'
-							width='9vw'
+							width='100'
 							height='12'
 						/>
 						<circle cx='26' cy='104' r='15' />
@@ -127,7 +127,7 @@ export const MyFriends = ({ friends }) =>
 							y='97'
 							rx='5'
 							ry='5'
-							width='9vw'
+							width='100'
 							height='12'
 						/>
 						<circle cx='26' cy='148' r='15' />
@@ -136,7 +136,7 @@ export const MyFriends = ({ friends }) =>
 							y='141'
 							rx='5'
 							ry='5'
-							width='9vw'
+							width='100'
 							height='12'
 						/>
 						<circle cx='26' cy='192' r='15' />
@@ -145,7 +145,7 @@ export const MyFriends = ({ friends }) =>
 							y='185'
 							rx='5'
 							ry='5'
-							width='9vw'
+							width='100'
 							height='12'
 						/>
 					</ContentLoader>

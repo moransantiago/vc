@@ -3,6 +3,8 @@ import React, { useContext } from 'react'
 import ContentLoader, { rect, circle } from 'react-content-loader'
 import { Link } from '@reach/router'
 
+import { useLocalStorage } from '../../hooks/useLocalStorage'
+
 import {
 	Image,
 	Nav,
@@ -18,7 +20,17 @@ import { GetUserInfo } from '../../containers/GetUserInfo'
 import { Context } from '../../Context'
 
 export const NavBar = () => {
-	const { removeAuth } = useContext(Context)
+	const { isAuth, removeAuth, RTC, serversSocket } = useContext(Context)
+	const [connectedChannel, setConnectedChannel] = useLocalStorage('connected-channel', null)
+
+	const handleLogOut = async userId => {
+		await RTC.leave(isAuth)
+		if (connectedChannel) {
+			serversSocket.emit('leave_channel', { userId, channel: connectedChannel })
+			setConnectedChannel(null)
+		}
+		removeAuth()
+	}	
 
 	return (
 		<GetUserInfo>
@@ -34,7 +46,7 @@ export const NavBar = () => {
 								borderBottom: '1px solid transparent',
 								borderLeft: '1px solid transparent'
 							}}
-							speed={1}
+							speed='1'
 							width='14%'
 							height='100%'
 							viewBox='0 0 100% 100'
@@ -52,9 +64,9 @@ export const NavBar = () => {
 							/>
 						</ContentLoader>
 						<ContentLoader
-							speed={1}
-							width='18%'
-							height='100%'
+							speed='1'
+							width='250'
+							height='35'
 							viewBox='0 0 100% 100'
 							backgroundColor='#757575'
 							foregroundColor='#545454'
@@ -78,7 +90,7 @@ export const NavBar = () => {
 								<NavItem>Servers</NavItem>
 							</Link>
 						</NavBody>
-						<LogOut to='/' onClick={removeAuth}>
+						<LogOut to='/' onClick={() => handleLogOut(data.getMe._id)}>
 							Log out
 						</LogOut>
 					</Nav>

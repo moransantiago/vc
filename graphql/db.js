@@ -3,7 +3,11 @@
 const { MongoClient } = require('mongodb')
 const { config } = require('../config')
 
-const mongoUrl = `mongodb+srv://${config.dbUser}:${config.dbPassword}@${config.dbHost}/${config.dbName}`
+const USERNAME = encodeURIComponent(config.dbUser)
+const PASSWORD = encodeURIComponent(config.dbPassword)
+
+const mongoUrl = `mongodb://${USERNAME}:${PASSWORD}@${config.dbHost}:${config.dbPort}/?authSource=admin`
+
 let connection
 
 const connectDB = async () => {

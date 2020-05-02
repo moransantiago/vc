@@ -1,6 +1,6 @@
 'use strict'
 
-const client = require('./mongo')
+const mydb = require('./db')
 const { ObjectID } = require('mongodb')
 const { config } = require('../config')
 const jwt = require('jsonwebtoken')
@@ -10,7 +10,7 @@ const errorHandler = require('./errorHandler')
 module.exports = {
     getUsers: async () => {
         try {
-            const db = await client.connect()
+            const db = await mydb()
             const users = await db.collection('users').find().toArray()
             
             return users
@@ -23,7 +23,7 @@ module.exports = {
             const user = await jwt.verify(authorization, config.authJwtSecret, async err => {
                 if (err) throw new Error('User must be authorized')
 
-                const db = await client.connect()
+                const db = await mydb()
                 const user = await db.collection('users').findOne({ username })
         
                 return user
@@ -39,7 +39,7 @@ module.exports = {
             const users = await jwt.verify(authorization, config.authJwtSecret, async (err, tokenPayload) => {
                 if (err) throw new Error('User must be authorized')
 
-                const db = await client.connect()
+                const db = await mydb()
                 const users = await db.collection('users').find({ $text: { $search: username } }).toArray()
                 const filteredUsers = users.filter(user => user.username !== tokenPayload.username) // => Delete the user who made the req from the list in case it matches with the search
 
@@ -56,7 +56,7 @@ module.exports = {
             const user = await jwt.verify(authorization, config.authJwtSecret, async (err, tokenPayload) => {
                 if (err) throw new Error('User must be authorized')
 
-                const db = await client.connect()
+                const db = await mydb()
                 const user = await db.collection('users').findOne({ username: tokenPayload.username })
         
                 return user
@@ -69,7 +69,7 @@ module.exports = {
     },
     getServers: async () => {
         try {
-            const db = await client.connect()
+            const db = await mydb()
             const servers = await db.collection('servers').find().toArray()
             
             return servers
@@ -79,7 +79,7 @@ module.exports = {
     },
     getServer: async (root, { id }) => {
         try {
-            const db = await client.connect()
+            const db = await mydb()
             const server = await db.collection('servers').findOne({ _id: ObjectID(id) })
             
             return server
@@ -92,7 +92,7 @@ module.exports = {
             const servers = await jwt.verify(authorization, config.authJwtSecret, async (err, tokenPayload) => {
                 if (err) throw new Error('User must be authorized')
 
-                const db = await client.connect()
+                const db = await mydb()
                 const servers = await db.collection('servers').find({ $text: { $search: name } }).toArray()
                 const user = await db.collection('users').findOne({ username: tokenPayload.username })
                 const userServersToString = user.servers.map(server => server.toString()) // => Map the servers ids

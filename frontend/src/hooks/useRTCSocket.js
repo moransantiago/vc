@@ -50,5 +50,11 @@ export const useRTCSocket = () => {
 		}
 	}, [])
 
-	return { join, leave, attachEvent }
+	const disconnect = useCallback(() => {
+		if (socket.current !== null) {
+			socket.current.disconnect()
+		}
+	}, [])
+
+	return { join, leave, attachEvent, disconnect }
 }

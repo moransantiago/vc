@@ -23,7 +23,6 @@ import { Card } from '../Card/index'
 import { GetUserServers } from '../../containers/GetUserServers'
 
 import { useLocalStorage } from '../../hooks/useLocalStorage'
-import { useRTCSocket } from '../../hooks/useRTCSocket'
 
 import { Context } from '../../Context'
 
@@ -34,9 +33,7 @@ export const ServersColumn = ({ serverId, chatId }) => {
 	const [connectedChannel, setConnectedChannel] = useLocalStorage('connected-channel', null)
 	const [setupDone, setSetupDone] = useState(false)
 	const [servers, setServers] = useState(undefined)
-    const { isAuth } = useContext(Context)
-	const { join, leave } = useRTCSocket()
-	const { serversSocket } = useContext(Context)
+    const { isAuth, RTC, serversSocket } = useContext(Context)
 
 	useEffect(() => {
 		if (serversSocket) {	
@@ -99,23 +96,21 @@ export const ServersColumn = ({ serverId, chatId }) => {
 
 	useEffect(() => {
 		window.onload = () => {
-			if (connectedChannel && isAuth) {
-				join(isAuth, connectedChannel)
+			if (connectedChannel && RTC) {
+				RTC.join(isAuth, connectedChannel)
 			}
 		}
-	}, [connectedChannel, isAuth, join])
+	}, [RTC, connectedChannel, isAuth])
 
 	return (
-		<GetUserServers onCompleted={async ({ getMe }) => {
-			console.log(getMe.servers)
-			await setServers(getMe.servers)}}>
+		<GetUserServers onCompleted={async ({ getMe }) => await setServers(getMe.servers)}>
 			{({ loading, error, data }) => {
 				if (error) return 'Internal server error'
 
 				const handleConnection = async channelId => {
 					if (connectedChannel !== channelId) {
 						await handleDisconnection()
-						join(isAuth, channelId)
+						RTC.join(isAuth, channelId)
 						serversSocket.emit('join_channel', { userId: data.getMe._id, channel: channelId })
 						setConnectedChannel(channelId)
 					}
@@ -123,7 +118,7 @@ export const ServersColumn = ({ serverId, chatId }) => {
 
 				const handleDisconnection = async () => {
 					if (connectedChannel) {
-						await leave(isAuth)
+						await RTC.leave(isAuth)
 						serversSocket.emit('leave_channel', { userId: data.getMe._id, channel: connectedChannel })
 						setConnectedChannel(null)
 					}
@@ -139,7 +134,7 @@ export const ServersColumn = ({ serverId, chatId }) => {
 					}
 				}
 				
-				return loading || !server ? (
+				return loading || !server || !RTC ? (
 					<DivContainer className='column is-2'>
 						<SpanServerTitle>
 							<ContentLoader
@@ -318,13 +313,11 @@ export const ServersColumn = ({ serverId, chatId }) => {
 										</Button>
 										{channel.connectedUsers && channel.connectedUsers.length > 0 &&
 											<DivUsersConnected>
-												{channel.connectedUsers.map((user, index) => {
-													console.log(user)
-
-													return <Link key={index} to={`/users/${user.username}`}>
+												{channel.connectedUsers.map((user, index) => (
+													<Link key={index} to={`/users/${user.username}`}>
 														<Card imgSize='22px' hoverColor='#6a6a6a' title={user.username}/>
 													</Link>
-												})}
+												))}
 											</DivUsersConnected>
 										}
 									</div>
