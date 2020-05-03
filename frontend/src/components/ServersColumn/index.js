@@ -112,6 +112,7 @@ export const ServersColumn = ({ serverId, chatId }) => {
 						await handleDisconnection()
 						RTC.join(isAuth, channelId)
 						serversSocket.emit('join_channel', { userId: data.getMe._id, channel: channelId })
+						console.log(channelId)
 						setConnectedChannel(channelId)
 					}
 				}

@@ -3,8 +3,6 @@ import React, { useContext } from 'react'
 import ContentLoader, { rect, circle } from 'react-content-loader'
 import { Link } from '@reach/router'
 
-import { useLocalStorage } from '../../hooks/useLocalStorage'
-
 import {
 	Image,
 	Nav,
@@ -21,14 +19,13 @@ import { Context } from '../../Context'
 
 export const NavBar = () => {
 	const { isAuth, removeAuth, RTC, serversSocket } = useContext(Context)
-	const [connectedChannel, setConnectedChannel] = useLocalStorage('connected-channel', null)
 
 	const handleLogOut = async userId => {
+		const connectedChannel = window.localStorage.getItem('connected-channel')
+		const channelId = JSON.parse(connectedChannel)
 		await RTC.leave(isAuth)
-		if (connectedChannel) {
-			serversSocket.emit('leave_channel', { userId, channel: connectedChannel })
-			setConnectedChannel(null)
-		}
+		serversSocket.emit('leave_channel', { userId, channel: channelId })
+		window.localStorage.setItem('connected-channel', null)
 		removeAuth()
 	}	
 

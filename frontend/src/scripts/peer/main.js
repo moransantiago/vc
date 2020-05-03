@@ -155,7 +155,9 @@ export const peerSetUp = async username => {
 		visibleVideoElement.muted = true
 		visibleVideoElement.playsInline = true
 		visibleVideoElement.autoPlay = true
-		videoContainer.appendChild(visibleVideoElement)
+		if (videoContainer) {	
+			videoContainer.appendChild(visibleVideoElement)
+		}
 		videosPortal.appendChild(globalVideoElement)
 
 		return [globalVideoElement, visibleVideoElement]

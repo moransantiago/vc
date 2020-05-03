@@ -12,27 +12,16 @@ import { DivContainer, DivColumns } from './styles'
 import { Context } from '../../Context'
 
 export const HomePageLayout = ({ serverId, chatId }) => {
-	const { RTC } = useContext(Context)
+	const { RTC, isAuth } = useContext(Context)
 	useServerEventSocket()
 	
 	useEffect(() => {
 		return () => {
-			if (RTC) {
+			if (RTC && !isAuth) {
 				RTC.disconnect()
 			}
 		}
-	}, [RTC])
-
-	// useEffect(() => {
-	// 	if (!serversSocket) {
-	// 		setServersSocket(serversEventsSocket)
-	// 	}
-
-	// 	return () => {
-	// 		serversEventsSocket.disconnect()
-	// 		setServersSocket(undefined)
-	// 	}
-	// }, [serversSocket, setServersSocket, serversEventsSocket])
+	}, [RTC, isAuth])
 
 	const [isModalOpened, toggleModal] = useState(false)
 
