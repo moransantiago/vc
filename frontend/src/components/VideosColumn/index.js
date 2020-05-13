@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react'
+import React, { useState, useEffect, useContext } from 'react'
 
 import {
 	DivColumnVideos,
@@ -14,9 +14,42 @@ import { FiMaximize2 } from 'react-icons/fi'
 
 import { useNewVideoElement } from '../../hooks/useNewVideoElement'
 
-export const VideosColumn = ({ onClick, collapsed, isModalOpened, users }) => {
+import { Context } from '../../Context'
+
+export const VideosColumn = ({ onClick, collapsed, isModalOpened, users, userId }) => {
+	const [connectedUsers, setConnectedUsers] = useState([])
 	const [ref, addVideoElement] = useNewVideoElement()
+	const { isAuth, RTC } = useContext(Context)
 	const { current } = ref
+
+	useEffect(() => {
+		if (isAuth && userId && users) {
+			console.log('offerOrAnswer.type, id, userId')
+			RTC.attachEvent(isAuth, 'signal', ({ id, offerOrAnswer, peerId }) => {
+				console.log('offerOrAnswer.type, id, userId')
+				if (offerOrAnswer.type === 'offer' && id === userId) {
+					setConnectedUsers(userList => {
+						const [user] = users.filter(user => user.id === peerId)
+						userList.push({ user, status: 'connecting' })
+						
+						return userList
+					})
+				} else if (offerOrAnswer.type === 'answer' && id === userId) {
+					setConnectedUsers(userList => {
+						const [user] = users.filter(user => user.id === peerId)
+						userList.map(() => {
+							return userList.filter(u => {
+								if (u._id !== user._id) return false
+								return true
+							})
+						})
+						
+						return userList
+					})
+				}
+			})
+		}
+	}, [isAuth, setConnectedUsers, RTC, userId, users])
 
 	useEffect(() => {
 		if (current) {
@@ -37,7 +70,7 @@ export const VideosColumn = ({ onClick, collapsed, isModalOpened, users }) => {
 				</Button>
 			</DivConferenceHeader>
 			<DivUsers style={!collapsed ? { display: 'none' } : null}>
-				{collapsed && users.map((user, index) => (
+				{collapsed && connectedUsers.map((user, index) => (
 					<UserBubble
 						key={index}
 						{...user}

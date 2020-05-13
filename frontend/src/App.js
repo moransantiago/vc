@@ -7,6 +7,7 @@ import { User } from './pages/User'
 import { Login } from './pages/Login'
 import { Signup } from './pages/Signup'
 import { NotFound } from './pages/NotFound'
+import { Servers } from './pages/Servers'
 
 import { GlobalStyle } from './components/Styles/GlobalStyle'
 
@@ -27,6 +28,9 @@ export const App = () => {
 				{!isAuth && <Redirect noThrow  from='/channels/:serverId/:chatId' to='/login/:serverId/:chatId' />}
 				{isAuth && <Home path='/' />}
 				{isAuth && <Home path='/channels/:serverId/:chatId' />}
+				{isAuth && <Servers path='/servers/my-servers' />}
+				{isAuth && <Servers path='/servers/create-server' />}
+				{isAuth && <Servers path='/servers/explore' />}
 				{isAuth && <User path='/users/:id' />}
 				{isAuth && <Redirect noThrow from='/login' to='/' />}
 				{isAuth && <Redirect noThrow from='/login/:serverId/:chatId' to='/channels/:serverId/:chatId' />}

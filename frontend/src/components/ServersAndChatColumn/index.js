@@ -123,8 +123,19 @@ export const ServersAndChatColumn = ({ serverId, chatId, isModalOpened, onClick 
 						<DivContainer className='column is-8'>
 							<ServersBar servers={servers} currentServer={serverId} />
 							<DivColumns className='columns'>
-								<Chat sendMessage={sendMessage} chat={chat} collapsed={collapsed} setColapsed={setColapsed} />
-								<VideosColumn onClick={onClick} collapsed={collapsed} users={server && server.users} isModalOpened={isModalOpened}/>
+								<Chat
+									sendMessage={sendMessage}
+									chat={chat}
+									collapsed={collapsed}
+									setColapsed={setColapsed}
+								/>
+								<VideosColumn
+									onClick={onClick}
+									collapsed={collapsed}
+									users={server && server.users}
+									isModalOpened={isModalOpened}
+									userId={data && data.getMe._id}
+								/>
 							</DivColumns>
 						</DivContainer>
 					)
