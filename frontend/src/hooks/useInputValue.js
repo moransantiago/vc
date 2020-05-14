@@ -1,6 +1,6 @@
 import { useState } from 'react'
 
-export const useInputValue = ({ initialValue, resetOnEsc }) => {
+export const useInputValue = ({ initialValue, resetOnEsc = false }) => {
 	const [value, setValue] = useState(initialValue)
 	const onChange = e => setValue(e.target.value)
 	const onKeyDown = resetOnEsc ? e => e.keyCode === 27 && setValue('') : null

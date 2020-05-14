@@ -17,9 +17,9 @@ import { SubmitButton } from '../SubmitButton'
 import { useInputValue } from '../../hooks/useInputValue'
 
 export const UserForm = ({ disabled, onSubmit, error, title }) => {
-	const username = useInputValue({ initialValue: '', resetOnEsc: false })
-	const email = useInputValue({ initialValue: '', resetOnEsc: false })
-	const password = useInputValue({ initialValue: '', resetOnEsc: false })
+	const username = useInputValue({ initialValue: '' })
+	const email = useInputValue({ initialValue: '' })
+	const password = useInputValue({ initialValue: '' })
 
 	const firstInput = useRef()
 
