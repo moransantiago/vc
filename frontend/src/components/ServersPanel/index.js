@@ -3,6 +3,8 @@ import React, { useState } from 'react'
 import { ServersNavbar } from '../SeversNavbar'
 import { SubmitButton } from '../SubmitButton'
 
+import { TwitterPicker } from 'react-color'
+
 import { useInputValue } from '../../hooks/useInputValue'
 
 import {
@@ -15,6 +17,7 @@ import {
 	CancelButton,
 	DivResponsive,
 	Img,
+	Divider
 } from './styles'
 
 export const ServersPanel = () => {
@@ -30,7 +33,8 @@ export const ServersPanel = () => {
             console.log(e.target)
             setChannels(prevState => {
                 console.log(prevState)
-                const withNewChannel = prevState.push(channel.value)
+				const withNewChannel = prevState.push(channel.value)
+
                 return withNewChannel
             })
         }
@@ -63,10 +67,22 @@ export const ServersPanel = () => {
 					<Input placeholder='Ex: School' />
 				</Section>
 				<Section>
-					<Label>Image</Label>
-					<div>
-						<Img src={image.value} placeholder='server image' />
-						<Input {...image} placeholder='src (url)' />
+					<Label>Appeareance</Label>
+					<Divider />
+					<div className='column'>
+						<div className='row'>
+							<Label>Thumnail</Label>
+							<Section>
+								<Input {...image} placeholder='src (url)' />
+								<Img src={image.value} placeholder='server image' />
+							</Section>
+						</div>
+						<div className='row'>
+							<Label>Theme color</Label>
+							<Section>
+								<TwitterPicker width='100%' triangle='hide' />
+							</Section>
+						</div>
 					</div>
 				</Section>
 				<Section>

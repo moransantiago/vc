@@ -69,23 +69,37 @@ export const Section = styled.div`
 	}
 
 	div {
-		display: flex;
-		flex-direction: column;
-		justify-content: center;
-		align-items: flex-end;
+		padding: 0;
 		width: 100%;
 
-		input {
-			margin-top: 10px;
+		label {
+			margin-right: 15px;
 		}
-	}
 
-	div.buttons {
-		display: flex;
-		flex-direction: row;
-		justify-content: flex-end;
-		align-items: center;
-		width: 100%;
+		&.column {
+			display: flex;
+			flex-direction: column;
+			justify-content: center;
+			align-items: flex-end;
+		}
+
+		&.row {
+			display: flex;
+			justify-content: space-between;
+			align-items: center;
+			margin-bottom: 15px;
+
+			&:last-child {
+				margin: 0;
+			}
+		}
+
+		&.buttons {
+			display: flex;
+			flex-direction: row;
+			justify-content: flex-end;
+			align-items: center;
+		}
 	}
 
 	button {
@@ -139,13 +153,19 @@ export const Label = styled.label`
 	font-size: 18px;
 `
 
+export const Divider = styled.hr`
+	margin: 0 15px;
+	border-right: 2px solid #484848;
+	height: 100%;
+`
+
 export const TextArea = styled.textarea`
 	border: 0;
 	background-color: #5e5e5e;
 	border-radius: 4px;
 	color: #ededed;
 	font-weight: bolder;
-	font-size: 16px;
+	font-size: 10px;
 	padding: 8px;
 	font-family: BalooPaaji;
 	resize: none;
@@ -204,6 +224,8 @@ export const Img = styled.img`
 	object-fit: cover;
 	color: #ededed;
 	border: 2px solid #888;
-	height: 100px;
-	width: 100px;
+	min-height: 70px;
+	min-width: 70px;
+	max-height: 70px;
+	max-width: 70px;
 `
