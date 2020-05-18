@@ -52,12 +52,13 @@ export const BodyDiv = styled.div`
 	flex-direction: column;
 	background-color: #2d2d2d;
 	border-radius: 6px;
-	box-shadow: 0px 8px 40px -19px rgba(0, 0, 0, 0.75);
+	box-shadow: 0px 8px 40px -19px rgb(0, 0, 0,);
 	width: 100%;
 	border: 1px solid #484848;
 `
 
 export const Section = styled.div`
+	position: relative;
 	display: flex;
 	justify-content: space-between;
 	align-items: center;
@@ -70,13 +71,9 @@ export const Section = styled.div`
 
 	div {
 		padding: 0;
-		width: 100%;
-
-		label {
-			margin-right: 15px;
-		}
 
 		&.column {
+			width: 100%;
 			display: flex;
 			flex-direction: column;
 			justify-content: center;
@@ -84,10 +81,12 @@ export const Section = styled.div`
 		}
 
 		&.row {
+			width: 100%;
 			display: flex;
 			justify-content: space-between;
 			align-items: center;
 			margin-bottom: 15px;
+			position: relative;
 
 			&:last-child {
 				margin: 0;
@@ -95,6 +94,7 @@ export const Section = styled.div`
 		}
 
 		&.buttons {
+			width: 100%;
 			display: flex;
 			flex-direction: row;
 			justify-content: flex-end;
@@ -120,26 +120,7 @@ export const Input = styled.input`
 	font-size: 16px;
 	padding: 8px;
 	font-family: BalooPaaji;
-
-	@media (max-width: 499px) {
-		max-width: 60%;
-	}
-
-	@media (min-width: 500px) {
-		width: 60%;
-	}
-
-	@media (min-width: 900px) {
-		width: 50%;
-	}
-
-	@media (min-width: 1200px) {
-		width: 60%;
-	}
-
-	@media (min-width: 1600px) {
-		width: 70%;
-	}
+	flex: 1;
 
 	&[disabled] {
 		opacity: 0.5;
@@ -151,53 +132,47 @@ export const Input = styled.input`
 
 export const Label = styled.label`
 	font-size: 18px;
+	margin-right: 22px;
+	white-space: nowrap;
 `
 
 export const Divider = styled.hr`
-	margin: 0 15px;
+	margin: 0 15px 0 0;
 	border-right: 2px solid #484848;
 	height: 100%;
 `
 
 export const TextArea = styled.textarea`
+	position: relative;
 	border: 0;
 	background-color: #5e5e5e;
 	border-radius: 4px;
 	color: #ededed;
 	font-weight: bolder;
-	font-size: 10px;
+	font-size: 14px;
 	padding: 8px;
 	font-family: BalooPaaji;
 	resize: none;
-
-	@media (max-width: 499px) {
-		max-width: 70%;
-	}
-
-	@media (min-width: 500px) {
-		width: 60%;
-	}
-
-	@media (min-width: 900px) {
-		width: 50%;
-		height: 100%;
-	}
-
-	@media (min-width: 1200px) {
-		width: 60%;
-		height: 100%;
-	}
-
-	@media (min-width: 1600px) {
-		width: 70%;
-		height: 100%;
-	}
+	flex: 1;
 
 	&[disabled] {
 		opacity: 0.5;
 	}
 	&:hover {
 		background-color: #575757;
+	}
+`
+
+export const DivTextArea = styled.div`
+	display: flex;
+	justify-content: flex-end;
+	align-items: center;
+	position: absolute;
+	top: 5px;
+	left: 5px;
+
+	div {
+		position: relative;
 	}
 `
 
@@ -223,9 +198,24 @@ export const Img = styled.img`
 	background-color: #5e5e5e;
 	object-fit: cover;
 	color: #ededed;
-	border: 2px solid #888;
+	font-size: 12px;
+	display: flex;
+	align-items: center;
 	min-height: 70px;
 	min-width: 70px;
 	max-height: 70px;
 	max-width: 70px;
+	margin-left: 15px;
+	border: 2px solid ${({ border }) => border };
+`
+
+export const Card = styled.div`
+	background-color: rgb(156, 156, 156);
+	border: 2px solid ${({ border }) => border };
+	font-size: 14px;
+	font-family: BalooPaaji;
+	color: #ffffff;
+	padding: 5px !important;
+	border-radius: 15px;
+	margin: 0 5px 5px 0;
 `

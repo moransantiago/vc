@@ -17,33 +17,43 @@ import {
 	CancelButton,
 	DivResponsive,
 	Img,
-	Divider
+	Divider,
+	Card,
+	DivTextArea
 } from './styles'
 
 export const ServersPanel = () => {
-    const image = useInputValue({ initialValue: '', resetOnEsc: true })
+	const image = useInputValue({ initialValue: '', resetOnEsc: true })
     const channel = useInputValue({ initialValue: '', resetOnEsc: true })
     const chat = useInputValue({ initialValue: '', resetOnEsc: true })
-
+	
+	const [color, setColor] = useState('#ededed')
     const [channels, setChannels] = useState([])
     const [chats, setChats] = useState([])
 
-    const onKeyChannels = e => {
-        if (e.keyCode === 13) {
-            console.log(e.target)
-            setChannels(prevState => {
-                console.log(prevState)
-				const withNewChannel = prevState.push(channel.value)
+	const onChangeColor = ({ hex }) => setColor(hex)
 
-                return withNewChannel
-            })
+    const onKeyChannels = e => {
+        if (e.keyCode === 13 && channels.length < 3) {
+			setChannels(prevState => {
+				const newState = [...prevState]
+				newState.push(channel.value)
+
+				return newState
+			})
+			channel.setValue('')
         }
     }
 
     const onKeyChats = e => {
-        if (e.keyCode === 13) {
-            console.log(e.target)
-            setChats(prevState => prevState.push(chat.value))
+        if (e.keyCode === 13 && chats.length < 3) {
+            setChats(prevState => {
+				const newState = [...prevState]
+				newState.push(chat.value)
+
+				return newState
+			})
+			chat.setValue('')
         }
     }
 
@@ -74,24 +84,48 @@ export const ServersPanel = () => {
 							<Label>Thumnail</Label>
 							<Section>
 								<Input {...image} placeholder='src (url)' />
-								<Img src={image.value} placeholder='server image' />
+								<Img
+									src={image.value}
+									border={color}
+									alt='server image'
+								/>
 							</Section>
 						</div>
 						<div className='row'>
-							<Label>Theme color</Label>
+							<Label>Color</Label>
 							<Section>
-								<TwitterPicker width='100%' triangle='hide' />
+								<TwitterPicker
+									color={color}
+									colors={['#f44336', '#e91e63', '#9c27b0', '#673ab7', '#3f51b5', '#2196f3', '#03a9f4', '#00bcd4', '#009688', '#4caf50', '#8bc34a', '#cddc39', '#ffeb3b', '#ffc107']}
+									onChange={onChangeColor}
+									width='100%'
+									triangle='hide'
+								/>
 							</Section>
 						</div>
 					</div>
 				</Section>
 				<Section>
-					<Label>Voice Channels</Label>
-					<TextArea {...channel} onKeyDown={onKeyChannels} />
+					<Label>Voice Channels (3 max)</Label>
+					<div className='row'>
+						<TextArea {...channel} onKeyDown={onKeyChannels} />
+						<DivTextArea>
+							<div style={{ display: 'flex', flexWrap: 'wrap' }}>
+								{channels.map(chat => <Card border={color}>{chat}</Card>)}
+							</div>
+						</DivTextArea>
+					</div>
 				</Section>
 				<Section>
-					<Label>Text Chats</Label>
-					<TextArea {...chat} onKeyDown={onKeyChats} />
+					<Label>Text Chats (3 max)</Label>
+					<div className='row'>
+						<TextArea {...chat} onKeyDown={onKeyChats} />
+						<DivTextArea>
+							<div style={{ display: 'flex', flexWrap: 'wrap' }}>
+								{chats.map(chat => <Card border={color}>{chat}</Card>)}
+							</div>
+						</DivTextArea>
+					</div>
 				</Section>
 				<Section>
 					<div className='buttons'>
