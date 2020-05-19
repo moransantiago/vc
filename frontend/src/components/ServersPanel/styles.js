@@ -13,33 +13,32 @@ export const DivResponsive = styled.div`
 	display: flex;
 	flex-direction: column;
 	height: 100%;
+	overflow-y: auto;
 
-	@media (max-height: 575px) {
+	@media (max-height: 720px) {
 		justify-content: flex-end !important;
 	}
 
-	@media (min-height: 576px) {
+	@media (min-height: 721px) {
 		justify-content: center !important;
 	}
 
 	@media (max-width: 499px) {
-		justify-content: flex-end;
-		width: 100%;
-		min-width: 350px !important;
+		justify-content: flex-end !important;
+		width: 99%;
 	}
 
 	@media (min-width: 500px) {
-		width: 85%;
-		max-width: 450px !important;
+		width: 99%;
 		justify-content: center;
 	}
 
 	@media (min-width: 900px) {
-		max-width: 500px !important;
+		max-width: 600px !important;
 	}
 
 	@media (min-width: 1200px) {
-		max-width: 500px !important;
+		max-width: 700px !important;
 	}
 
 	@media (min-width: 1600px) {
@@ -65,6 +64,14 @@ export const Section = styled.div`
 	color: #ededed;
 	padding: 16px;
 	border-bottom: 1px solid #484848;
+	flex: 1;
+
+	.responsive {
+		@media (max-width: 575px) {
+			display: none;
+		}
+	}
+
 	&:last-child {
 		border: 0;
 	}
@@ -87,6 +94,7 @@ export const Section = styled.div`
 			align-items: center;
 			margin-bottom: 15px;
 			position: relative;
+			overflow: auto;
 
 			&:last-child {
 				margin: 0;
@@ -133,13 +141,20 @@ export const Input = styled.input`
 export const Label = styled.label`
 	font-size: 18px;
 	margin-right: 22px;
-	white-space: nowrap;
+
+	@media (min-width: 575px) {
+		white-space: nowrap;
+	}
+
+	@media (max-width: 575px) {
+		white-space: wrap;
+	}
 `
 
 export const Divider = styled.hr`
 	margin: 0 15px 0 0;
 	border-right: 2px solid #484848;
-	height: 100%;
+	height: 180px;
 `
 
 export const TextArea = styled.textarea`
@@ -150,6 +165,7 @@ export const TextArea = styled.textarea`
 	color: #ededed;
 	font-weight: bolder;
 	font-size: 14px;
+	flex: 1;
 	padding: 8px;
 	font-family: BalooPaaji;
 	resize: none;
@@ -168,8 +184,9 @@ export const DivTextArea = styled.div`
 	justify-content: flex-end;
 	align-items: center;
 	position: absolute;
-	top: 5px;
-	left: 5px;
+	top: 0;
+	left: 0;
+	padding: 5px !important;
 
 	div {
 		position: relative;
@@ -193,6 +210,10 @@ export const CancelButton = styled.button`
 	}
 `
 
+export const Form = styled.form`
+	all: unset;
+`
+
 export const Img = styled.img`
 	border-radius: 50%;
 	background-color: #5e5e5e;
@@ -205,17 +226,30 @@ export const Img = styled.img`
 	min-width: 70px;
 	max-height: 70px;
 	max-width: 70px;
+	padding: 2px;
 	margin-left: 15px;
 	border: 2px solid ${({ border }) => border };
+
+	@media (max-width: 432px) {
+		display: none;
+	}
 `
 
 export const Card = styled.div`
 	background-color: rgb(156, 156, 156);
 	border: 2px solid ${({ border }) => border };
-	font-size: 14px;
 	font-family: BalooPaaji;
 	color: #ffffff;
 	padding: 5px !important;
 	border-radius: 15px;
-	margin: 0 5px 5px 0;
+
+	@media (max-width: 748px) {
+		font-size: 12px;
+		margin: 0 3px 3px 0;
+	}
+
+	@media (min-width: 749px) {
+		font-size: 14px;
+		margin: 0 5px 5px 0;
+	}
 `

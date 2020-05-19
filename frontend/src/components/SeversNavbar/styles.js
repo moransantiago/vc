@@ -16,6 +16,7 @@ export const List = styled.ul`
     border-bottom: 1px solid #484848;
     border-left: 1px solid #484848;
     border-right: 1px solid #484848;
+	z-index: 3;
 
 	@media (max-width: 499px) {
 		flex-direction: column;
