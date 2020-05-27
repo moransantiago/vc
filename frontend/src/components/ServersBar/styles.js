@@ -1,5 +1,7 @@
 import styled from 'styled-components'
 
+import { Link as LinkRouter } from '@reach/router'
+
 export const Div = styled.div`
 	height: 60px;
 	padding: 7px;
@@ -10,7 +12,9 @@ export const Div = styled.div`
 	justify-content: center;
 	align-items: center;
 	position: relative;
+	font-size: 22px;
 	border-bottom: 2px solid #3c3c3c;
+	color: #ededed;
 `
 
 export const Button = styled.button`
@@ -30,4 +34,10 @@ export const Button = styled.button`
 	&:hover {
 		background-color: rgba(200, 103, 64, 0.2);
 	}
+`
+
+export const Link = styled(LinkRouter)`
+	color: #c86740;
+	font-size: 20px;
+	margin-left: 15px;
 `

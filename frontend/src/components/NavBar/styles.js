@@ -22,6 +22,8 @@ export const Nav = styled.div`
 	width: 100vw;
 	padding: 0 20px;
 	background-color: #242424;
+	position: relative;
+	z-index: 3;
 `
 
 export const NavHeader = styled.span`

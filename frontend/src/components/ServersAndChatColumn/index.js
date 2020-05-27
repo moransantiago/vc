@@ -67,7 +67,7 @@ export const ServersAndChatColumn = ({ serverId, chatId, isModalOpened, onClick 
 				({ error, data }) => {
 					if (error) return 'Internal server error'
 
-					if (servers) {
+					if (servers && servers.length > 0) {
 						var server = serverId
 							? servers.filter(server => server._id === serverId)[0]
 							: servers[0]._id

@@ -112,7 +112,6 @@ export const ServersColumn = ({ serverId, chatId }) => {
 						await handleDisconnection()
 						RTC.join(isAuth, channelId)
 						serversSocket.emit('join_channel', { userId: data.getMe._id, channel: channelId })
-						console.log(channelId)
 						setConnectedChannel(channelId)
 					}
 				}
@@ -125,7 +124,7 @@ export const ServersColumn = ({ serverId, chatId }) => {
 					}
 				}
 
-				if (servers) {
+				if (servers && servers.length > 0) {
 					var [server] = servers.filter(server => server._id === serverId)
 					
 					if (!serverId || !chatId) {

@@ -22,34 +22,34 @@ export const VideosColumn = ({ onClick, collapsed, isModalOpened, users, userId 
 	const { isAuth, RTC } = useContext(Context)
 	const { current } = ref
 
-	useEffect(() => {
-		if (isAuth && userId && users) {
-			console.log('offerOrAnswer.type, id, userId')
-			RTC.attachEvent(isAuth, 'signal', ({ id, offerOrAnswer, peerId }) => {
-				console.log('offerOrAnswer.type, id, userId')
-				if (offerOrAnswer.type === 'offer' && id === userId) {
-					setConnectedUsers(userList => {
-						const [user] = users.filter(user => user.id === peerId)
-						userList.push({ user, status: 'connecting' })
+	// useEffect(() => {
+	// 	if (isAuth && userId && users) {
+	// 		console.log('offerOrAnswer.type, id, userId')
+	// 		RTC.attachEvent(isAuth, 'signal', ({ id, offerOrAnswer, peerId }) => {
+	// 			console.log('offerOrAnswer.type, id, userId')
+	// 			if (offerOrAnswer.type === 'offer' && id === userId) {
+	// 				setConnectedUsers(userList => {
+	// 					const [user] = users.filter(user => user.id === peerId)
+	// 					userList.push({ user, status: 'connecting' })
 						
-						return userList
-					})
-				} else if (offerOrAnswer.type === 'answer' && id === userId) {
-					setConnectedUsers(userList => {
-						const [user] = users.filter(user => user.id === peerId)
-						userList.map(() => {
-							return userList.filter(u => {
-								if (u._id !== user._id) return false
-								return true
-							})
-						})
+	// 					return userList
+	// 				})
+	// 			} else if (offerOrAnswer.type === 'answer' && id === userId) {
+	// 				setConnectedUsers(userList => {
+	// 					const [user] = users.filter(user => user.id === peerId)
+	// 					userList.map(() => {
+	// 						return userList.filter(u => {
+	// 							if (u._id !== user._id) return false
+	// 							return true
+	// 						})
+	// 					})
 						
-						return userList
-					})
-				}
-			})
-		}
-	}, [isAuth, setConnectedUsers, RTC, userId, users])
+	// 					return userList
+	// 				})
+	// 			}
+	// 		})
+	// 	}
+	// }, [isAuth, setConnectedUsers, RTC, userId, users])
 
 	useEffect(() => {
 		if (current) {

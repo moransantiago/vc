@@ -55,7 +55,7 @@ module.exports = {
         try {
             const user = await jwt.verify(authorization, config.authJwtSecret, async (err, tokenPayload) => {
                 if (err) throw new Error('User must be authorized')
-
+                
                 const db = await mydb()
                 const user = await db.collection('users').findOne({ username: tokenPayload.username })
         

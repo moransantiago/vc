@@ -51,6 +51,27 @@ module.exports = {
 	createServer: async (root, { input }) => {
 		try {
 			const db = await mydb()
+			input.admin = ObjectID(input.admin)
+			const getChannelsIds = async () => {
+				return Promise.all(
+					input.channels.map(async channel => {
+						const newChannel = await db.collection('channels').insertOne({ name: channel })
+	
+						return newChannel.insertedId
+					})
+				)
+			}
+			const getChatsIds = async () => {
+				return Promise.all(
+					input.chats.map(async chat => {
+						const newChat = await db.collection('chats').insertOne({ name: chat })
+	
+						return newChat.insertedId
+					})
+				)
+			}
+			input.channels = await getChannelsIds()
+			input.chats = await getChatsIds()
 			const server = await db.collection('servers').insertOne(input)
 			input._id = server.insertedId
 

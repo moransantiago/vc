@@ -13,8 +13,8 @@ import { useInputValue } from '../../hooks/useInputValue'
 import { GetUserFriends } from '../../containers/GetUserFriends'
 
 export const FriendsColumn = () => {
-	const [friends, setFriends] = useState()
-	const [friendRequests, setFriendRequests] = useState()
+	const [friends, setFriends] = useState([])
+	const [friendRequests, setFriendRequests] = useState([])
 	const friendSearchInput = useInputValue({
 		initialValue: '',
 		resetOnEsc: true,
@@ -30,8 +30,8 @@ export const FriendsColumn = () => {
 		if (requestIndex > -1) {
 			friendsReqCopied.splice(requestIndex, 1)
 		}
-		setFriends({ ...friendsCopied })
-		setFriendRequests({ ...friendsReqCopied })
+		setFriends([ ...friendsCopied ])
+		setFriendRequests([ ...friendsReqCopied ])
 	}
 		// const removeFriend = user => {
 		//     const { friends } = userData

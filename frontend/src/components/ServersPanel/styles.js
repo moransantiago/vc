@@ -1,19 +1,19 @@
 import styled from 'styled-components'
 
 export const DivContainer = styled.div`
-	height: 100vh;
+	height: calc(100vh - 50px);
 	width: 100vw;
 	display: flex;
 	flex-direction: column;
 	justify-content: center;
 	align-items: center;
+	overflow: auto;
 `
 
 export const DivResponsive = styled.div`
 	display: flex;
 	flex-direction: column;
 	height: 100%;
-	overflow-y: auto;
 
 	@media (max-height: 720px) {
 		justify-content: flex-end !important;

@@ -6,7 +6,7 @@ export const List = styled.ul`
 	display: flex;
 	justify-content: center;
 	background-color: #2d2d2d;
-	position: fixed;
+	position: sticky;
 	top: 0%;
 	border-radius: 0 0 6px 6px;
 	padding: 14px 0;
@@ -16,10 +16,12 @@ export const List = styled.ul`
     border-bottom: 1px solid #484848;
     border-left: 1px solid #484848;
     border-right: 1px solid #484848;
-	z-index: 3;
+	z-index: 1;
 
 	@media (max-width: 499px) {
 		flex-direction: column;
+		border: 0;
+		border-radius: 0;
 	}
 `
 

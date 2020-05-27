@@ -2,6 +2,7 @@ import React, { useState } from 'react'
 
 import { ServersNavbar } from '../SeversNavbar'
 import { SubmitButton } from '../SubmitButton'
+import { NavBar } from '../NavBar'
 
 import { TwitterPicker } from 'react-color'
 
@@ -90,7 +91,7 @@ export const ServersPanel = () => {
 	} else if (url.includes('create-server')) {
 		body = (
 			<BodyDiv>
-				<Form onSubmit={() => {alert('saleeee')}}>
+				<Form onSubmit={() => {alert('prueba')}}>
 					<Section>
 						<Label>Name</Label>
 						<Input {...name} placeholder='Ex: School' />
@@ -177,9 +178,12 @@ export const ServersPanel = () => {
 	}
 
 	return (
-		<DivContainer>
-			<ServersNavbar />
-			<DivResponsive>{body}</DivResponsive>
-		</DivContainer>
+		<>
+			<NavBar />
+			<DivContainer>
+				<ServersNavbar />
+				<DivResponsive>{body}</DivResponsive>
+			</DivContainer>
+		</>
 	)
 }

@@ -83,7 +83,7 @@ export const NavBar = () => {
 							<Link to='/'>
 								<NavItem>Home</NavItem>
 							</Link>
-							<Link to='/servers'>
+							<Link to='/servers/my-servers'>
 								<NavItem>Servers</NavItem>
 							</Link>
 						</NavBody>

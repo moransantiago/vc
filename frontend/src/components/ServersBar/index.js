@@ -2,23 +2,35 @@ import React from 'react'
 
 import ContentLoader, { rect } from 'react-content-loader'
 
-import { Div, Button } from './styles'
+import { Div, Button, Link } from './styles'
 
 import { Server } from '../Server/index'
 
 import { MdAdd } from 'react-icons/md'
 
 export const ServersBar = ({ currentServer = false, servers }) => {
-	return servers ? (
-		<Div className='column is-12'>
-			{servers.map((server, index) => (
-				<Server {...server} currentserver={currentServer === servers[index]._id ? true : false} key={index} />
-			))}
-			<Button>
-				<MdAdd size='28px' color='rgb(200, 103, 64)' />
-			</Button>
-		</Div>
-	) : (
+	if (servers) {
+		return servers.length < 1 ? (
+			<Div className='column is-12'>
+				No servers yet... <Link to='/servers/explore'>Find servers</Link>
+				<Button>
+					<MdAdd size='28px' color='rgb(200, 103, 64)' />
+				</Button>
+			</Div>
+		) : (
+			<Div className='column is-12'>
+				{servers.map((server, index) => (
+					<Server {...server} currentserver={currentServer === servers[index]._id ? true : false} key={index} />
+				))}
+				<Button>
+					<MdAdd size='28px' color='rgb(200, 103, 64)' />
+				</Button>
+			</Div>
+		)
+	}
+
+	
+	return (
 		<Div className='column is-12'>
 			<ContentLoader
 					speed={1}
