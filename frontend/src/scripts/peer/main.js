@@ -86,10 +86,10 @@ export const peerSetUp = async username => {
 
 		peer.on('close', () => {
 			removePeer(id)
-			removeVideoElement(id)
 		})
 
 		peer.on('error', err => {
+			removePeer(id)
 			console.log(err)
 		})
 		

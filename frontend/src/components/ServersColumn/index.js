@@ -33,6 +33,7 @@ export const ServersColumn = ({ serverId, chatId }) => {
 	const [connectedChannel, setConnectedChannel] = useLocalStorage('connected-channel', null)
 	const [setupDone, setSetupDone] = useState(false)
 	const [servers, setServers] = useState(undefined)
+	const [userId, setUserId] = useState(undefined)
     const { isAuth, RTC, serversSocket } = useContext(Context)
 
 	useEffect(() => {
@@ -95,15 +96,39 @@ export const ServersColumn = ({ serverId, chatId }) => {
 	}, [servers, serversSocket, setupDone])
 
 	useEffect(() => {
-		window.onload = () => {
+		const reconnect = () => {
 			if (connectedChannel && RTC) {
 				RTC.join(isAuth, connectedChannel)
 			}
 		}
+		
+		window.addEventListener('onload', reconnect)
+
+		return () => window.removeEventListener('onload', reconnect)
 	}, [RTC, connectedChannel, isAuth])
 
+	useEffect(() => {
+		const disconnect = async () => {
+			if (connectedChannel && serversSocket && userId) {
+				serversSocket.emit('leave_channel', { userId: userId, channel: connectedChannel })
+				setConnectedChannel(null)
+			}
+		}
+
+		window.addEventListener('beforeunload', disconnect)		
+
+		return () => window.removeEventListener('beforeunload', disconnect)
+	}, [serversSocket, connectedChannel, userId])
+
 	return (
-		<GetUserServers onCompleted={async ({ getMe }) => await setServers(getMe.servers)}>
+		<GetUserServers
+			onCompleted={
+				async ({ getMe }) => {
+					await setServers(getMe.servers)
+					await setUserId(getMe._id)
+				}
+			}
+		>
 			{({ loading, error, data }) => {
 				if (error) return 'Internal server error'
 
