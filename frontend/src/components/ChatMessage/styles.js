@@ -15,6 +15,7 @@ export const SpanHour = styled.span`
 	opacity: 0.7;
 	font-size: 14px;
 	margin-left: 18px;
+	color: ${({ isMine }) => isMine ? '#ededed' : '#464646'};
 `
 
 export const DivRow = styled.div`
@@ -22,9 +23,9 @@ export const DivRow = styled.div`
 	align-items: flex-end;
 	flex-direction: row;
 	position: relative;
-	background-color: #ededed;
+	background-color: ${({ isMine }) => isMine ? '#c88040' : '#ededed'};
 	border-radius: ${({ isMine }) => isMine ? '12px 0 12px 12px' : '0 12px 12px 12px'};
-	color: #464646;
+	color: ${({ isMine }) => isMine ? '#ededed' : '#464646'};
 	padding: 10px;
 	&:after {
 		content: '';
@@ -33,18 +34,19 @@ export const DivRow = styled.div`
 		border-bottom: 10px solid transparent;
 		width: 0;
 		height: 0;
-		box-shadow: ${({ isMine }) => isMine ? '-2px 0 0 0 #ededed;' : '2px 0 0 0 #ededed'};
 		${({ isMine }) =>
 			!isMine
 				? css`
 						 {
+							box-shadow: 2px 0 0 0 #ededed;
 							border-right: 10px solid #ededed;
 							left: -10px;
 						}
 				  `
 				: css`
 						 {
-							border-left: 10px solid #ededed;
+							box-shadow: -2px 0 0 0 #c88040;
+							border-left: 10px solid #c88040;
 							right: -10px;
 						}
 				  `};
@@ -88,5 +90,5 @@ export const Title = styled.h1`
 
 export const ParagraphBody = styled.p`
 	font-size: 16px;
-	font-weight: lighter;
+	font-weight: bolder;
 `

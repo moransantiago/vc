@@ -65,6 +65,8 @@ input UserCredentials {
 input ServerInput {
 	admin: ID!
 	name: String!
+	img: String!
+	color: String!
 	users: [ID]
 	chats: [ID]
 	channels: [ID]
@@ -73,6 +75,8 @@ input ServerInput {
 input ServerEditInput {
 	admin: ID
 	name: String
+	img: String!
+	color: String!
 	users: [ID]
 	chats: [ID]
 	channels: [ID]

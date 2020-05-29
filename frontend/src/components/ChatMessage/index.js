@@ -16,7 +16,7 @@ export const ChatMessage = ({ message: { headers: { author, spoiler, isMine, tim
                         </Link>}
                     <ParagraphBody>{body}</ParagraphBody>
                 </SpanBody>
-                <SpanHour>{time}</SpanHour>
+                <SpanHour isMine={isMine}>{time}</SpanHour>
             </DivRow>
         </DivMessage>
     </DivContainer>

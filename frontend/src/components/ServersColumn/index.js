@@ -96,19 +96,21 @@ export const ServersColumn = ({ serverId, chatId }) => {
 	}, [servers, serversSocket, setupDone])
 
 	useEffect(() => {
-		const reconnect = () => {
+		window.onload = () => {
 			if (connectedChannel && RTC) {
 				RTC.join(isAuth, connectedChannel)
 			}
 		}
-		
-		window.addEventListener('onload', reconnect)
-
-		return () => window.removeEventListener('onload', reconnect)
 	}, [RTC, connectedChannel, isAuth])
 
 	useEffect(() => {
-		const disconnect = async () => {
+		document.onkeydown = e => { // We remove the disconnection in case the user refreshed
+			if (e.key === 'F5' || (e.key === 'r' && e.ctrlKey) || (e.key === 'R' && e.ctrlKey)) {
+				window.removeEventListener('beforeunload', disconnect)
+			}
+		}
+
+		const disconnect = () => {
 			if (connectedChannel && serversSocket && userId) {
 				serversSocket.emit('leave_channel', { userId: userId, channel: connectedChannel })
 				setConnectedChannel(null)
