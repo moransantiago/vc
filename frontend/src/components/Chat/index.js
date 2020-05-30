@@ -1,4 +1,4 @@
-import React, { useRef, useEffect } from 'react'
+import React, { useState, useRef, useEffect } from 'react'
 
 import 'bulma/css/bulma.css'
 
@@ -16,6 +16,7 @@ import {
 	Form,
 	Hero,
 	DivNoMessages,
+	DivNewMessages,
 } from './styles'
 
 import { ChatMessage } from '../ChatMessage/index'
@@ -25,20 +26,51 @@ import { useInputValue } from '../../hooks/useInputValue'
 import { MdSend } from 'react-icons/md'
 import { IoIosArrowBack, IoIosArrowForward } from 'react-icons/io'
 
-export const Chat = ({ sendMessage, chat, collapsed, setColapsed, isPersonal = false }) => {
+export const Chat = ({
+	sendMessage,
+	chat,
+	collapsed,
+	setColapsed,
+	isPersonal = false,
+}) => {
+	const [newMessages, setNewMessages] = useState(false)
 	const message = useInputValue({ initialValue: '' })
 	const input = useRef()
 	const bodyChat = useRef()
 
-	useEffect(() => {
+	const chatIsSrolledBottom = () => (
+		bodyChat.current.scrollHeight - (bodyChat.current.scrollTop + 45) <=
+		bodyChat.current.offsetHeight
+	)
+
+	const scrollBottom = () => {
 		bodyChat.current.scrollTo(0, bodyChat.current.scrollHeight)
+	}
+
+	useEffect(() => {
+		scrollBottom()
+
+		const hasUnreadMessages = async () => {
+			if (chatIsSrolledBottom()) {
+				await setNewMessages(false)
+			} else {
+				await setNewMessages(true)
+			}
+		}
+
+		bodyChat.current.addEventListener('scroll', hasUnreadMessages)
+
+		return () => {
+			bodyChat.current.removeEventListener('scroll', hasUnreadMessages)
+		}
 	}, [])
 
-	const handleSubmit = e => {
+	const handleSubmit = (e) => {
 		e.preventDefault()
 		if (message.value !== '') {
-			sendMessage(chat._id, false, message.value)
-				.then(() => bodyChat.current.scrollTo(0, bodyChat.current.scrollHeight))
+			sendMessage(chat._id, false, message.value).then(() =>
+				bodyChat.current.scrollTo(0, bodyChat.current.scrollHeight)
+			)
 		}
 		message.setValue('')
 	}
@@ -77,8 +109,7 @@ export const Chat = ({ sendMessage, chat, collapsed, setColapsed, isPersonal = f
 					</Button>
 				)}
 			</DivTitle>
-			<DivBodyChat ref={bodyChat}>
-			</DivBodyChat>
+			<DivBodyChat ref={bodyChat}></DivBodyChat>
 			<DivInput>
 				<Form>
 					<Input
@@ -124,6 +155,7 @@ export const Chat = ({ sendMessage, chat, collapsed, setColapsed, isPersonal = f
 					</Hero>
 				)}
 			</DivBodyChat>
+			{newMessages && <DivNewMessages onClick={scrollBottom}>More messages below!</DivNewMessages>}
 			<DivInput>
 				<Form onSubmit={handleSubmit}>
 					<Input

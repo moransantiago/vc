@@ -23,6 +23,11 @@ export const zoomDisconnectButton = ({ time = '0.2s', type = 'ease' } = {}) =>
 export const fadeInDisconnectButton = ({ time = '0.2s', type = 'ease' } = {}) =>
 	css`
 		animation: ${time} ${fadeInDisconnectButtonKeyFrames} ${type} forwards;
+    `
+
+export const fadeInNewMessages = ({ time = '0.5s', type = 'ease' } = {}) =>
+	css`
+		animation: ${time} ${fadeInNewMessagesKeyFrames} ${type} forwards;
 	`
 
 const inputKeyFrames = keyframes`
@@ -70,6 +75,15 @@ const zoomDisconnectButtonKeyFrames = keyframes`
 `
 
 const fadeInDisconnectButtonKeyFrames = keyframes`
+    from {
+        opacity: 0;
+    }
+    to {
+        opacity: 1;
+    }
+`
+
+const fadeInNewMessagesKeyFrames = keyframes`
     from {
         opacity: 0;
     }

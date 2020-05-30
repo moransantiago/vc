@@ -1,5 +1,7 @@
 import styled from 'styled-components'
 
+import { fadeInNewMessages } from '../Styles/animations'
+
 export const Video = styled.video`
 	flex: 1 1 50%;
 `
@@ -12,6 +14,7 @@ export const DivColumn = styled.div`
 	height: inherit;
 	border-radius: inherit;
 	transition: 0.2s;
+	position: relative;
 `
 
 export const DivTitle = styled.div`
@@ -39,6 +42,34 @@ export const DivBodyChat = styled.div`
 	color: #b7b7b7;
 	display: flex;
 	flex-direction: column;
+	scroll-behavior: smooth;
+`
+
+export const DivNewMessages = styled.div`
+	position: absolute;
+	width: 40%;
+	left: 30%;
+	font-size: 18px;
+	color: #ededed;
+	bottom: 90px;
+	border-radius: 4px;
+	border: 2px solid #222;
+	background-color: red;
+	padding: 6px;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	cursor: pointer;
+	font-weight: bolder;
+	background-color: rgba(0 ,0 ,0, 0.1);
+	transition: 0.6s;
+	&:hover {
+		background-color: rgb(200, 103, 64);
+		box-shadow: 0 2px 25px -14px #000;
+		transform: scale(1.01);
+		border: 2px solid transparent;
+	}
+	${fadeInNewMessages({ time: '1.2s', type: 'ease-in' })}
 `
 
 export const Form = styled.form`
